@@ -22,6 +22,7 @@ PvP
 
 ## Class List:
 **Local:** Player, Projectile, Obstacle, Map, Enemy, Entity, NetworkConnection
+
 **Server:** NetworkConnection, MapGenerator
 
 ## Responsibility List:

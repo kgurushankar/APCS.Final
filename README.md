@@ -61,6 +61,7 @@ The primary feature of the game is the low latency multiplayer shooter experienc
 ## Responsibility List:
 ### [@kgurushankar](https://github.com/kgurushankar)
 * Networking (Latency reduction)
+* Data Structures
 * Map Generation
 ### [@unkemptherald](https://github.com/unkemptherald)
 * Player

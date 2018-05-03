@@ -33,7 +33,7 @@ The primary feature of the game is the low latency multiplayer shooter experienc
 ### Want-To-Have:
 * AI poses an actual threat
 * Variable render distances (visibilty/pre-loading) to dynamically deal with connection latency
-* Team selection
+* Team selection (change mid-game)
 * 30+ fps (on LAN)
 * Classes of enemies (variable weapons and stats)
 ### Stretch:

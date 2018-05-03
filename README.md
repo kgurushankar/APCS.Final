@@ -45,19 +45,23 @@ The primary feature of the game is the low latency multiplayer shooter experienc
 
 ## Class List:
 ### Local
+* Main
+* DrawingSurface
+* ClientNetworkConnection
+
+### Both
 * Player
-* Projectile
-* Obstacle
-* Map
-* Enemy
 * Entity
-* NetworkConnection
+* Projectile
+* Map
+* Obstacle
+* State
+* Action
 
 ### Server
 * NetworkConnection
 * MapGenerator
-* Map
-* PlayerState
+* Computor
 
 ## Responsibility List:
 ### [@kgurushankar](https://github.com/kgurushankar)
@@ -65,6 +69,7 @@ The primary feature of the game is the low latency multiplayer shooter experienc
 * Data Structures
 * Map Generation
 ### [@unkemptherald](https://github.com/unkemptherald)
+* Computor
 * Player
 * User Interaction
 * Physics

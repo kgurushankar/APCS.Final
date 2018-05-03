@@ -46,7 +46,6 @@ The primary feature of the game is the low latency multiplayer shooter experienc
 ## Class List:
 ### Local
 * Player
-* PlayerState
 * Projectile
 * Obstacle
 * Map

@@ -87,11 +87,11 @@ public class MapGenerator {
 	}
 
 	private static boolean[][] change(int[][] state) {
-		boolean[][] out = new boolean[state.length][];
-		for (int i = 0; i < state.length; i++) {
-			out[i] = new boolean[state[i].length];
-			for (int j = 0; j < state[i].length; j++) {
-				out[i][j] = state[i][j] == -1;
+		boolean[][] out = new boolean[state.length * 2][];
+		for (int i = 0; i < state.length * 2; i++) {
+			out[i] = new boolean[state[i / 2].length * 2];
+			for (int j = 0; j < state[i / 2].length * 2; j++) {
+				out[i][j] = state[i / 2][j / 2] == -1;
 			}
 		}
 		return out;

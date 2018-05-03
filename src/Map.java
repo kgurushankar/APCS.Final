@@ -47,7 +47,7 @@ public class Map {
 		for (int i = 0; i < state.length; i++) {
 			iy = height / state[i].length;
 			for (int j = 0; j < state[i].length; j++) {
-				if (!state[j][i]) {
+				if (!state[i][j]) {
 					applet.fill(Color.WHITE.getRGB());
 				} else {
 					applet.fill(Color.BLACK.getRGB());

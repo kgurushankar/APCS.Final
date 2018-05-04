@@ -1,13 +1,21 @@
+import java.awt.Dimension;
 
+import javax.swing.JFrame;
+
+import common.Map;
+import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
+import processing.core.PImage;
 import processing.event.MouseEvent;
+import server.MapGenerator;
 
-public class DrawingSurface extends PApplet {
+public class DrawMap extends PApplet {
 
 	private Map board;
 	private int length = 500;
+	public PImage floor;
 
-	public DrawingSurface() {
+	public DrawMap() {
 		board = MapGenerator.generateMap(500);
 	}
 
@@ -15,6 +23,7 @@ public class DrawingSurface extends PApplet {
 	// execute once when the program begins
 	public void setup() {
 		// size(0,0,PApplet.P3D);
+		floor = loadImage("assets/floor.png");
 	}
 
 	// The statements in draw() are executed until the
@@ -23,9 +32,6 @@ public class DrawingSurface extends PApplet {
 	// line is executed again.
 	public void draw() {
 		background(255); // Clear the screen with a white background
-		fill(0);
-		textAlign(LEFT);
-		textSize(12);
 
 		if (board != null) {
 			board.renderPreview(this, 0, 0, length, length);
@@ -36,6 +42,22 @@ public class DrawingSurface extends PApplet {
 	public void mouseWheel(MouseEvent event) {
 		int num = event.getCount();
 		length -= num * 10;
+	}
+
+	public static void main(String args[]) {
+		DrawMap drawing = new DrawMap();
+		PApplet.runSketch(new String[] { "" }, drawing);
+		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
+		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
+		JFrame window = (JFrame) canvas.getFrame();
+
+		window.setSize(500, 500);
+		window.setMinimumSize(new Dimension(100, 100));
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.setResizable(true);
+
+		window.setVisible(true);
+		canvas.requestFocus();
 	}
 	/*
 	 * public void mousePressed() { if (mouseButton == LEFT) { Point click = new

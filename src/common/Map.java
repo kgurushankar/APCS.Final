@@ -1,6 +1,9 @@
+package common;
+
 import java.awt.Color;
 
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Map {
 	/** isWall */
@@ -39,37 +42,37 @@ public class Map {
 	 *            The pixel height of the grid drawing.
 	 */
 	public void renderPreview(PApplet applet, float x, float y, float width, float height) {
-
+		PImage floor = applet.loadImage("assets/floor.png");
+		float w = width / state[0].length;
+		float h = height / state.length;
+		int i = 0;
+		int k = 0;
+		while (x < 0) {
+			k++;
+			x += w;
+		}
+		while (y < 0) {
+			i++;
+			y += w;
+		}
 		float px = x;
 		float py = y;
-		float ix = width / state.length;
-		float iy;
-		for (int i = 0; i < state.length; i++) {
-			iy = height / state[i].length;
-			for (int j = 0; j < state[i].length; j++) {
+		while (i < state.length && py < applet.width) {
+			int j = k;
+			while (j < state[i].length && px < applet.width) {
 				if (!state[i][j]) {
-					applet.fill(Color.WHITE.getRGB());
+					applet.image(floor, px, py, w, h);
 				} else {
 					applet.fill(Color.BLACK.getRGB());
-
+					applet.rect(px, py, w, h);
 				}
-				applet.rect(px, py, ix, iy);
-				px += ix;
+				px += w;
+				j++;
 			}
-			py += iy;
+			py += h;
 			px = x;
+			i++;
 		}
-	}
-
-	// use some kind of renderdistance variable to find optimal size of maps
-	public Map getSection(int x, int y, int width, int height) {
-		boolean[][] n = new boolean[height][width];
-		for (int i = 0; i < height; i++) {
-			for (int j = 0; j < width; j++) {
-				n[i][j] = state[x + i][y + j];
-			}
-		}
-		return new Map(n);
 	}
 
 }

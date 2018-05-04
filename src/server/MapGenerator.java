@@ -1,16 +1,19 @@
+package server;
+
+import common.Map;
 
 public class MapGenerator {
 	/**
-	 * This method works better when the map is larger, but as of now cannot exceed
-	 * 100*100, probably should break this down into smaller segments and generate
-	 * separately
+	 * This method works better when the map is larger, and generates the map as
+	 * smaller pieces and joins them together
 	 * 
-	 * @param width
-	 * @param height
+	 * @param sideLength
+	 *            has to be divisible by 2
 	 * @return a randomly generated map
 	 */
 	public static Map generateMap(int sideLength) {
-		if (sideLength < 100) {
+		sideLength /= 2;
+		if (sideLength <= 100) {
 			return new Map(change(generateMapPart(sideLength, sideLength)));
 		} else {
 			int[][] state = new int[sideLength][sideLength];

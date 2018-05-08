@@ -7,8 +7,19 @@ public class projectile extends Entity{
 	
 	}
 
-	public void act() {
-		this.y+=this.velocityY;
+	public void act(Map m) {
+		int vel = (int)velocityY;
+		String map = m.toString();
+		for(int i = 0; i<vel; i++)
+		{
+			if(map.can) 
+			{
+				y++;
+			}
+			else {
+				break;
+				}
+		}
 		
 	}
 

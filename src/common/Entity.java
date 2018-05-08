@@ -24,7 +24,7 @@ public abstract class Entity {
 		this.y+=y;
 	}
 	
-	public abstract void act();
+	public abstract void act(Map m);
 	public String toString() 
 	{
 		return(x + " " + velocityX + " " + y + " " + velocityY + " " + identifier);

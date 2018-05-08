@@ -9,6 +9,7 @@ public class Projectile extends Entity {
 
 	public void act() {
 		this.y += this.velocityY;
+		this.x += this.velocityX;
 	}
 
 }

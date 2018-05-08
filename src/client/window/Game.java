@@ -22,8 +22,8 @@ public class Game {
 		map = MapGenerator.generateMap(mapSize);
 		int[] spawn = map.spawnPoint();
 		System.out.println(Arrays.toString(spawn));
-		me = new Player(5 * 64, 5 * 64, (byte) 1);
-		// me = new Player(spawn[0] * tileSize, spawn[1] * tileSize, (byte) 1);
+		// me = new Player(5 * 64, 5 * 64, (byte) 1);
+		me = new Player(spawn[0] * tileSize, spawn[1] * tileSize, (byte) 1);
 		items = new Vector<Entity>();
 	}
 

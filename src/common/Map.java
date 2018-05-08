@@ -130,7 +130,7 @@ public class Map {
 	}
 
 	public boolean canGo(int x, int y) {
-		return !state[y][x];
+		return y >= 0 && y < state.length && x >= 0 && x < state[y].length && !state[y][x];
 	}
 
 	public int[] spawnPoint() {

@@ -24,16 +24,16 @@ public class Player extends Entity {
 	}
 
 	public void moveX(boolean positive, Map m) {
-		x += ((positive) ? 1 : -1) * Game.tileSize;
-		if (!m.canGo(x / Game.tileSize, y / Game.tileSize)) {
-			x += ((!positive) ? 1 : -1) * Game.tileSize;
+		int newx = x + ((positive) ? 1 : -1) * Game.tileSize;
+		if (m.canGo(newx / Game.tileSize, y / Game.tileSize)) {
+			x = newx;
 		}
 	}
 
 	public void moveY(boolean positive, Map m) {
-		y += ((positive) ? 1 : -1) * Game.tileSize;
-		if (!m.canGo(x / Game.tileSize, y / Game.tileSize)) {
-			y += ((!positive) ? 1 : -1) * Game.tileSize;
+		int newy = y + ((positive) ? 1 : -1) * Game.tileSize;
+		if (m.canGo(x / Game.tileSize, newy / Game.tileSize)) {
+			y = newy;
 		}
 	}
 

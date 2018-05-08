@@ -10,9 +10,14 @@ public class Player extends Entity {
 	}
 
 	@Override
-	public void act() {
+	public void act(Map m) {
 		// TODO Auto-generated method stub
-
+		int dir = (int) (Math.random() * 4);
+		if (dir < 2) {
+			this.moveX(dir == 0, m);
+		} else {
+			this.moveY(dir % 2 == 0, m);
+		}
 	}
 
 	public int getY() {
@@ -37,4 +42,12 @@ public class Player extends Entity {
 		}
 	}
 
+	public void fire(Map m, int dir) 
+	{
+		if (dir < 2) {
+			
+		} else {
+			
+		}
+	}
 }

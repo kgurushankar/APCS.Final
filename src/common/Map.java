@@ -79,6 +79,8 @@ public class Map {
 	/**
 	 * Draws the map using black tiles for empty space and the image for legal
 	 * walking area
+	 * 
+	 * need to reoptimize this
 	 *
 	 * @param applet
 	 *            The PApplet used for drawing.
@@ -99,19 +101,19 @@ public class Map {
 		float h = height / state.length;
 		int i = 0;
 		int k = 0;
-		while (x < 0) {
-			k++;
-			x += w;
-		}
-		while (y < 0) {
-			i++;
-			y += w;
-		}
+		// while (x < 0) {
+		// k++;
+		// x += w;
+		// }
+		// while (y < 0) {
+		// i++;
+		// y += w;
+		// }
 		float px = x;
 		float py = y;
-		while (i < state.length && py < applet.width) {
+		while (i < state.length) {// && py < applet.width) {
 			int j = k;
-			while (j < state[i].length && px < applet.width) {
+			while (j < state[i].length) {// && px < applet.width) {
 				if (!state[i][j]) {
 					applet.image(floor, px, py, w, h);
 				} else {
@@ -128,7 +130,7 @@ public class Map {
 	}
 
 	public boolean canGo(int x, int y) {
-		return state[y][x];
+		return !state[y][x];
 	}
 
 	public int[] spawnPoint() {

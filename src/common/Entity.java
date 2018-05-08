@@ -1,5 +1,8 @@
 package common;
 
+import java.awt.Color;
+
+import client.window.Game;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -37,16 +40,20 @@ public abstract class Entity {
 	public void draw(PApplet applet) {
 		if (image == null) {
 			if (identifier == 1) {// pirate
-				applet.loadImage("assets/skeleton/128/Front - Idle/Front - Idle_000.png");
+				// applet.loadImage("assets/skeleton/128/Front - Idle/Front - Idle_000.png");
+				applet.fill(Color.cyan.getRGB());
+				applet.rect(x, y, Game.tileSize, Game.tileSize);
 			} else if (identifier == 2) {// bullet
 				applet.ellipse(x, y, 10, 10);
 			} else if (identifier == 3) {// ninja
-				applet.loadImage("assets/ninja/128/Front - Idle/Front - Idle_000.png");
+				applet.fill(Color.GREEN.getRGB());
+				applet.rect(x, y, Game.tileSize, Game.tileSize);
+				// applet.loadImage("assets/ninja/128/Front - Idle/Front - Idle_000.png");
 			} else if (identifier == 4) {// shuriken
 				applet.rect(x, y, 10, 10);
 			}
 		} else {
-			applet.image(image, x, y);
+			applet.image(image, x, y, Game.tileSize, Game.tileSize);
 		}
 	}
 }

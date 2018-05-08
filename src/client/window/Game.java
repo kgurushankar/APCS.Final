@@ -20,10 +20,7 @@ public class Game {
 
 	public Game() {
 		map = MapGenerator.generateMap(mapSize);
-		int[] spawn = map.spawnPoint();
-		System.out.println(Arrays.toString(spawn));
-		// me = new Player(5 * 64, 5 * 64, (byte) 1);
-		me = new Player(spawn[0] * tileSize, spawn[1] * tileSize, (byte) 1);
+		respawn();
 		items = new Vector<Entity>();
 	}
 
@@ -31,9 +28,9 @@ public class Game {
 		applet.pushMatrix();
 		applet.translate(-me.getX() + applet.width / 2, -me.getY() + applet.height / 2);
 		map.draw(applet, 0, 0, tileSize * mapSize, tileSize * mapSize);
-		// for (Entity e : items) {
-		// e.draw(applet);
-		// }
+		for (Entity e : items) {
+			e.draw(applet);
+		}
 		me.draw(applet);
 
 		applet.popMatrix();
@@ -49,5 +46,10 @@ public class Game {
 		} else if (applet.key == 'd' || applet.key == 'D' || applet.keyCode == KeyEvent.VK_RIGHT) {
 			me.moveX(true, map);
 		}
+	}
+
+	public void respawn() {
+		int[] spawn = map.spawnPoint();
+		me = new Player(spawn[0] * tileSize, spawn[1] * tileSize, (byte) 1);
 	}
 }

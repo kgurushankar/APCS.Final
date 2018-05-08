@@ -74,3 +74,10 @@ The primary feature of the game is the low latency multiplayer shooter experienc
 * User Interaction
 * Physics
 * Animation
+### [@anantajit](https://github.com/anantajit)
+* Feedback
+### [@devdragon2875](https://github.com/devdragon2875)
+* Feedback
+
+## Dependencies 
+* [Processing](https://processing.org)

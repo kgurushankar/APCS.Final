@@ -1,6 +1,7 @@
 package client.window;
 
-import common.*;
+import java.awt.event.KeyEvent;
+
 import processing.core.PApplet;
 
 public class DrawingSurface extends PApplet {
@@ -25,6 +26,12 @@ public class DrawingSurface extends PApplet {
 	}
 
 	public void keyPressed() {
-		g.keyPressed(this);
+		if (key == 'R') {
+			g = new Game();
+		} else if (key == 'r') {
+			g.respawn();
+		} else {
+			g.keyPressed(this);
+		}
 	}
 }

@@ -64,6 +64,7 @@ public class Player extends Entity {
 			{upOrDown = 1;}
 			else {upOrDown = -1;}
 		}
+		if(m.cango((x+leftOrRight)*Game.tileSize,(y+upOrDown)*Game.tileSize));
 			Game..getItems().add(new Projectile(x+leftOrRight*Game.tileSize,leftOrRight*Game.tileSize/15,y+upOrDown*Game.tileSize,upOrDown*Game.tileSize/15));
 	}
 }

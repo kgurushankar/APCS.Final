@@ -52,4 +52,8 @@ public class Game {
 		int[] spawn = map.spawnPoint();
 		me = new Player(spawn[0] * tileSize, spawn[1] * tileSize, (byte) 1);
 	}
+	public Vector<Entity> getItems() 
+	{
+		return items;
+	}
 }

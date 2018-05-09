@@ -3,9 +3,10 @@ package common;
 import client.window.Game;
 
 public class Player extends Entity {
-
+		byte facing;
 	public Player(int x, int y, byte identifier) {
 		super(x, y, 0, 0, identifier);
+		facing = 0;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -42,12 +43,27 @@ public class Player extends Entity {
 		}
 	}
 
-	public void fire(Map m, int dir) 
+	public void fire(Map m) 
 	{
-		if (dir < 2) {
-			
-		} else {
-			
+		int upOrDown = 0;
+		int leftOrRight = 0;
+		if(facing%2 == 1) 
+		{
+			if(facing == 3) 
+			{
+				leftOrRight = 1;
+			}
+			else 
+			{
+				leftOrRight = -1;
+			}
 		}
+		else 
+		{
+			if(facing == 2)
+			{upOrDown = 1;}
+			else {upOrDown = -1;}
+		}
+			Game..getItems().add(new Projectile(x+leftOrRight*Game.tileSize,leftOrRight*Game.tileSize/15,y+upOrDown*Game.tileSize,upOrDown*Game.tileSize/15));
 	}
 }

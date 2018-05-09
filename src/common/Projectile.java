@@ -8,14 +8,39 @@ public class Projectile extends Entity {
 	}
 
 	public void act(Map m) {
-		int vel = (int) velocityY;
+		int velY = (int) velocityY;
+		int velX = (int) velocityX;
 		String map = m.toString();
-		for (int i = 0; i < vel; i++) {
+		for (int i = 0; i < velY; i++) {
 			if (m.canGo(x, y + 1)) {
 				y++;
 			} else {
 				break;
 			}
 		}
+		for(int i = 0; i<velX; i++) 
+		{
+			if (m.canGo(x+1, y)) {
+				y++;
+			} else {
+				break;
+			}
+		}
+		for (int i = 0; i > velY; i++) {
+			if (m.canGo(x, y + 1)) {
+				y++;
+			} else {
+				break;
+			}
+		}
+		for(int i = 0; i>velX; i++) 
+		{
+			if (m.canGo(x+1, y)) {
+				y++;
+			} else {
+				break;
+			}
+		}
+		
 	}
 }

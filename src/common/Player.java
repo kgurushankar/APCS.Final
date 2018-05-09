@@ -43,7 +43,7 @@ public class Player extends Entity {
 		}
 	}
 
-	public void fire(Map m) 
+	public void fire(Map m, State s) 
 	{
 		int upOrDown = 0;
 		int leftOrRight = 0;
@@ -64,7 +64,7 @@ public class Player extends Entity {
 			{upOrDown = 1;}
 			else {upOrDown = -1;}
 		}
-		if(m.cango((x+leftOrRight)*Game.tileSize,(y+upOrDown)*Game.tileSize));
-			State.getItems().add(new Projectile(x+leftOrRight*Game.tileSize,leftOrRight*Game.tileSize/15,y+upOrDown*Game.tileSize,upOrDown*Game.tileSize/15));
+		if(m.canGo((x+leftOrRight)*Game.tileSize,(y+upOrDown)*Game.tileSize));
+			s.getItems().add(new Projectile(x+leftOrRight*Game.tileSize,y+upOrDown*Game.tileSize,leftOrRight*Game.tileSize/15,upOrDown*Game.tileSize/15, identifier));
 	}
 }

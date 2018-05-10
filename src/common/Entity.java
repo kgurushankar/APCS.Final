@@ -30,11 +30,11 @@ public abstract class Entity {
 		this.x += x;
 		this.y += y;
 	}
-	
+
 	public abstract void act(Map m);
-	public String toString() 
-	{
-		return(x + " " + velocityX + " " + y + " " + velocityY + " " + identifier);
+
+	public String toString() {
+		return (x + " " + velocityX + " " + y + " " + velocityY + " " + identifier);
 	}
 
 	public void draw(PApplet applet) {

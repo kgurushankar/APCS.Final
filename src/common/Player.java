@@ -4,11 +4,16 @@ import client.window.Game;
 import processing.core.PApplet;
 
 public class Player extends Entity {
-	String imageLoc = "assets/skeleton/128/Front - Idle/Front - Idle_000.png";
+	private static enum Direction {
+		DOWN, UP, LEFT, RIGHT
+	};
+
+	private Direction facing;// make this an enum??
 	private boolean updateImage;
 
 	public Player(int x, int y, byte identifier) {
 		super(x, y, 0, 0, identifier);
+		facing = Direction.DOWN;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -36,11 +41,10 @@ public class Player extends Entity {
 		if (m.canGo(newx / Game.tileSize, y / Game.tileSize)) {
 			x = newx;
 		}
-		String newImageLoc = (positive) ? "assets/skeleton/128/Right - Idle/Right - Idle_000.png"
-				: "assets/skeleton/128/Left - Idle/Left - Idle_000.png";
-		if (!newImageLoc.equals(imageLoc)) {
+		Direction newFacing = (positive) ? Direction.RIGHT : Direction.LEFT;
+		if (newFacing != facing) {
 			updateImage = true;
-			imageLoc = newImageLoc;
+			facing = newFacing;
 		}
 	}
 
@@ -49,38 +53,60 @@ public class Player extends Entity {
 		if (m.canGo(x / Game.tileSize, newy / Game.tileSize)) {
 			y = newy;
 		}
-		String newImageLoc = (positive) ? "assets/skeleton/128/Front - Idle/Front - Idle_000.png"
-				: "assets/skeleton/128/Back - Idle/Back - Idle_000.png";
-		if (!newImageLoc.equals(imageLoc)) {
+		Direction newFacing = (positive) ? Direction.DOWN : Direction.UP;
+		if (newFacing != facing) {
 			updateImage = true;
-			imageLoc = newImageLoc;
+			facing = newFacing;
 		}
 	}
 
-	public void fire(Map m, int dir) {
-		if (dir < 2) {
-
-		} else {
-
-		}
+	public void fire(Map m, State s) {
+		int upOrDown = 0;
+		int leftOrRight = 0;
+		if (facing == Direction.RIGHT)
+			leftOrRight = 1;
+		else if (facing == Direction.LEFT)
+			leftOrRight = -1;
+		else if (facing == Direction.UP)
+			upOrDown = 1;
+		else if (facing == Direction.DOWN)
+			upOrDown = -1;
+		if (m.canGo((x + leftOrRight) * Game.tileSize, (y + upOrDown) * Game.tileSize))
+			;
+		s.getItems().add(new Projectile(x + leftOrRight * Game.tileSize, y + upOrDown * Game.tileSize,
+				leftOrRight * Game.tileSize / 15, upOrDown * Game.tileSize / 15, identifier));
 	}
 
 	public void draw(PApplet applet) {
 		if (image == null || updateImage) {
+			String imageLoc = "assets/";
+
+			String suffix = "";
+			if (facing == Direction.RIGHT)
+				suffix = "Right";
+			else if (facing == Direction.LEFT)
+				suffix = "Left";
+			else if (facing == Direction.UP)
+				suffix = "Back";
+			else if (facing == Direction.DOWN)
+				suffix = "Front";
+
 			if (identifier == 1) {// pirate
-				image = applet.loadImage(imageLoc, "png");
+				imageLoc += "skeleton/128/";
+				image = applet.loadImage(imageLoc + suffix + " - Idle/" + suffix + " - Idle_000.png", "png");
 
 			} else if (identifier == 2) {// bullet
 				applet.ellipse(x, y, 10, 10);
 			} else if (identifier == 3) {// ninja
-				image = applet.loadImage("assets/ninja/128/Front - Idle/Front - Idle_000.png", "png");
+				imageLoc += "ninja/128/";
+				image = applet.loadImage(imageLoc + suffix + " - Idle/" + suffix + " - Idle_000.png", "png");
 			} else if (identifier == 4) {// shuriken
 				applet.rect(x, y, 10, 10);
 			}
 			updateImage = false;
-		} else {
-			applet.image(image, x, y, Game.tileSize, Game.tileSize);
 		}
-	}
 
+		applet.image(image, x, y, Game.tileSize, Game.tileSize);
+
+	}
 }

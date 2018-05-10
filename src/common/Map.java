@@ -103,6 +103,7 @@ public class Map {
 	 */
 	public void draw(PApplet applet, float x, float y, float width, float height) {
 		PImage floor = applet.loadImage("assets/floor.png");
+		PImage office = applet.loadImage("assets/office.png");
 		float w = width / state[0].length;
 		float h = height / state.length;
 		int i = 0;
@@ -124,7 +125,7 @@ public class Map {
 					applet.image(floor, px, py, w, h);
 				} else {
 					applet.fill(Color.BLACK.getRGB());
-					applet.rect(px, py, w, h);
+					applet.image(office,px, py, w, h);
 				}
 				px += w;
 				j++;

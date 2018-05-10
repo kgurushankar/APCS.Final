@@ -1,19 +1,20 @@
 package common;
 
-import java.awt.Color;
-
 import client.window.Game;
 import processing.core.PApplet;
 import processing.core.PImage;
 
 public abstract class Entity {
+	public enum Type {
+		PIRATE, BULLET, NINJA, SHURIKEN
+	}
 
 	protected int x, y;
 	protected double velocityX, velocityY;
-	protected byte identifier;
+	protected Type identifier;
 	protected PImage image;
 
-	public Entity(int x, int y, double velocityX, double velocityY, byte identifier) {
+	public Entity(int x, int y, double velocityX, double velocityY, Type identifier) {
 		this.x = x;
 		this.y = y;
 		this.velocityX = velocityX;
@@ -30,26 +31,26 @@ public abstract class Entity {
 		this.x += x;
 		this.y += y;
 	}
-	
+
 	public abstract void act(Map m);
-	public String toString() 
-	{
-		return(x + " " + velocityX + " " + y + " " + velocityY + " " + identifier);
+
+	public String toString() {
+		return (x + " " + velocityX + " " + y + " " + velocityY + " " + identifier);
 	}
 
 	public void draw(PApplet applet) {
 		if (image == null) {
-			if (identifier == 1) {// pirate
+			if (identifier == Type.PIRATE) {// pirate
 				image = applet.loadImage("assets/skeleton/128/Front - Idle/Front - Idle_000.png", "png");
 				// applet.fill(Color.cyan.getRGB());
 				// applet.rect(x, y, Game.tileSize, Game.tileSize);
-			} else if (identifier == 2) {// bullet
+			} else if (identifier == Type.BULLET) {// bullet
 				applet.ellipse(x, y, 10, 10);
-			} else if (identifier == 3) {// ninja
+			} else if (identifier == Type.NINJA) {// ninja
 				// applet.fill(Color.GREEN.getRGB());
 				// applet.rect(x, y, Game.tileSize, Game.tileSize);
 				image = applet.loadImage("assets/ninja/128/Front - Idle/Front - Idle_000.png", "png");
-			} else if (identifier == 4) {// shuriken
+			} else if (identifier == Type.SHURIKEN) {// shuriken
 				applet.rect(x, y, 10, 10);
 			}
 		} else {

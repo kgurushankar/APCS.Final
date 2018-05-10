@@ -1,7 +1,5 @@
 package client.window;
 
-import java.awt.event.KeyEvent;
-
 import processing.core.PApplet;
 
 public class DrawingSurface extends PApplet {

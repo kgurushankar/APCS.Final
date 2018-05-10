@@ -11,7 +11,7 @@ public class Player extends Entity {
 	private Direction facing;// make this an enum??
 	private boolean updateImage;
 
-	public Player(int x, int y, byte identifier) {
+	public Player(int x, int y, Type identifier) {
 		super(x, y, 0, 0, identifier);
 		facing = Direction.DOWN;
 		// TODO Auto-generated constructor stub
@@ -91,16 +91,16 @@ public class Player extends Entity {
 			else if (facing == Direction.DOWN)
 				suffix = "Front";
 
-			if (identifier == 1) {// pirate
+			if (identifier == Type.PIRATE) {// pirate
 				imageLoc += "skeleton/128/";
 				image = applet.loadImage(imageLoc + suffix + " - Idle/" + suffix + " - Idle_000.png", "png");
 
-			} else if (identifier == 2) {// bullet
+			} else if (identifier == Type.BULLET) {// bullet
 				applet.ellipse(x, y, 10, 10);
-			} else if (identifier == 3) {// ninja
+			} else if (identifier == Type.NINJA) {// ninja
 				imageLoc += "ninja/128/";
 				image = applet.loadImage(imageLoc + suffix + " - Idle/" + suffix + " - Idle_000.png", "png");
-			} else if (identifier == 4) {// shuriken
+			} else if (identifier == Type.SHURIKEN) {// shuriken
 				applet.rect(x, y, 10, 10);
 			}
 			updateImage = false;

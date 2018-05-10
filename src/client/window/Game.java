@@ -5,6 +5,7 @@ import java.util.Vector;
 import com.sun.glass.events.KeyEvent;
 
 import common.*;
+import common.Entity.Type;
 import processing.core.PApplet;
 import server.MapGenerator;
 
@@ -17,10 +18,8 @@ public class Game {
 	public Game() {
 		map = MapGenerator.generateMap(mapSize);
 		try {
-		respawn();
-		}
-		catch( NullPointerException e) 
-		{
+			respawn();
+		} catch (NullPointerException e) {
 			System.out.print("Game Start!");
 		}
 		state = new State(new Vector<Entity>(), null);
@@ -57,10 +56,10 @@ public class Game {
 
 	public void respawn() {
 		int[] spawn = map.spawnPoint();
-		state = new State(state.getItems(), new Player(spawn[0] * tileSize, spawn[1] * tileSize, (byte) 1));
+		state = new State(state.getItems(), new Player(spawn[0] * tileSize, spawn[1] * tileSize, Type.NINJA));
 	}
-	public State getState() 
-	{
+
+	public State getState() {
 		return state;
 	}
 }

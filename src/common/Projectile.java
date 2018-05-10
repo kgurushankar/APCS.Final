@@ -1,11 +1,9 @@
 package common;
 
-import client.window.Game;
-
 public class Projectile extends Entity {
 	private boolean exists;
 
-	public Projectile(int x, int y, double velocityX, double velocityY, byte identifier) {
+	public Projectile(int x, int y, double velocityX, double velocityY, Type identifier) {
 		super(x, y, velocityX, velocityY, identifier);
 		exists = true;
 
@@ -14,7 +12,6 @@ public class Projectile extends Entity {
 	public void act(Map m) {
 		int velY = (int) velocityY;
 		int velX = (int) velocityX;
-		String map = m.toString();
 		for (int i = 0; i < velY; i++) {
 			if (m.canGo(x, y + 1)) {
 				y++;
@@ -22,12 +19,11 @@ public class Projectile extends Entity {
 				exists = false;
 				return;
 			}
-			//vel -= Game.tileSize;
+			// vel -= Game.tileSize;
 
 		}
-		for(int i = 0; i<velX; i++) 
-		{
-			if (m.canGo(x+1, y)) {
+		for (int i = 0; i < velX; i++) {
+			if (m.canGo(x + 1, y)) {
 				y++;
 			} else {
 				break;
@@ -40,15 +36,14 @@ public class Projectile extends Entity {
 				break;
 			}
 		}
-		for(int i = 0; i>velX; i++) 
-		{
-			if (m.canGo(x+1, y)) {
+		for (int i = 0; i > velX; i++) {
+			if (m.canGo(x + 1, y)) {
 				y++;
 			} else {
 				break;
 			}
 		}
-		
+
 	}
 
 	public boolean destroy() {

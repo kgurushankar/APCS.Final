@@ -16,8 +16,8 @@ public class Player extends Entity {
 		facing = Direction.DOWN;
 	}
 
-	@Override
-	public void act(Map m) {
+
+	public void act(Map m,State s) {
 		// TODO Auto-generated method stub
 		int dir = (int) (Math.random() * 4);
 		if (dir < 2) {
@@ -25,6 +25,7 @@ public class Player extends Entity {
 		} else {
 			this.moveY(dir % 2 == 0, m);
 		}
+		this.fire(m, s);
 	}
 
 	public int getY() {
@@ -67,13 +68,14 @@ public class Player extends Entity {
 		else if (facing == Direction.LEFT)
 			leftOrRight = -1;
 		else if (facing == Direction.UP)
-			upOrDown = 1;
-		else if (facing == Direction.DOWN)
 			upOrDown = -1;
+		else if (facing == Direction.DOWN)
+			upOrDown = 1;
 		if (m.canGo((x + leftOrRight) * Game.tileSize, (y + upOrDown) * Game.tileSize))
 			;
 		s.getItems().add(new Projectile(x + leftOrRight * Game.tileSize, y + upOrDown * Game.tileSize,
-				leftOrRight * Game.tileSize / 15, upOrDown * Game.tileSize / 15, identifier));
+				leftOrRight * Game.tileSize / 15, upOrDown * Game.tileSize / 15, this.getNext(identifier)
+				));
 	}
 
 	public void draw(PApplet applet) {

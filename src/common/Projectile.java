@@ -9,7 +9,7 @@ public class Projectile extends Entity {
 
 	}
 
-	public void act(Map m) {
+	public void act(Map m, State s) {
 		int velY = (int) velocityY;
 		int velX = (int) velocityX;
 		for (int i = 0; i < velY; i++) {
@@ -49,4 +49,6 @@ public class Projectile extends Entity {
 	public boolean destroy() {
 		return !exists;
 	}
+
+	
 }

@@ -1,6 +1,7 @@
 package common;
 
 import client.window.Game;
+import common.Entity.Type;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -32,7 +33,7 @@ public abstract class Entity {
 		this.y += y;
 	}
 
-	public abstract void act(Map m);
+	public abstract void act(Map m, State s);
 
 	public String toString() {
 		return (x + " " + velocityX + " " + y + " " + velocityY + " " + identifier);
@@ -55,6 +56,19 @@ public abstract class Entity {
 			}
 		} else {
 			applet.image(image, x, y, Game.tileSize, Game.tileSize);
+		}
+	}
+	
+	public Type getNext(Type t) 
+	{
+		if (identifier == Type.PIRATE) {// pirate
+			return Type.BULLET;
+		} else if (identifier == Type.BULLET) {// bullet
+			return Type.NINJA;
+		} else if (identifier == Type.NINJA) {// ninja
+			return Type.SHURIKEN;
+		} else  {// shuriken
+			return Type.PIRATE;
 		}
 	}
 }

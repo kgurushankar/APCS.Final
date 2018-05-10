@@ -68,4 +68,9 @@ public class Game implements Runnable {
 			e.act(map);
 		}
 	}
+	public Map getMap() 
+	{
+		return map;
+	}
+	
 }

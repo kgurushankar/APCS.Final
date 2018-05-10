@@ -21,6 +21,7 @@ public class DrawingSurface extends PApplet {
 		background(255);
 		g.run();
 		g.draw(this);
+		
 	}
 
 	public void keyPressed() {
@@ -31,5 +32,9 @@ public class DrawingSurface extends PApplet {
 		} else {
 			g.keyPressed(this);
 		}
+	}
+	public void mousePressed() 
+	{
+		g.getState().getMe().fire(g.getMap(), g.getState());
 	}
 }

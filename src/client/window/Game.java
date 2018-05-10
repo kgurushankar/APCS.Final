@@ -14,9 +14,15 @@ public class Game {
 	private Map map;
 	private State state;
 
-	private Game() {
+	public Game() {
 		map = MapGenerator.generateMap(mapSize);
+		try {
 		respawn();
+		}
+		catch( NullPointerException e) 
+		{
+			System.out.print("Game Start!");
+		}
 		state = new State(new Vector<Entity>(), null);
 		respawn();
 	}
@@ -53,8 +59,8 @@ public class Game {
 		int[] spawn = map.spawnPoint();
 		state = new State(state.getItems(), new Player(spawn[0] * tileSize, spawn[1] * tileSize, (byte) 1));
 	}
-	public Vector<Entity> getItems() 
+	public State getState() 
 	{
-		return items;
+		return state;
 	}
 }

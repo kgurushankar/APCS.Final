@@ -22,7 +22,7 @@ public class Projectile extends Entity {
 				exists = false;
 				return;
 			}
-			vel -= Game.tileSize;
+			//vel -= Game.tileSize;
 
 		}
 		for(int i = 0; i<velX; i++) 

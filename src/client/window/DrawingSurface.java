@@ -19,7 +19,7 @@ public class DrawingSurface extends PApplet {
 
 	public void draw() {
 		background(255);
-
+		g.run();
 		g.draw(this);
 	}
 

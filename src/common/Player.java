@@ -14,7 +14,6 @@ public class Player extends Entity {
 	public Player(int x, int y, Type identifier) {
 		super(x, y, 0, 0, identifier);
 		facing = Direction.DOWN;
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

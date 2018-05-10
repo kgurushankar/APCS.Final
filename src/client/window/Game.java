@@ -9,7 +9,7 @@ import common.Entity.Type;
 import processing.core.PApplet;
 import server.MapGenerator;
 
-public class Game {
+public class Game implements Runnable {
 	public static final int mapSize = 100;
 	public static final int tileSize = 64;
 	private Map map;
@@ -61,5 +61,11 @@ public class Game {
 
 	public State getState() {
 		return state;
+	}
+
+	public void run() {
+		for (Entity e : state.getItems()) {
+			e.act(map);
+		}
 	}
 }

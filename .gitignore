@@ -23,3 +23,5 @@ hs_err_pid*
 
 # Hide assets because some were purchased
 assets/
+
+\.DS_Store

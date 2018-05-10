@@ -37,7 +37,7 @@ public class Player extends Entity {
 
 	public void moveX(boolean positive, Map m) {
 		int newx = x + ((positive) ? 1 : -1) * Game.tileSize;
-		if (m.canGo(newx / Game.tileSize, y / Game.tileSize)) {
+		if (m.canGo(newx, y)) {
 			x = newx;
 		}
 		Direction newFacing = (positive) ? Direction.RIGHT : Direction.LEFT;
@@ -49,7 +49,7 @@ public class Player extends Entity {
 
 	public void moveY(boolean positive, Map m) {
 		int newy = y + ((positive) ? 1 : -1) * Game.tileSize;
-		if (m.canGo(x / Game.tileSize, newy / Game.tileSize)) {
+		if (m.canGo(x, newy)) {
 			y = newy;
 		}
 		Direction newFacing = (positive) ? Direction.DOWN : Direction.UP;
@@ -70,7 +70,7 @@ public class Player extends Entity {
 			upOrDown = 1;
 		else if (facing == Direction.DOWN)
 			upOrDown = -1;
-		if (m.canGo((x + leftOrRight) * Game.tileSize, (y + upOrDown) * Game.tileSize))
+		if (m.canGo((x + leftOrRight), (y + upOrDown)))
 			;
 		s.getItems().add(new Projectile(x + leftOrRight * Game.tileSize, y + upOrDown * Game.tileSize,
 				leftOrRight * Game.tileSize / 15, upOrDown * Game.tileSize / 15, identifier));

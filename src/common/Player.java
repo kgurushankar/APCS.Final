@@ -1,12 +1,19 @@
 package common;
 
 import client.window.Game;
+import processing.core.PApplet;
 
 public class Player extends Entity {
-		byte facing;
+	private static enum Direction {
+		DOWN, UP, LEFT, RIGHT
+	};
+
+	private Direction facing;// make this an enum??
+	private boolean updateImage;
+
 	public Player(int x, int y, byte identifier) {
 		super(x, y, 0, 0, identifier);
-		facing = 0;
+		facing = Direction.DOWN;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -34,6 +41,11 @@ public class Player extends Entity {
 		if (m.canGo(newx / Game.tileSize, y / Game.tileSize)) {
 			x = newx;
 		}
+		Direction newFacing = (positive) ? Direction.RIGHT : Direction.LEFT;
+		if (newFacing != facing) {
+			updateImage = true;
+			facing = newFacing;
+		}
 	}
 
 	public void moveY(boolean positive, Map m) {
@@ -41,30 +53,60 @@ public class Player extends Entity {
 		if (m.canGo(x / Game.tileSize, newy / Game.tileSize)) {
 			y = newy;
 		}
+		Direction newFacing = (positive) ? Direction.DOWN : Direction.UP;
+		if (newFacing != facing) {
+			updateImage = true;
+			facing = newFacing;
+		}
 	}
 
-	public void fire(Map m, State s) 
-	{
+	public void fire(Map m, State s) {
 		int upOrDown = 0;
 		int leftOrRight = 0;
-		if(facing%2 == 1) 
-		{
-			if(facing == 3) 
-			{
-				leftOrRight = 1;
+		if (facing == Direction.RIGHT)
+			leftOrRight = 1;
+		else if (facing == Direction.LEFT)
+			leftOrRight = -1;
+		else if (facing == Direction.UP)
+			upOrDown = 1;
+		else if (facing == Direction.DOWN)
+			upOrDown = -1;
+		if (m.canGo((x + leftOrRight) * Game.tileSize, (y + upOrDown) * Game.tileSize))
+			;
+		s.getItems().add(new Projectile(x + leftOrRight * Game.tileSize, y + upOrDown * Game.tileSize,
+				leftOrRight * Game.tileSize / 15, upOrDown * Game.tileSize / 15, identifier));
+	}
+
+	public void draw(PApplet applet) {
+		if (image == null || updateImage) {
+			String imageLoc = "/assets/";
+
+			String suffix = "";
+			if (facing == Direction.RIGHT)
+				suffix = "Right";
+			else if (facing == Direction.LEFT)
+				suffix = "Left";
+			else if (facing == Direction.UP)
+				suffix = "Back";
+			else if (facing == Direction.DOWN)
+				suffix = "Front";
+
+			if (identifier == 1) {// pirate
+				imageLoc += "skeleton/128/";
+				image = applet.loadImage(imageLoc + suffix + " - Idle/" + suffix + " - Idle_000.png", "png");
+
+			} else if (identifier == 2) {// bullet
+				applet.ellipse(x, y, 10, 10);
+			} else if (identifier == 3) {// ninja
+				imageLoc += "ninja/128/";
+				image = applet.loadImage(imageLoc + suffix + " - Idle/" + suffix + " - Idle_000.png", "png");
+			} else if (identifier == 4) {// shuriken
+				applet.rect(x, y, 10, 10);
 			}
-			else 
-			{
-				leftOrRight = -1;
-			}
+			updateImage = false;
 		}
-		else 
-		{
-			if(facing == 2)
-			{upOrDown = 1;}
-			else {upOrDown = -1;}
-		}
-		if(m.canGo((x+leftOrRight)*Game.tileSize,(y+upOrDown)*Game.tileSize));
-			s.getItems().add(new Projectile(x+leftOrRight*Game.tileSize,y+upOrDown*Game.tileSize,leftOrRight*Game.tileSize/15,upOrDown*Game.tileSize/15, identifier));
+
+		applet.image(image, x, y, Game.tileSize, Game.tileSize);
+
 	}
 }

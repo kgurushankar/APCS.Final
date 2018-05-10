@@ -79,7 +79,7 @@ public class Player extends Entity {
 
 	public void draw(PApplet applet) {
 		if (image == null || updateImage) {
-			String imageLoc = "/assets/";
+			String imageLoc = "assets/";
 
 			String suffix = "";
 			if (facing == Direction.RIGHT)

@@ -1,4 +1,5 @@
 # APCS.Final
+## By Keshav Gurushankar and Andrew Scott
 ## Summary:
 Our goal is to create a top-down multiplayer shooter. The player has 2 dimensional movement independent of it's shooting direction, which can only be in one of the 4 cardinal directions from the player.
 
@@ -64,12 +65,12 @@ The primary feature of the game is the low latency multiplayer shooter experienc
 * Computor
 
 ## Responsibility List:
-### [@kgurushankar](https://github.com/kgurushankar)
+### [@kgurushankar](https://github.com/kgurushankar) (Keshav Gurushankar)
 * Networking (Latency reduction)
 * Data Structures
 * Map Generation
-### [@unkemptherald](https://github.com/unkemptherald)
 * Computor
+### [@unkemptherald](https://github.com/unkemptherald) (Andrew Scott)
 * Player
 * User Interaction
 * Physics
@@ -81,3 +82,11 @@ The primary feature of the game is the low latency multiplayer shooter experienc
 
 ## Dependencies 
 * [Processing](https://processing.org)
+
+
+# Notes (Anantajit and Devansh)
+
+* AI seems to be an overkill because the varying difficulty levels and the practicality is probably a want to have
+* PVP should replace PVE or become a want to have because it is simpler to have other players playing the game rather than AI
+* Where is enemy or enemy intelligence? Seems like a class you need or is it Computor?
+* Map Generation is wide range of difficulty, but there is a possiblity that a map generated is not fun to play on or blocks the teams from contacting eachother

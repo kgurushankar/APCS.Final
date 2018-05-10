@@ -9,6 +9,12 @@ import processing.core.PImage;
 import processing.event.MouseEvent;
 import server.MapGenerator;
 
+/**
+ * Tester class to view the randomly generated map
+ * 
+ * @author kgurushankar
+ * @version 18.5.10
+ */
 public class DrawMap extends PApplet {
 
 	private Map board;

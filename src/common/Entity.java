@@ -1,11 +1,15 @@
 package common;
 
-import java.awt.Color;
-
 import client.window.Game;
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+ * Entities in the game
+ * 
+ * @author unkemptherald
+ * @version 18.5.10
+ */
 public abstract class Entity {
 
 	protected int x, y;

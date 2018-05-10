@@ -1,8 +1,13 @@
 package client.window;
 
-import common.*;
 import processing.core.PApplet;
 
+/**
+ * Window that displays the game
+ * 
+ * @author kgurushankar
+ * @version 18.5.10
+ */
 public class DrawingSurface extends PApplet {
 	Game g;
 

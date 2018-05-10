@@ -1,6 +1,5 @@
 package client.window;
 
-import java.util.Arrays;
 import java.util.Vector;
 
 import com.sun.glass.events.KeyEvent;
@@ -11,6 +10,12 @@ import common.Player;
 import processing.core.PApplet;
 import server.MapGenerator;
 
+/**
+ * For rendering the actual game and controlling all interclass communication
+ * 
+ * @author kgurushankar
+ * @version 18.5.10
+ */
 public class Game {
 	public static final int mapSize = 100;
 	public static final int tileSize = 64;

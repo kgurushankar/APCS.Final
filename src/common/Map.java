@@ -5,6 +5,12 @@ import java.awt.Color;
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+ * Map data of the game
+ * 
+ * @author kgurushankar
+ * @version 18.5.10
+ */
 public class Map {
 	/** isWall */
 	private boolean[][] state;

@@ -1,4 +1,5 @@
 # APCS.Final
+## By: Keshav Gurushankar and Andrew Scott
 ## Summary:
 Our goal is to create a top-down multiplayer shooter. The player has 2 dimensional movement independent of it's shooting direction, which can only be in one of the 4 cardinal directions from the player.
 
@@ -64,11 +65,11 @@ The primary feature of the game is the low latency multiplayer shooter experienc
 * Computor
 
 ## Responsibility List:
-### [@kgurushankar](https://github.com/kgurushankar)
+### [@kgurushankar](https://github.com/kgurushankar) (Keshav Gurushankar)
 * Networking (Latency reduction)
 * Data Structures
 * Map Generation
-### [@unkemptherald](https://github.com/unkemptherald)
+### [@unkemptherald](https://github.com/unkemptherald) (Andrew Scott)
 * Computor
 * Player
 * User Interaction

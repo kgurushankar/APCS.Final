@@ -2,6 +2,12 @@ package common;
 
 import java.util.Vector;
 
+/**
+ * State that will be sent between server and client
+ * 
+ * @author kgurushankar
+ * @version 18.5.10
+ */
 public class State {
 	private Vector<Entity> items;
 	private Player me;

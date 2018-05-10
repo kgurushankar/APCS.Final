@@ -3,6 +3,12 @@ package common;
 import client.window.Game;
 import processing.core.PApplet;
 
+/**
+ * The user's player
+ * 
+ * @author unkemptherald
+ * @version 18.5.10
+ */
 public class Player extends Entity {
 	private static enum Direction {
 		DOWN, UP, LEFT, RIGHT

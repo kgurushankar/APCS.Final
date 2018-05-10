@@ -1,5 +1,11 @@
 package common;
 
+/**
+ * Projectiles (fired stuff)
+ * 
+ * @author kgurushankar
+ * @version 18.5.10
+ */
 public class Projectile extends Entity {
 
 	public Projectile(int x, int y, double velocityX, double velocityY, byte identifier) {
@@ -9,7 +15,7 @@ public class Projectile extends Entity {
 
 	public void act(Map m) {
 		int vel = (int) velocityY;
-		String map = m.toString();
+//		String map = m.toString();
 		for (int i = 0; i < vel; i++) {
 			if (m.canGo(x, y + 1)) {
 				y++;

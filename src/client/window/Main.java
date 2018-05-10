@@ -7,6 +7,12 @@ import javax.swing.JFrame;
 import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
 
+/**
+ * Main method that runs everything
+ * 
+ * @author kgurushankar
+ * @version 18.5.10
+ */
 public class Main {
 
 	public static void main(String[] args) {

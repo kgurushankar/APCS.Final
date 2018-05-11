@@ -112,7 +112,7 @@ public class Map {
 		// }
 		float px = x;
 		float py = y;
-		while (i < state.length) {// && py < applet.width) {
+		while (i < state.length) {// && py < applet.height) {
 			int j = k;
 			while (j < state[i].length) {// && px < applet.width) {
 				if (!state[i][j]) {

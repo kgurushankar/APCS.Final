@@ -3,10 +3,7 @@ package common;
 import java.io.File;
 import java.text.DecimalFormat;
 
-import client.window.Game;
-import common.Entity.Type;
 import processing.core.PApplet;
-import processing.core.PImage;
 
 public abstract class Entity {
 	protected static enum Direction {
@@ -80,17 +77,8 @@ public abstract class Entity {
 			image[identifier.ordinal()][facing.ordinal()] = new Animation(locations, "png");
 		}
 	}
-	
-	public Type getNext(Type t) 
-	{
-		if (identifier == Type.PIRATE) {// pirate
-			return Type.BULLET;
-		} else if (identifier == Type.BULLET) {// bullet
-			return Type.NINJA;
-		} else if (identifier == Type.NINJA) {// ninja
-			return Type.SHURIKEN;
-		} else  {// shuriken
-			return Type.PIRATE;
-		}
+
+	public Kind getNext(Kind t) {
+		return Kind.values()[(t.ordinal() + 1) % Kind.values().length];
 	}
 }

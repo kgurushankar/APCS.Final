@@ -2,6 +2,7 @@ package common;
 
 import java.awt.Color;
 
+import client.window.Game;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -129,7 +130,19 @@ public class Map {
 		}
 	}
 
+	/**
+	 * 
+	 * @param x
+	 *            the x-coordinate of the pixel on the grid (pre translations and
+	 *            whatnot)
+	 * @param y
+	 *            the y-coordinate of the pixel on the grid (pre translations and
+	 *            whatnot)
+	 * @return if the pixel can be moved to
+	 */
 	public boolean canGo(int x, int y) {
+		x /= Game.tileSize;
+		y /= Game.tileSize;
 		return y >= 0 && y < state.length && x >= 0 && x < state[y].length && !state[y][x];
 	}
 
@@ -138,7 +151,7 @@ public class Map {
 		do {
 			out[0] = (int) (state.length * Math.random());
 			out[1] = (int) (state[out[0]].length * Math.random());
-		} while (!canGo(out[0], out[1]));
+		} while (!canGo(out[0] * Game.tileSize, out[1] * Game.tileSize));
 		return out;
 	}
 }

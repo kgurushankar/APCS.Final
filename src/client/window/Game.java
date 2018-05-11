@@ -5,11 +5,12 @@ import java.util.Vector;
 import com.sun.glass.events.KeyEvent;
 
 import common.*;
-import common.Entity.Type;
+import common.Entity.Kind;
 import processing.core.PApplet;
 import server.MapGenerator;
 
 public class Game implements Runnable {
+	private static final boolean cornerLock = false;
 	public static final int mapSize = 100;
 	public static final int tileSize = 64;
 	private Map map;
@@ -32,7 +33,14 @@ public class Game implements Runnable {
 
 	public void draw(PApplet applet) {
 		applet.pushMatrix();
-		applet.translate(-state.getMe().getX() + applet.width / 2, -state.getMe().getY() + applet.height / 2);
+		float mx = -state.getMe().getX() + applet.width / 2;
+		float my = -state.getMe().getY() + applet.height / 2;
+		if (cornerLock) {
+			applet.translate((mx >= 0) ? 0 : mx, (my >= 0) ? 0 : my);
+		} else {
+			applet.translate(mx, my);
+		}
+
 		map.draw(applet, 0, 0, tileSize * mapSize, tileSize * mapSize);
 		for (Entity e : state.getItems()) {
 			e.draw(applet);
@@ -56,7 +64,7 @@ public class Game implements Runnable {
 
 	public void respawn() {
 		int[] spawn = map.spawnPoint();
-		state = new State(state.getItems(), new Player(spawn[0] * tileSize, spawn[1] * tileSize, Type.NINJA));
+		state = new State(state.getItems(), new Player(spawn[0] * tileSize, spawn[1] * tileSize, Kind.NINJA));
 	}
 
 	public State getState() {

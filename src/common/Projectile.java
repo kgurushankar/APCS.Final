@@ -3,8 +3,8 @@ package common;
 public class Projectile extends Entity {
 	private boolean exists;
 
-	public Projectile(int x, int y, double velocityX, double velocityY, Type identifier) {
-		super(x, y, velocityX, velocityY, identifier);
+	public Projectile(int x, int y, double velocityX, double velocityY, Kind identifier, Direction direction) {
+		super(x, y, velocityX, velocityY, identifier, direction);
 		exists = true;
 
 	}

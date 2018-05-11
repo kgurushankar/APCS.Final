@@ -73,7 +73,7 @@ public class Game implements Runnable {
 
 	public void run() {
 		for (Entity e : state.getItems()) {
-			e.act(map);
+			e.act(map, state);
 		}
 	}
 	public Map getMap() 

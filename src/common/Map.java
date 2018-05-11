@@ -130,6 +130,16 @@ public class Map {
 		}
 	}
 
+	/**
+	 * 
+	 * @param x
+	 *            the x-coordinate of the pixel on the grid (pre translations and
+	 *            whatnot)
+	 * @param y
+	 *            the y-coordinate of the pixel on the grid (pre translations and
+	 *            whatnot)
+	 * @return if the pixel can be moved to
+	 */
 	public boolean canGo(int x, int y) {
 		x /= Game.tileSize;
 		y /= Game.tileSize;

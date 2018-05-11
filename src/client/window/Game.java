@@ -5,7 +5,7 @@ import java.util.Vector;
 import com.sun.glass.events.KeyEvent;
 
 import common.*;
-import common.Entity.Type;
+import common.Entity.Kind;
 import processing.core.PApplet;
 import server.MapGenerator;
 
@@ -56,7 +56,7 @@ public class Game implements Runnable {
 
 	public void respawn() {
 		int[] spawn = map.spawnPoint();
-		state = new State(state.getItems(), new Player(spawn[0] * tileSize, spawn[1] * tileSize, Type.NINJA));
+		state = new State(state.getItems(), new Player(spawn[0] * tileSize, spawn[1] * tileSize, Kind.NINJA));
 	}
 
 	public State getState() {

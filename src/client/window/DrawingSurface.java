@@ -9,6 +9,10 @@ public class DrawingSurface extends PApplet {
 		g = new Game();
 	}
 
+	public void setup() {
+		frameRate(30);
+	}
+
 	public int getWidth() {
 		return width;
 	}

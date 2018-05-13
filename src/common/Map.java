@@ -1,12 +1,14 @@
 package common;
 
 import java.awt.Color;
+import java.io.Serializable;
 
 import client.window.Game;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class Map {
+public class Map implements Serializable {
+	private static final long serialVersionUID = 3637177447616075769L;
 	/** isWall */
 	private boolean[][] state;
 
@@ -92,14 +94,14 @@ public class Map {
 	 *            The y pixel coordinate of the upper left corner of the grid
 	 *            drawing.
 	 * @param width
-	 *            The pixel width of the grid drawing.
+	 *            The pixel width of each cell
 	 * @param height
-	 *            The pixel height of the grid drawing.
+	 *            The pixel height of each cell
 	 */
 	public void draw(PApplet applet, float x, float y, float width, float height) {
 		PImage floor = applet.loadImage("assets/floor.png");
-		float w = width / state[0].length;
-		float h = height / state.length;
+		float w = width;
+		float h = height;
 		int i = 0;
 		int k = 0;
 		// while (x < 0) {
@@ -153,5 +155,9 @@ public class Map {
 			out[1] = (int) (state[out[0]].length * Math.random());
 		} while (!canGo(out[0] * Game.tileSize, out[1] * Game.tileSize));
 		return out;
+	}
+
+	public int getSize() {
+		return state.length;
 	}
 }

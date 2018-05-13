@@ -1,8 +1,14 @@
 package common;
 
+import java.io.Serializable;
 import java.util.Vector;
 
-public class State {
+public class State implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1743699953255618703L;
+	/** Contains anything that isnt being actively controlled */
 	private Vector<Entity> items;
 	private Player me;
 

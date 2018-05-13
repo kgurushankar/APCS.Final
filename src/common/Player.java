@@ -1,19 +1,23 @@
 package common;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 import client.window.Game;
 import processing.core.PApplet;
 
-public class Player extends Entity {
+public class Player extends Entity implements Serializable {
 
+	private static final long serialVersionUID = 145755016608084977L;
 	private boolean dirChanged;
 
 	public Player(int x, int y, Kind identifier) {
 		super(x, y, 0, 0, identifier, Direction.DOWN);
 	}
 
-
-	public void act(Map m,State s) {
-		// TODO Auto-generated method stub
+	public void act(Map m, State s) {
 		int dir = (int) (Math.random() * 4);
 		if (dir < 2) {
 			this.moveX(dir == 0, m);
@@ -90,4 +94,22 @@ public class Player extends Entity {
 
 		}
 	}
+
+	public String toString() {
+		return x + "," + y;
+	}
+	// private void writeObject(ObjectOutputStream os) throws IOException {
+	// os.writeInt(x);
+	// os.writeInt(y);
+	// os.writeInt(identifier.ordinal());
+	// os.writeInt(facing.ordinal());
+	// }
+	//
+	// private void readObject(ObjectInputStream is) throws IOException {
+	// x = is.readInt();
+	// y = is.readInt();
+	// identifier = Kind.values()[is.readInt()];
+	// facing = Direction.values()[is.readInt()];
+	// }
+
 }

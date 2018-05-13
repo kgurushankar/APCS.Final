@@ -1,11 +1,12 @@
 package common;
 
 import java.io.File;
+import java.io.Serializable;
 import java.text.DecimalFormat;
 
 import processing.core.PApplet;
 
-public abstract class Entity {
+public abstract class Entity implements Serializable {
 	protected static enum Direction {
 		UP, RIGHT, DOWN, LEFT;
 		public String toString() {
@@ -20,7 +21,7 @@ public abstract class Entity {
 		}
 	};
 
-	public enum Kind {
+	public static enum Kind {
 		SKELETON, BULLET, NINJA, SHURIKEN;
 		public String toString() {
 			return super.toString().toLowerCase();
@@ -44,6 +45,9 @@ public abstract class Entity {
 		this.velocityY = velocityY;
 		this.identifier = identifier;
 		this.facing = facing;
+	}
+
+	protected Entity() {
 	}
 
 	public void setLocation(int x1, int y1) {

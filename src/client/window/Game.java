@@ -1,5 +1,6 @@
 package client.window;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 import com.sun.glass.events.KeyEvent;
@@ -9,15 +10,20 @@ import common.Entity.Kind;
 import processing.core.PApplet;
 import server.MapGenerator;
 
-public class Game implements Runnable {
-	private static final boolean cornerLock = false;
-	public static final int mapSize = 100;
-	public static final int tileSize = 64;
+public class Game implements Runnable, Serializable {
+	private static final long serialVersionUID = -21065957596326209L;
 	private Map map;
 	private State state;
+	private transient static final boolean cornerLock = false;
+	public transient static final int tileSize = 64;
+
+	public Game(Map map, State state) {
+		this.map = map;
+		this.state = state;
+	}
 
 	public Game() {
-		map = MapGenerator.generateMap(mapSize);
+		map = MapGenerator.generateMap(100);
 		try {
 			respawn();
 		} catch (NullPointerException e) {
@@ -41,7 +47,7 @@ public class Game implements Runnable {
 			applet.translate(mx, my);
 		}
 
-		map.draw(applet, 0, 0, tileSize * mapSize, tileSize * mapSize);
+		map.draw(applet, 0, 0, tileSize, tileSize);
 		for (Entity e : state.getItems()) {
 			e.draw(applet);
 		}
@@ -72,13 +78,17 @@ public class Game implements Runnable {
 	}
 
 	public void run() {
-		for (Entity e : state.getItems()) {
-			e.act(map, state);
-		}
+		// for (Entity e : state.getItems()) {
+		// e.act(map, state);
+		// }
 	}
-	public Map getMap() 
-	{
+
+	public Map getMap() {
 		return map;
 	}
-	
+
+	public String toString() {
+		return map.toString();
+	}
+
 }

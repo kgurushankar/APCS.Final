@@ -1,3 +1,5 @@
+package server;
+
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
@@ -7,7 +9,6 @@ import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.event.MouseEvent;
-import server.MapGenerator;
 
 public class DrawMap extends PApplet {
 
@@ -17,6 +18,10 @@ public class DrawMap extends PApplet {
 
 	public DrawMap() {
 		board = MapGenerator.generateMap(500);
+	}
+
+	public DrawMap(Map map) {
+		board = map;
 	}
 
 	// The statements in the setup() function

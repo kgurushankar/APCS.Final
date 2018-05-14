@@ -60,6 +60,10 @@ public abstract class Entity implements Serializable {
 		this.y += y;
 	}
 
+	public Kind getKind() 
+	{
+		return identifier;
+	}
 	public abstract void act(Map m, State s);
 
 	public String toString() {

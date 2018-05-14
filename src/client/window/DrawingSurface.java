@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import client.ClientConnection;
 import common.State;
+import common.Entity.Kind;
+import common.Player;
 import processing.core.PApplet;
 
 public class DrawingSurface extends PApplet {
@@ -51,7 +53,12 @@ public class DrawingSurface extends PApplet {
 			g = new Game();
 		} else if (key == 'r') {
 			g.respawn();
-		} else {
+		}
+	 else if (key == 'e') {
+		int[] spawn = g.getMap().spawnPoint();
+		g.getState().getItems().add(new Player(spawn[0],spawn[1],Kind.SKELETON));
+	}
+		else {
 			g.keyPressed(this);
 		}
 	}

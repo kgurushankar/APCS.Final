@@ -1,10 +1,7 @@
 package server;
 
 import java.io.*;
-import java.net.Socket;
-
-import client.window.Game;
-import common.State;
+import java.net.*;
 
 public abstract class ServerConnection implements AutoCloseable, Runnable {
 	private Socket s;
@@ -21,6 +18,12 @@ public abstract class ServerConnection implements AutoCloseable, Runnable {
 		try {
 			out.writeObject(send);
 			out.flush();
+		} catch (SocketException e) {
+			try {
+				this.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -36,7 +39,7 @@ public abstract class ServerConnection implements AutoCloseable, Runnable {
 		try {
 			String current = null;
 			// should probably find a way to remove the cast
-			while ((current = in.readLine()) != null) {
+			while ((current = in.readLine()) != null && !isClosed()) {
 				handleMessage(current);
 			}
 		} catch (IOException e) {
@@ -46,6 +49,10 @@ public abstract class ServerConnection implements AutoCloseable, Runnable {
 
 	public void close() throws IOException {
 		s.close();
+	}
+
+	public boolean isClosed() {
+		return s.isClosed();
 	}
 
 }

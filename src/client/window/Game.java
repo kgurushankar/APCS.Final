@@ -13,7 +13,7 @@ import server.MapGenerator;
 public class Game implements Runnable, Serializable {
 	private static final long serialVersionUID = -21065957596326209L;
 	private Map map;
-	private State state;
+	private transient State state;
 	private transient static final boolean cornerLock = false;
 	public transient static final int tileSize = 64;
 
@@ -46,8 +46,8 @@ public class Game implements Runnable, Serializable {
 		} else {
 			applet.translate(mx, my);
 		}
-		
-		map.draw(applet, 0, 0, tileSize * mapSize, tileSize * mapSize);
+
+		map.draw(applet, 0, 0, tileSize, tileSize);
 		for (Entity e : state.getItems()) {
 			e.draw(applet);
 		}

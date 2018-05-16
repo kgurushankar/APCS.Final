@@ -61,4 +61,8 @@ public class ServerState {
 	public Map getMap() {
 		return map;
 	}
+
+	public String toString() {
+		return players.toString();
+	}
 }

@@ -4,16 +4,18 @@ import java.io.*;
 import java.net.*;
 import java.rmi.ServerException;
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import client.window.Game;
 import common.State;
 
 public class Server implements AutoCloseable {
+	private Computor c;
 	private volatile List<ServerConnection> connections;
 	private volatile ServerSocket s;
 	private volatile ServerState state;
 	private volatile Queue<Message> queue;
-	private volatile Config c;
+	private volatile Config cfg;
 
 	Server(int port) throws IOException {
 		s = new ServerSocket(port);
@@ -25,16 +27,18 @@ public class Server implements AutoCloseable {
 
 	public Server() {
 		try {
-			c = new Config("server.config");
-			s = new ServerSocket(c.port);
+			cfg = new Config("server.config");
+			s = new ServerSocket(cfg.port);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		connections = new Vector<ServerConnection>();
-		state = new ServerState(c);
+		state = new ServerState(cfg);
+		queue = new ConcurrentLinkedQueue<Message>();
 		System.out.println("ready");
 		new Thread(new Accepter(), "Connections").start();
+		new Computor(this);
 	}
 
 	private class Accepter implements Runnable {
@@ -45,6 +49,7 @@ public class Server implements AutoCloseable {
 						@Override
 						public void handleMessage(String s) {
 							queue.add(new Message(s, this));
+							System.out.println(Arrays.toString(queue.toArray()));
 						}
 					};
 					Game send = state.addConnection(c);
@@ -64,29 +69,28 @@ public class Server implements AutoCloseable {
 		}
 	}
 
-	private class Message {
-		private String s;
-		private ServerConnection sender;
-
-		public Message(String s, ServerConnection sender) {
-			this.s = s;
-			this.sender = sender;
-		}
-
-		public String getData() {
-			return s;
-		}
-
-		public ServerConnection getSender() {
-			return sender;
-		}
-	}
-
 	@Override
 	public void close() throws Exception {
 		s.close();
 		for (ServerConnection c : connections) {
 			c.close();
+		}
+	}
+
+	ServerState getState() {
+		return state;
+	}
+
+	Queue<Message> getQueue() {
+		return queue;
+	}
+
+	public void updateAll() {
+		for (ServerConnection c : connections) {
+			if (c.isClosed()) {
+				connections.remove(c);
+			}
+			c.sendData(state.generateState(c));
 		}
 	}
 }

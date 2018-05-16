@@ -2,6 +2,8 @@ package client.window;
 
 import java.io.IOException;
 
+import com.sun.glass.events.KeyEvent;
+
 import client.ClientConnection;
 import common.State;
 import common.Entity.Kind;
@@ -10,14 +12,16 @@ import processing.core.PApplet;
 
 public class DrawingSurface extends PApplet {
 	Game g;
+	ClientConnection cc;
 
 	public DrawingSurface() {
 		// g = new Game();
 		try {
-			ClientConnection cc = new ClientConnection("localhost", 8888) {
+			cc = new ClientConnection("localhost", 8888) {
 				@Override
 				public void handleMessage(State s) {
 					g.updateState(s);
+					System.out.println(s);
 				}
 			};
 			g = cc.getGame();
@@ -43,7 +47,6 @@ public class DrawingSurface extends PApplet {
 
 	public void draw() {
 		background(0);
-		g.run();
 		g.draw(this);
 
 	}
@@ -53,17 +56,25 @@ public class DrawingSurface extends PApplet {
 			g = new Game();
 		} else if (key == 'r') {
 			g.respawn();
-		}
-	 else if (key == 'e') {
-		int[] spawn = g.getMap().spawnPoint();
-		g.getState().getItems().add(new Player(spawn[0],spawn[1],Kind.SKELETON));
-	}
-		else {
+		} else if (key == 'w' || key == 'W' || keyCode == KeyEvent.VK_UP) {
+			cc.sendData("Mu");
+		} else if (key == 'a' || key == 'A' || keyCode == KeyEvent.VK_LEFT) {
+			cc.sendData("Ml");
+		} else if (key == 's' || key == 'S' || keyCode == KeyEvent.VK_DOWN) {
+			cc.sendData("Md");
+		} else if (key == 'd' || key == 'D' || keyCode == KeyEvent.VK_RIGHT) {
+			cc.sendData("Mr");
+		} else if (key == 'e') {
+			int[] spawn = g.getMap().spawnPoint();
+			g.getState().getItems().add(new Player(spawn[0], spawn[1], Kind.SKELETON));
+		} else {
 			g.keyPressed(this);
 		}
+		g.keyPressed(this);
 	}
 
 	public void mousePressed() {
 		g.getState().getMe().fire(g.getMap(), g.getState());
+		cc.sendData("Af");
 	}
 }

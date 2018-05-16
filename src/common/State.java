@@ -24,4 +24,8 @@ public class State implements Serializable {
 	public Player getMe() {
 		return me;
 	}
+
+	public String toString() {
+		return me.toString();
+	}
 }

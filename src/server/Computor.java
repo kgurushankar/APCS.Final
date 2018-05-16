@@ -35,6 +35,7 @@ public class Computor implements Runnable {
 					String d = curr.getData();
 					ServerConnection c = curr.getSender();
 					Player p = s.getState().players.get(c);
+					System.out.println(p);
 					if (d.startsWith("M")) {
 						char dir = d.charAt(1);
 						Map m = s.getState().map;

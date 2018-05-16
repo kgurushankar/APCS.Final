@@ -21,7 +21,6 @@ public class DrawingSurface extends PApplet {
 				@Override
 				public void handleMessage(State s) {
 					g.updateState(s);
-					System.out.println(s);
 				}
 			};
 			g = cc.getGame();
@@ -70,7 +69,6 @@ public class DrawingSurface extends PApplet {
 		} else {
 			g.keyPressed(this);
 		}
-		g.keyPressed(this);
 	}
 
 	public void mousePressed() {

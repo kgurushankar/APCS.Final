@@ -14,7 +14,6 @@ import common.Entity.Kind;
 public class ServerState {
 	public Map map;
 	public Vector<Entity> items; // NPC and projectiles
-
 	public HashMap<ServerConnection, Player> players;
 
 	public ServerState(Config c) {

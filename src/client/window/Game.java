@@ -41,6 +41,7 @@ public class Game implements Runnable, Serializable {
 		applet.pushMatrix();
 		float mx = -state.getMe().getX() + applet.width / 2;
 		float my = -state.getMe().getY() + applet.height / 2;
+		System.out.println(state.getMe());
 		if (cornerLock) {
 			applet.translate((mx >= 0) ? 0 : mx, (my >= 0) ? 0 : my);
 		} else {

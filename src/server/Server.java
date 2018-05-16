@@ -7,7 +7,6 @@ import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import client.window.Game;
-import common.State;
 
 public class Server implements AutoCloseable {
 	private Computor c;
@@ -38,7 +37,7 @@ public class Server implements AutoCloseable {
 		queue = new ConcurrentLinkedQueue<Message>();
 		System.out.println("ready");
 		new Thread(new Accepter(), "Connections").start();
-		new Computor(this);
+		c = new Computor(this);
 	}
 
 	private class Accepter implements Runnable {

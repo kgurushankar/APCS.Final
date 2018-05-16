@@ -8,6 +8,11 @@ import java.text.DecimalFormat;
 import processing.core.PApplet;
 
 public abstract class Entity implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2314898847524274672L;
+
 	protected static enum Direction {
 		UP, RIGHT, DOWN, LEFT;
 		public String toString() {

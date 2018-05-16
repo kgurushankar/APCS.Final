@@ -5,7 +5,7 @@ import java.util.concurrent.*;
 import common.Map;
 import common.Player;
 
-public class Computor implements Runnable {
+public class Computor {
 	public static final int FPS = 30;
 
 	private Server s;
@@ -15,10 +15,6 @@ public class Computor implements Runnable {
 		ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
 		executor.scheduleAtFixedRate(new Act(), 0, 1000 / FPS, TimeUnit.MILLISECONDS);
 		new Thread(new QueueControl()).start();
-	}
-
-	@Override
-	public void run() {
 	}
 
 	private class QueueControl implements Runnable {

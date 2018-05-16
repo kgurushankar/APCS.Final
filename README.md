@@ -21,8 +21,8 @@ The primary feature of the game is the low latency multiplayer shooter experienc
 ## Instructions:
 1. click and join a server, or the provided server
 2. select your team
-3. use WASD to move
-4. use your mouse to change your facing direction and use left click to fire
+3. use WASD or arrow keys to move
+4. use your mouse to fire
 5. press space to respawn once dead
 ## Features:
 ### Must Have:
@@ -48,21 +48,27 @@ The primary feature of the game is the low latency multiplayer shooter experienc
 ### Local
 * Main
 * DrawingSurface
-* ClientNetworkConnection
+* ClientConnection
+* Game (Mainly used here)
 
 ### Both
 * Player
+* Animation
 * Entity
 * Projectile
 * Map
-* Obstacle
 * State
-* Action
+* Enemy
 
 ### Server
-* NetworkConnection
-* MapGenerator
 * Computor
+* Config
+* DrawMap
+* MapGenerator
+* Message
+* Server
+* ServerMain
+* Server State
 
 ## Responsibility List:
 ### [@kgurushankar](https://github.com/kgurushankar) (Keshav Gurushankar)
@@ -82,11 +88,3 @@ The primary feature of the game is the low latency multiplayer shooter experienc
 
 ## Dependencies 
 * [Processing](https://processing.org)
-
-
-# Notes (Anantajit and Devansh)
-
-* AI seems to be an overkill because the varying difficulty levels and the practicality is probably a want to have
-* PVP should replace PVE or become a want to have because it is simpler to have other players playing the game rather than AI
-* Where is enemy or enemy intelligence? Seems like a class you need or is it Computor?
-* Map Generation is wide range of difficulty, but there is a possiblity that a map generated is not fun to play on or blocks the teams from contacting eachother

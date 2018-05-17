@@ -28,8 +28,9 @@ public class Player extends Entity {
 
 	@Override
 	public void act(Map m,State s) {
-		this.fire(m, s);
+		
 		this.facing=Direction.values()[(int)(Math.random()*4)];
+		updateImage = true;
 		if(facing == Direction.DOWN) 
 		{
 			moveY(true,m);
@@ -46,7 +47,7 @@ public class Player extends Entity {
 		{
 			moveX(true,m);
 		}
-		
+		this.fire(m, s);
 	}
 
 	public int getY() {
@@ -95,7 +96,7 @@ public class Player extends Entity {
 		if (m.canGo((x + leftOrRight) * Game.tileSize, (y + upOrDown) * Game.tileSize))
 			;
 		s.getItems().add(new Projectile(x + leftOrRight * Game.tileSize, y + upOrDown * Game.tileSize,
-				leftOrRight * Game.tileSize / 15, upOrDown * Game.tileSize / 15, identifier));
+				leftOrRight * Game.tileSize / 15, upOrDown * Game.tileSize / 15, (byte)3));
 	}
 
 	public void draw(PApplet applet) {

@@ -56,7 +56,7 @@ public class Game {
 
 	public void click() 
 	{
-		me.fire(map, new State(items,me));
+		
 		me.act(map, new State(items, me));
 	}
 	public void respawn() {

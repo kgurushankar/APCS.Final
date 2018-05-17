@@ -47,7 +47,7 @@ public class Game implements Runnable, Serializable {
 			applet.translate(mx, my);
 		}
 		
-		map.draw(applet, 0, 0, tileSize * mapSize, tileSize * mapSize);
+		map.draw(applet, 0, 0, tileSize, tileSize);
 		for (Entity e : state.getItems()) {
 			e.draw(applet);
 		}

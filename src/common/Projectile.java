@@ -14,16 +14,9 @@ public class Projectile extends Entity {
 	public void act(Map m, State s) {
 		int velY = (int) velocityY;
 		int velX = (int) velocityX;
-		for (int i = 0; i < velY; i++) {
-			if (m.canGo(x, y +Game.tileSize)) {
-				y+=Game.tileSize;
-			} else {
-				exists = false;
-				return;
-			}
-			// vel -= Game.tileSize;
-
-		}
+		
+	
+		if(velY>0) {
 		for (int i = 0; i < velY; i++) {
 			if (m.canGo(x, y+Game.tileSize)) {
 				y+= Game.tileSize;
@@ -32,7 +25,9 @@ public class Projectile extends Entity {
 				return;
 			}
 		}
-		for (int i = 0; i > velY; i++) {
+		}
+		else if(velY<0) {
+		for (int i = 0; i > velY; i--) {
 			if (m.canGo(x, y -Game.tileSize)) {
 				y-=Game.tileSize;
 			} else {
@@ -40,15 +35,27 @@ public class Projectile extends Entity {
 				return;
 			}
 		}
-		for (int i = 0; i > velX; i++) {
+		}
+		else if(velX<0) {
+		for (int i = 0; i > velX; i--) {
 			if (m.canGo(x +Game.tileSize, y)) {
-				x+=Game.tileSize;
+				x-=Game.tileSize;
 			} else {
 				exists = false;
 				return;
 			}
 		}
-
+		}
+		else {
+			for (int i = 0; i > velX; i++) {
+				if (m.canGo(x +Game.tileSize, y)) {
+					x+=Game.tileSize;
+				} else {
+					exists = false;
+					return;
+				}
+			}
+			}
 	}
 
 	public boolean destroy() {

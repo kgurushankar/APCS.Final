@@ -3,10 +3,10 @@ package server;
 import common.Map;
 
 /**
- * Generate map
+ * Generates maps on the serverside
  * 
  * @author kgurushankar
- * @version 18.5.16
+ * @version 18.5.10
  */
 public class MapGenerator {
 	/**

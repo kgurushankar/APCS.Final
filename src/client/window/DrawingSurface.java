@@ -11,9 +11,10 @@ import common.Player;
 import processing.core.PApplet;
 
 /**
+ * Window that displays the game
  * 
  * @author kgurushankar
- * @version 18.5.16
+ * @version 18.5.10
  */
 public class DrawingSurface extends PApplet {
 	Game g;
@@ -79,11 +80,8 @@ public class DrawingSurface extends PApplet {
 			g.keyPressed(this);
 		}
 	}
-
-	public void mousePressed() {
-		g.getState().getMe().fire(g.getMap(), g.getState());
-		if (cc != null) {
-			cc.sendData("Af");
-		}
+	public void mousePressed() 
+	{
+		g.click();
 	}
 }

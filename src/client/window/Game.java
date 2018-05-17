@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Vector;
 
 import com.sun.glass.events.KeyEvent;
+import com.sun.javafx.scene.traversal.Direction;
 
 import common.*;
 import common.Entity.Kind;
@@ -11,12 +12,15 @@ import processing.core.PApplet;
 import server.MapGenerator;
 
 /**
+ * For rendering the actual game and controlling all interclass communication
  * 
  * @author kgurushankar
- * @version 18.5.16
+ * @version 18.5.10
  */
 public class Game implements Runnable, Serializable {
 	private static final long serialVersionUID = -21065957596326209L;
+	public static final int mapSize = 100;
+	public static final int tileSize = 64;
 	private Map map;
 	private transient State state;
 	private transient static final boolean cornerLock = false;
@@ -56,6 +60,7 @@ public class Game implements Runnable, Serializable {
 		map.draw(applet, 0, 0, tileSize, tileSize);
 		for (Entity e : state.getItems()) {
 			e.draw(applet);
+			
 		}
 		state.getMe().draw(applet);
 
@@ -74,9 +79,14 @@ public class Game implements Runnable, Serializable {
 		}
 	}
 
+	public void click() 
+	{
+		
+		me.act(map, new State(items, me));
+	}
 	public void respawn() {
 		int[] spawn = map.spawnPoint();
-		state = new State(state.getItems(), new Player(spawn[0] * tileSize, spawn[1] * tileSize, Kind.NINJA));
+		me = new Player(spawn[0] * tileSize, spawn[1] * tileSize,0.,0., Kind.NINJA,Player.Direction.DOWN);
 	}
 
 	public State getState() {

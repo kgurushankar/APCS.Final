@@ -7,6 +7,12 @@ import client.window.Game;
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+ * Map data of the game
+ * @author kgurushankar
+ * 
+ * @version 18.5.10
+ */
 public class Map implements Serializable {
 	private static final long serialVersionUID = 3637177447616075769L;
 	/** isWall */
@@ -100,6 +106,7 @@ public class Map implements Serializable {
 	 */
 	public void draw(PApplet applet, float x, float y, float width, float height) {
 		PImage floor = applet.loadImage("assets/floor.png");
+		PImage office = applet.loadImage("assets/office.png");
 		float w = width;
 		float h = height;
 		int i = 0;
@@ -121,7 +128,7 @@ public class Map implements Serializable {
 					applet.image(floor, px, py, w, h);
 				} else {
 					applet.fill(Color.BLACK.getRGB());
-					applet.rect(px, py, w, h);
+					applet.image(office,px, py, w, h);
 				}
 				px += w;
 				j++;

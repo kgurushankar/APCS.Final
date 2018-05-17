@@ -10,6 +10,11 @@ import common.Entity.Kind;
 import common.Player;
 import processing.core.PApplet;
 
+/**
+ * 
+ * @author kgurushankar
+ * @version 18.5.16
+ */
 public class DrawingSurface extends PApplet {
 	Game g;
 	ClientConnection cc;

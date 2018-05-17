@@ -5,6 +5,12 @@ import java.util.concurrent.*;
 import common.Map;
 import common.Player;
 
+/**
+ * Computes the changes made to the game and sends back states periodically
+ * 
+ * @author kgurushankar
+ * @version 18.5.16
+ */
 public class Computor {
 	public static final int FPS = 30;
 

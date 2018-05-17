@@ -5,6 +5,12 @@ import java.io.Serializable;
 import client.window.Game;
 import processing.core.PApplet;
 
+/**
+ * Player that can be controlled
+ * 
+ * @author kgurushankar
+ * @version 18.5.16
+ */
 public class Player extends Entity implements Serializable {
 
 	private static final long serialVersionUID = 145755016608084977L;

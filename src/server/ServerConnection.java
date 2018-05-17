@@ -3,6 +3,11 @@ package server;
 import java.io.*;
 import java.net.*;
 
+/**
+ * Socket connection for the server
+ * @author kgurushankar
+ * @version 18.5.16
+ */
 public abstract class ServerConnection implements AutoCloseable, Runnable {
 	private Socket s;
 	private BufferedReader in;

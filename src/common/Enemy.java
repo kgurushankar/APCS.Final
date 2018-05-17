@@ -1,9 +1,8 @@
 package common;
 
 /**
- * An player with AI
+ * A player with AI
  * 
- * @author kgurushankar
  *
  */
 public class Enemy {

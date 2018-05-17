@@ -10,6 +10,11 @@ import common.Entity.Kind;
 import processing.core.PApplet;
 import server.MapGenerator;
 
+/**
+ * 
+ * @author kgurushankar
+ * @version 18.5.16
+ */
 public class Game implements Runnable, Serializable {
 	private static final long serialVersionUID = -21065957596326209L;
 	private Map map;

@@ -8,6 +8,12 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import client.window.Game;
 
+/**
+ * Main class that the server runs off of
+ * 
+ * @author kgurushankar
+ * @version 18.5.16
+ */
 public class Server implements AutoCloseable {
 	private Computor c;
 	private volatile List<ServerConnection> connections;

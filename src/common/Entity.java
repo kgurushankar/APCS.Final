@@ -4,9 +4,14 @@ import java.io.File;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 
-
 import processing.core.PApplet;
 
+/**
+ * Entity in the game
+ * 
+ * @author unkemptherald
+ * @version 18.5.16
+ */
 public abstract class Entity implements Serializable {
 	/**
 	 * 
@@ -66,10 +71,10 @@ public abstract class Entity implements Serializable {
 		this.y += y;
 	}
 
-	public Kind getKind() 
-	{
+	public Kind getKind() {
 		return identifier;
 	}
+
 	public abstract void act(Map m, State s);
 
 	public String toString() {

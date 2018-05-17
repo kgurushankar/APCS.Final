@@ -2,6 +2,12 @@ package common;
 
 import client.window.Game;
 
+/***
+ * Projectile that can be fired
+ * 
+ * @author unkemptherald
+ * @version 18.5.16
+ */
 public class Projectile extends Entity {
 
 	/**

@@ -1,5 +1,11 @@
 package server;
 
+/**
+ * Message wrapper for the server
+ * 
+ * @author kgurushankar
+ * @version 18.5.16
+ */
 public class Message {
 	private String s;
 	private ServerConnection sender;

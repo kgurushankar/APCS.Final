@@ -2,6 +2,12 @@ package server;
 
 import common.Map;
 
+/**
+ * Generate map
+ * 
+ * @author kgurushankar
+ * @version 18.5.16
+ */
 public class MapGenerator {
 	/**
 	 * This method works better when the map is larger, and generates the map as

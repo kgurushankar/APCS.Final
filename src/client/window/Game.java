@@ -20,7 +20,6 @@ import server.MapGenerator;
 public class Game implements Runnable, Serializable {
 	private static final long serialVersionUID = -21065957596326209L;
 	public static final int mapSize = 100;
-	public static final int tileSize = 64;
 	private Map map;
 	private transient State state;
 	private transient static final boolean cornerLock = false;
@@ -56,11 +55,11 @@ public class Game implements Runnable, Serializable {
 		} else {
 			applet.translate(mx, my);
 		}
-		
+
 		map.draw(applet, 0, 0, tileSize, tileSize);
 		for (Entity e : state.getItems()) {
 			e.draw(applet);
-			
+
 		}
 		state.getMe().draw(applet);
 
@@ -79,14 +78,10 @@ public class Game implements Runnable, Serializable {
 		}
 	}
 
-	public void click() 
-	{
-		
-		me.act(map, new State(items, me));
-	}
+
 	public void respawn() {
 		int[] spawn = map.spawnPoint();
-		me = new Player(spawn[0] * tileSize, spawn[1] * tileSize,0.,0., Kind.NINJA,Player.Direction.DOWN);
+		state = new State(state.getItems(), new Player(spawn[0] * tileSize, spawn[1] * tileSize, Kind.NINJA));
 	}
 
 	public State getState() {

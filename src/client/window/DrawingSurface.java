@@ -82,6 +82,6 @@ public class DrawingSurface extends PApplet {
 	}
 	public void mousePressed() 
 	{
-		g.click();
+		
 	}
 }

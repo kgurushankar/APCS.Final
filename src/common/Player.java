@@ -1,5 +1,7 @@
 package common;
 
+import java.util.Random;
+
 import client.window.Game;
 import processing.core.PApplet;
 
@@ -14,6 +16,7 @@ public class Player extends Entity {
 		DOWN, UP, LEFT, RIGHT
 	};
 
+	
 	private Direction facing;// make this an enum??
 	private boolean updateImage;
 
@@ -24,14 +27,26 @@ public class Player extends Entity {
 	}
 
 	@Override
-	public void act(Map m) {
-		// TODO Auto-generated method stub
-		int dir = (int) (Math.random() * 4);
-		if (dir < 2) {
-			this.moveX(dir == 0, m);
-		} else {
-			this.moveY(dir % 2 == 0, m);
+	public void act(Map m,State s) {
+		this.fire(m, s);
+		this.facing=Direction.values()[(int)(Math.random()*4)];
+		if(facing == Direction.DOWN) 
+		{
+			moveY(true,m);
 		}
+		else if(facing == Direction.LEFT) 
+		{
+			moveX(false,m);
+		}
+		else if(facing == Direction.UP) 
+		{
+			moveY(false,m);
+		}
+		else if(facing == Direction.RIGHT) 
+		{
+			moveX(true,m);
+		}
+		
 	}
 
 	public int getY() {
@@ -74,9 +89,9 @@ public class Player extends Entity {
 		else if (facing == Direction.LEFT)
 			leftOrRight = -1;
 		else if (facing == Direction.UP)
-			upOrDown = 1;
-		else if (facing == Direction.DOWN)
 			upOrDown = -1;
+		else if (facing == Direction.DOWN)
+			upOrDown = 1;
 		if (m.canGo((x + leftOrRight) * Game.tileSize, (y + upOrDown) * Game.tileSize))
 			;
 		s.getItems().add(new Projectile(x + leftOrRight * Game.tileSize, y + upOrDown * Game.tileSize,

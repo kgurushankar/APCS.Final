@@ -32,4 +32,8 @@ public class DrawingSurface extends PApplet {
 	public void keyPressed() {
 		g.keyPressed(this);
 	}
+	public void mousePressed() 
+	{
+		g.click();
+	}
 }

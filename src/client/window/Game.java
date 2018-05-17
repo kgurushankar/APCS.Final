@@ -7,6 +7,7 @@ import com.sun.glass.events.KeyEvent;
 import common.Entity;
 import common.Map;
 import common.Player;
+import common.State;
 import processing.core.PApplet;
 import server.MapGenerator;
 
@@ -53,6 +54,10 @@ public class Game {
 		}
 	}
 
+	public void click() 
+	{
+		me.fire(map, new State(items,me));
+	}
 	public void respawn() {
 		int[] spawn = map.spawnPoint();
 		me = new Player(spawn[0] * tileSize, spawn[1] * tileSize, (byte) 1);

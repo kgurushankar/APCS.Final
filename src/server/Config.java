@@ -3,6 +3,7 @@ package server;
 import java.io.*;
 
 /**
+ * Reads the config file
  * 
  * @author kgurushankar
  * @version 18.5.12

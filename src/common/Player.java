@@ -1,17 +1,22 @@
 package common;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import client.window.Game;
 import processing.core.PApplet;
 
+/**
+ * Player that can be controlled
+ * 
+ * @author kgurushankar
+ * @version 18.5.16
+ */
 public class Player extends Entity implements Serializable {
 
 	private static final long serialVersionUID = 145755016608084977L;
+	private static final int MAX_LIVES = 5;
 	private boolean dirChanged;
+	private int lives;
 
 	public Player(int x, int y, Kind identifier) {
 		super(x, y, 0, 0, identifier, Direction.DOWN);
@@ -81,7 +86,7 @@ public class Player extends Entity implements Serializable {
 	public void draw(PApplet applet) {
 		if (identifier == Kind.NINJA || identifier == Kind.SKELETON) {
 			super.draw(applet);// make sure animation has been loaded
-			Animation current = image[identifier.ordinal()][facing.ordinal()];
+			Animation current = walking[identifier.ordinal()][facing.ordinal()];
 			if (dirChanged) {
 				current.reset();
 				dirChanged = false;
@@ -91,12 +96,19 @@ public class Player extends Entity implements Serializable {
 			applet.rect(x, y, 10, 10);
 		} else if (identifier == Kind.SHURIKEN) {
 			applet.ellipse(x, y, 10, 10);
-
 		}
 	}
 
 	public String toString() {
 		return x + "," + y;
+	}
+
+	public int getLives() {
+		return lives;
+	}
+
+	public void hurt() {
+		lives--;
 	}
 	// private void writeObject(ObjectOutputStream os) throws IOException {
 	// os.writeInt(x);

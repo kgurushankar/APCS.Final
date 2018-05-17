@@ -10,6 +10,12 @@ import processing.core.PApplet;
 import processing.core.PImage;
 import processing.event.MouseEvent;
 
+/**
+ * Sample drawer for the map
+ * 
+ * @author kgurushankar
+ * @version 18.5.16
+ */
 public class DrawMap extends PApplet {
 
 	private Map board;

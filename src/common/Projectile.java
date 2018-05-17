@@ -2,9 +2,20 @@ package common;
 
 import client.window.Game;
 
+/***
+ * Projectile that can be fired
+ * 
+ * @author unkemptherald
+ * @version 18.5.16
+ */
 public class Projectile extends Entity {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8778019732879813118L;
 	private boolean exists;
-	
+
 	public Projectile(int x, int y, double velocityX, double velocityY, Kind identifier, Direction direction) {
 		super(x, y, velocityX, velocityY, identifier, direction);
 		exists = true;
@@ -62,5 +73,4 @@ public class Projectile extends Entity {
 		return !exists;
 	}
 
-	
 }

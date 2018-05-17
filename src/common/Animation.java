@@ -3,6 +3,12 @@ package common;
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/**
+ * An animateble series of images
+ * 
+ * @author kgurushankar
+ * @version 18.5.16
+ */
 public class Animation {
 	private PImage[] images;
 	private int currentFrame;

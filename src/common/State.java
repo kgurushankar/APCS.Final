@@ -3,6 +3,12 @@ package common;
 import java.io.Serializable;
 import java.util.Vector;
 
+/**
+ * State of the game stored on the client end
+ * 
+ * @author kgurushankar
+ * @version 18.5.16
+ */
 public class State implements Serializable {
 	/**
 	 * 
@@ -23,5 +29,9 @@ public class State implements Serializable {
 
 	public Player getMe() {
 		return me;
+	}
+
+	public String toString() {
+		return me.toString();
 	}
 }

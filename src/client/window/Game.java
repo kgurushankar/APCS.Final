@@ -10,10 +10,15 @@ import common.Entity.Kind;
 import processing.core.PApplet;
 import server.MapGenerator;
 
+/**
+ * 
+ * @author kgurushankar
+ * @version 18.5.16
+ */
 public class Game implements Runnable, Serializable {
 	private static final long serialVersionUID = -21065957596326209L;
 	private Map map;
-	private State state;
+	private transient State state;
 	private transient static final boolean cornerLock = false;
 	public transient static final int tileSize = 64;
 
@@ -41,6 +46,7 @@ public class Game implements Runnable, Serializable {
 		applet.pushMatrix();
 		float mx = -state.getMe().getX() + applet.width / 2;
 		float my = -state.getMe().getY() + applet.height / 2;
+		System.out.println(state.getMe());
 		if (cornerLock) {
 			applet.translate((mx >= 0) ? 0 : mx, (my >= 0) ? 0 : my);
 		} else {

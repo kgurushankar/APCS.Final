@@ -4,10 +4,20 @@ import java.io.File;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 
-
 import processing.core.PApplet;
 
+/**
+ * Entity in the game
+ * 
+ * @author unkemptherald
+ * @version 18.5.16
+ */
 public abstract class Entity implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2314898847524274672L;
+
 	protected static enum Direction {
 		UP, RIGHT, DOWN, LEFT;
 		public String toString() {
@@ -37,7 +47,8 @@ public abstract class Entity implements Serializable {
 	 * first index corresponds to type <br>
 	 * second index is direction (if only one direction, assume 0)
 	 */
-	protected Animation[][] image = new Animation[Kind.values().length][Direction.values().length];
+	protected Animation[][] walking = new Animation[Kind.values().length][Direction.values().length];
+	protected Animation[][] hurt = new Animation[Kind.values().length][Direction.values().length];
 
 	public Entity(int x, int y, double velocityX, double velocityY, Kind identifier, Direction facing) {
 		this.x = x;
@@ -61,10 +72,10 @@ public abstract class Entity implements Serializable {
 		this.y += y;
 	}
 
-	public Kind getKind() 
-	{
+	public Kind getKind() {
 		return identifier;
 	}
+
 	public abstract void act(Map m, State s);
 
 	public String toString() {
@@ -72,7 +83,7 @@ public abstract class Entity implements Serializable {
 	}
 
 	public void draw(PApplet applet) {
-		if (image[identifier.ordinal()][facing.ordinal()] == null) {
+		if (walking[identifier.ordinal()][facing.ordinal()] == null) {
 			String motion = "Walking";
 			String folder = "assets/" + identifier + "/128/" + facing + " - " + motion + "/";
 			File f = new File(folder);
@@ -83,7 +94,20 @@ public abstract class Entity implements Serializable {
 				String num = end.format(i);
 				locations[i] = folder + facing + " - " + motion + "_" + num + ".png";
 			}
-			image[identifier.ordinal()][facing.ordinal()] = new Animation(locations, "png");
+			walking[identifier.ordinal()][facing.ordinal()] = new Animation(locations, "png");
+		}
+		if (hurt[identifier.ordinal()][facing.ordinal()] == null) {
+			String motion = "Hurt";
+			String folder = "assets/" + identifier + "/128/" + facing + " - " + motion + "/";
+			File f = new File(folder);
+			int frames = f.listFiles().length;
+			String[] locations = new String[frames];
+			DecimalFormat end = new DecimalFormat("000");
+			for (int i = 0; i < frames; i++) {
+				String num = end.format(i);
+				locations[i] = folder + facing + " - " + motion + "_" + num + ".png";
+			}
+			hurt[identifier.ordinal()][facing.ordinal()] = new Animation(locations, "png");
 		}
 	}
 

@@ -11,10 +11,15 @@ import common.Player;
 import common.State;
 import common.Entity.Kind;
 
+/**
+ * State storage on the server end
+ * 
+ * @author kgurushankar
+ * @version 18.5.16
+ */
 public class ServerState {
 	public Map map;
 	public Vector<Entity> items; // NPC and projectiles
-
 	public HashMap<ServerConnection, Player> players;
 
 	public ServerState(Config c) {
@@ -60,5 +65,9 @@ public class ServerState {
 
 	public Map getMap() {
 		return map;
+	}
+
+	public String toString() {
+		return players.toString();
 	}
 }

@@ -12,16 +12,13 @@ import processing.core.PApplet;
  * @version 18.5.10
  */
 public class Player extends Entity {
-	private static enum Direction {
-		DOWN, UP, LEFT, RIGHT
-	};
-
+	
 	
 	private Direction facing;// make this an enum??
 	private boolean updateImage;
 
-	public Player(int x, int y, byte identifier) {
-		super(x, y, 0, 0, identifier);
+	public Player(int x, int y, Kind identifier,Direction d) {
+		super(x, y, 0., 0., identifier,d);
 		facing = Direction.DOWN;
 		// TODO Auto-generated constructor stub
 	}
@@ -96,7 +93,7 @@ public class Player extends Entity {
 		if (m.canGo((x + leftOrRight) * Game.tileSize, (y + upOrDown) * Game.tileSize))
 			;
 		s.getItems().add(new Projectile(x + leftOrRight * Game.tileSize, y + upOrDown * Game.tileSize,
-				leftOrRight * Game.tileSize / 15, upOrDown * Game.tileSize / 15, (byte)3));
+				leftOrRight * Game.tileSize / 15, upOrDown * Game.tileSize / 15, Kind.SHURIKEN,Direction.DOWN));
 	}
 
 	public void draw(PApplet applet) {
@@ -113,7 +110,7 @@ public class Player extends Entity {
 			else if (facing == Direction.DOWN)
 				suffix = "Front";
 
-			if (identifier == 1) {// pirate
+			if (identifier == Kind.SKELETON) {// pirate
 				imageLoc += "skeleton/128/";
 				image = applet.loadImage(imageLoc + suffix + " - Idle/" + suffix + " - Idle_000.png", "png");
 

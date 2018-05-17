@@ -8,8 +8,8 @@ package common;
  */
 public class Projectile extends Entity {
 
-	public Projectile(int x, int y, double velocityX, double velocityY, byte identifier) {
-		super(x, y, velocityX, velocityY, identifier);
+	public Projectile(int x, int y, double velocityX, double velocityY, Kind identifier,Direction d) {
+		super(x, y, velocityX, velocityY, identifier,d);
 
 	}
 

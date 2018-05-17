@@ -3,8 +3,10 @@ package client.window;
 import java.util.Vector;
 
 import com.sun.glass.events.KeyEvent;
+import com.sun.javafx.scene.traversal.Direction;
 
 import common.Entity;
+import common.Entity.Kind;
 import common.Map;
 import common.Player;
 import common.State;
@@ -35,7 +37,9 @@ public class Game {
 		applet.translate(-me.getX() + applet.width / 2, -me.getY() + applet.height / 2);
 		map.draw(applet, 0, 0, tileSize * mapSize, tileSize * mapSize);
 		for (Entity e : items) {
+			
 			e.draw(applet);
+			
 		}
 		me.draw(applet);
 
@@ -61,6 +65,6 @@ public class Game {
 	}
 	public void respawn() {
 		int[] spawn = map.spawnPoint();
-		me = new Player(spawn[0] * tileSize, spawn[1] * tileSize, (byte) 1);
+		me = new Player(spawn[0] * tileSize, spawn[1] * tileSize,0.,0., Kind.NINJA,Player.Direction.DOWN);
 	}
 }

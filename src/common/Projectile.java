@@ -26,7 +26,7 @@ public class Projectile extends Entity {
 		int velY = (int) velocityY;
 		int velX = (int) velocityX;
 
-		if (velY > 0) {
+	
 			for (int i = 0; i < velY; i++) {
 				if (m.canGo(x, y + Game.tileSize)) {
 					y += Game.tileSize;
@@ -35,7 +35,7 @@ public class Projectile extends Entity {
 					return;
 				}
 			}
-		} else if (velY < 0) {
+		  if (velY < 0) {
 			for (int i = 0; i > velY; i--) {
 				if (m.canGo(x, y - Game.tileSize)) {
 					y -= Game.tileSize;
@@ -54,7 +54,7 @@ public class Projectile extends Entity {
 				}
 			}
 		}
-		}
+		
 		else {
 			for (int i = 0; i < velX; i++) {
 				if (m.canGo(x +Game.tileSize, y)) {

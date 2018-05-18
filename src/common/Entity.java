@@ -18,7 +18,7 @@ public abstract class Entity implements Serializable {
 	 */
 	private static final long serialVersionUID = -2314898847524274672L;
 
-	protected static enum Direction {
+	public static enum Direction {
 		UP, RIGHT, DOWN, LEFT;
 		public String toString() {
 			if (this == UP)

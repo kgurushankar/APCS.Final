@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.Vector;
 
 import com.sun.glass.events.KeyEvent;
-import com.sun.javafx.scene.traversal.Direction;
 
 import common.*;
+import common.Entity.Direction;
 import common.Entity.Kind;
 import processing.core.PApplet;
 import server.MapGenerator;
@@ -78,10 +78,10 @@ public class Game implements Runnable, Serializable {
 		}
 	}
 
-
 	public void respawn() {
 		int[] spawn = map.spawnPoint();
-		state = new State(state.getItems(), new Player(spawn[0] * tileSize, spawn[1] * tileSize, Kind.NINJA));
+		state = new State(state.getItems(),
+				new Player(spawn[0] * tileSize, spawn[1] * tileSize, Kind.NINJA, Direction.DOWN));
 	}
 
 	public State getState() {

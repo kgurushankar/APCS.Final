@@ -9,6 +9,7 @@ import common.Entity;
 import common.Map;
 import common.Player;
 import common.State;
+import common.Entity.Direction;
 import common.Entity.Kind;
 
 /**
@@ -30,7 +31,7 @@ public class ServerState {
 
 	public Game addConnection(ServerConnection sc) {
 		int[] spawn = map.spawnPoint();
-		Player me = new Player(spawn[0] * Game.tileSize, spawn[1] * Game.tileSize, Kind.NINJA);
+		Player me = new Player(spawn[0] * Game.tileSize, spawn[1] * Game.tileSize, Kind.NINJA, Direction.DOWN);
 		System.out.println(Arrays.toString(spawn));
 		players.put(sc, me);
 		State o = generateState(sc);

@@ -1,6 +1,5 @@
 package common;
 
-import java.util.Random;
 import java.io.Serializable;
 import client.window.Game;
 import processing.core.PApplet;
@@ -18,14 +17,9 @@ public class Player extends Entity implements Serializable {
 	private boolean dirChanged;
 	private int lives;
 
-	public Player(int x, int y, Kind identifier) {
-		super(x, y, 0, 0, identifier, Direction.DOWN);
-	}
-
-	public Player(int x, int y, Kind identifier, Direction d) {
-		super(x, y, 0., 0., identifier, d);
-		facing = Direction.DOWN;
-		// TODO Auto-generated constructor stub
+	public Player(int x, int y, Kind identifier, Direction down) {
+		super(x, y, 0., 0., identifier, down);
+		lives = MAX_LIVES;
 	}
 
 	public void act(Map m, State s) {

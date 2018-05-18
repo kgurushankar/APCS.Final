@@ -6,6 +6,7 @@ import com.sun.glass.events.KeyEvent;
 
 import client.ClientConnection;
 import common.State;
+import common.Entity.Direction;
 import common.Entity.Kind;
 import common.Player;
 import processing.core.PApplet;
@@ -75,13 +76,13 @@ public class DrawingSurface extends PApplet {
 			cc.sendData("Mr");
 		} else if (key == 'e') {
 			int[] spawn = g.getMap().spawnPoint();
-			g.getState().getItems().add(new Player(spawn[0], spawn[1], Kind.SKELETON));
+			g.getState().getItems().add(new Player(spawn[0], spawn[1], Kind.SKELETON, Direction.DOWN));
 		} else {
 			g.keyPressed(this);
 		}
 	}
-	public void mousePressed() 
-	{
-		
+
+	public void mousePressed() {
+
 	}
 }

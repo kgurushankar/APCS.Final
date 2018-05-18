@@ -58,7 +58,7 @@ public class DrawingSurface extends PApplet {
 	public void draw() {
 		background(0);
 		g.draw(this);
-
+		
 	}
 
 	public void keyPressed() {
@@ -83,6 +83,10 @@ public class DrawingSurface extends PApplet {
 	}
 
 	public void mousePressed() {
-
+		
+		g.getState().getMe().fire(g.getMap(), g.getState());
+		if (cc != null) {
+			cc.sendData("Af");
+		}
 	}
 }

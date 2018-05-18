@@ -92,10 +92,9 @@ public class Player extends Entity implements Serializable {
 			upOrDown = -1;
 		else if (facing == Direction.DOWN)
 			upOrDown = 1;
-		if (m.canGo((x + leftOrRight) * Game.tileSize, (y + upOrDown) * Game.tileSize))
-			;
-		s.getItems().add(new Projectile(x + leftOrRight * Game.tileSize, y + upOrDown * Game.tileSize,
-				leftOrRight * Game.tileSize / 15, upOrDown * Game.tileSize / 15, Kind.SHURIKEN, Direction.DOWN));
+		if (m.canGo((x + leftOrRight * Game.tileSize), (y + upOrDown * Game.tileSize))) {
+			s.getItems().add(new Projectile(x + leftOrRight * Game.tileSize, y + upOrDown * Game.tileSize,
+					leftOrRight * Game.tileSize / 64, upOrDown * Game.tileSize / 64, Kind.SHURIKEN, facing));}
 	}
 
 	public String toString() {

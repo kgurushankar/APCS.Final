@@ -14,6 +14,7 @@ public class Animation {
 	private int currentFrame;
 	private String[] location;
 	private String extension;
+	private boolean complete;
 
 	public Animation(String location[], String extension) {
 		this.location = location;
@@ -32,10 +33,22 @@ public class Animation {
 	}
 
 	private void nextFrame() {
+		if (currentFrame + 1 > images.length) {
+			complete = true;
+		}
 		currentFrame = (1 + currentFrame) % images.length;
 	}
 
 	public void reset() {
 		currentFrame = 0;
+	}
+
+	public boolean complete() {
+		if (complete) {
+			complete = false;
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

@@ -15,6 +15,7 @@ public class Player extends Entity implements Serializable {
 	private static final long serialVersionUID = 145755016608084977L;
 	private static final int MAX_LIVES = 5;
 	private boolean dirChanged;
+	private boolean hurt = false;
 	private int lives;
 
 	public Player(int x, int y, Kind identifier, Direction down) {
@@ -29,7 +30,9 @@ public class Player extends Entity implements Serializable {
 		} else {
 			this.moveY(dir % 2 == 0, m);
 		}
-		this.fire(m, s);
+		Projectile p = this.fire(m);
+		if (p != null)
+			s.getItems().add(p);
 	}
 
 	public int getY() {
@@ -72,6 +75,12 @@ public class Player extends Entity implements Serializable {
 				current.reset();
 				dirChanged = false;
 			}
+			if (hurt) {
+				current = super.hurt[identifier.ordinal()][facing.ordinal()];
+			}
+			if (current.complete() && hurt) {
+				hurt = false;
+			}
 			current.draw(applet, x, y, Game.tileSize, Game.tileSize);
 		} else if (identifier == Kind.BULLET) {
 		} else if (identifier == Kind.SHURIKEN) {
@@ -81,7 +90,7 @@ public class Player extends Entity implements Serializable {
 
 	}
 
-	public void fire(Map m, State s) {
+	public Projectile fire(Map m) {
 		int upOrDown = 0;
 		int leftOrRight = 0;
 		if (facing == Direction.RIGHT)
@@ -93,8 +102,10 @@ public class Player extends Entity implements Serializable {
 		else if (facing == Direction.DOWN)
 			upOrDown = 1;
 		if (m.canGo((x + leftOrRight * Game.tileSize), (y + upOrDown * Game.tileSize))) {
-			s.getItems().add(new Projectile(x + leftOrRight * Game.tileSize, y + upOrDown * Game.tileSize,
-					leftOrRight * Game.tileSize / 64, upOrDown * Game.tileSize / 64, Kind.SHURIKEN, facing));}
+			return new Projectile(x + leftOrRight * Game.tileSize, y + upOrDown * Game.tileSize,
+					leftOrRight * Game.tileSize / 64, upOrDown * Game.tileSize / 64, Kind.SHURIKEN, facing);
+		} else
+			return null;
 	}
 
 	public String toString() {
@@ -107,14 +118,15 @@ public class Player extends Entity implements Serializable {
 
 	public void hurt() {
 		lives--;
+		hurt = true;
 	}
+
 	// private void writeObject(ObjectOutputStream os) throws IOException {
 	// os.writeInt(x);
 	// os.writeInt(y);
 	// os.writeInt(identifier.ordinal());
 	// os.writeInt(facing.ordinal());
 	// }
-	//
 	// private void readObject(ObjectInputStream is) throws IOException {
 	// x = is.readInt();
 	// y = is.readInt();

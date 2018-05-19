@@ -4,6 +4,7 @@ import java.util.concurrent.*;
 
 import common.Map;
 import common.Player;
+import common.Projectile;
 
 /**
  * Computes the changes made to the game and sends back states periodically
@@ -33,9 +34,9 @@ public class Computor {
 					ServerConnection c = curr.getSender();
 					Player p = s.getState().players.get(c);
 					System.out.println(p);
+					Map m = s.getState().map;
 					if (d.startsWith("M")) {
 						char dir = d.charAt(1);
-						Map m = s.getState().map;
 						switch (dir) {
 						case 'u':
 							p.moveY(false, m);
@@ -50,6 +51,14 @@ public class Computor {
 							p.moveX(true, m);
 							break;
 						}
+					} else if (d.startsWith("A")) {
+						char action = d.charAt(1);
+						switch (action) {
+						case 'f':
+							Projectile i = p.fire(m);
+							if (i != null)
+								s.getState().items.add(i);
+						}
 					}
 				}
 			}
@@ -60,6 +69,7 @@ public class Computor {
 
 		@Override
 		public void run() {
+			s.getState().updateEntities();
 			s.updateAll();
 			System.out.println(s.getState());
 		}

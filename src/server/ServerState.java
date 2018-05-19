@@ -71,4 +71,16 @@ public class ServerState {
 	public String toString() {
 		return players.toString();
 	}
+
+	public void updateEntities() {
+		for (Entity e : items) {
+			if (e.destroy()) {
+				items.remove(e);
+			}
+			for (ServerConnection sc : players.keySet()) {
+				Player p = players.get(sc);
+				// TODO collision detection here
+			}
+		}
+	}
 }

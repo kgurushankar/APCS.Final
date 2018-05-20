@@ -15,11 +15,12 @@ import processing.core.PApplet;
  * @version 18.5.16
  */
 public abstract class Entity implements Serializable {
+	
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -2314898847524274672L;
-
+	private static final long serialVersionUID = -1638645902015687214L;
 	protected static enum Direction {
 		UP, RIGHT, DOWN, LEFT;
 		public String toString() {

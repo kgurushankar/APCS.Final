@@ -10,10 +10,11 @@ import java.util.Vector;
  * @version 18.5.16
  */
 public class State implements Serializable {
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -1743699953255618703L;
+	private static final long serialVersionUID = -4844537372379836683L;
 	/** Contains anything that isnt being actively controlled */
 	public volatile Vector<Entity> items;
 	public volatile Player me;

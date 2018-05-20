@@ -10,11 +10,12 @@ import client.window.Game;
  */
 public class Projectile extends Entity {
 
+	
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 8778019732879813118L;
-	
+	private static final long serialVersionUID = 5875503773522192826L;
 
 	public Projectile(int x, int y, double velocityX, double velocityY, Kind identifier, Direction direction) {
 		super(x, y, velocityX, velocityY, identifier, direction);

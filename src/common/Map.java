@@ -14,6 +14,9 @@ import processing.core.PImage;
  * @version 18.5.10
  */
 public class Map implements Serializable {
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 3637177447616075769L;
 	/** isWall */
 	private boolean[][] state;

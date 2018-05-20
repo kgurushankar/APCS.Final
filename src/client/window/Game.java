@@ -18,12 +18,15 @@ import server.MapGenerator;
  * @version 18.5.10
  */
 public class Game implements Runnable, Serializable {
-	private transient static final long serialVersionUID = -21065957596326209L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1536277126220871541L;
 	public transient static final int mapSize = 100;
 	public static final boolean cornerLock = false;
 	public transient static final int tileSize = 64;
 	private volatile Map map; // really the only thing sent
-	volatile transient State state;
+	volatile State state;
 
 	public Game(Map map, State state) {
 		this.map = map;

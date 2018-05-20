@@ -8,9 +8,9 @@ package server;
  */
 public class Message {
 	private String s;
-	private ServerConnection sender;
+	private Server.Connection sender;
 
-	public Message(String s, ServerConnection sender) {
+	public Message(String s, Server.Connection sender) {
 		this.s = s;
 		this.sender = sender;
 	}
@@ -19,7 +19,7 @@ public class Message {
 		return s;
 	}
 
-	public ServerConnection getSender() {
+	public Server.Connection getSender() {
 		return sender;
 	}
 

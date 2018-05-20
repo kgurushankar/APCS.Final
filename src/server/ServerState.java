@@ -18,17 +18,17 @@ import common.Entity.Kind;
  * @version 18.5.16
  */
 public class ServerState {
-	public Map map;
-	public Vector<Entity> items; // NPC and projectiles
-	public HashMap<ServerConnection, Player> players;
+	public volatile Map map;
+	public volatile Vector<Entity> items; // NPC and projectiles
+	public volatile HashMap<Server.Connection, Player> players;
 
 	public ServerState(Config c) {
 		this.items = new Vector<Entity>();
-		this.players = new HashMap<ServerConnection, Player>();
+		this.players = new HashMap<Server.Connection, Player>();
 		this.map = MapGenerator.generateMap(c.mapSize);
 	}
 
-	public Game addConnection(ServerConnection sc) {
+	public Game addConnection(Server.Connection sc) {
 		int[] spawn = map.spawnPoint();
 		Player me = new Player(spawn[0] * Game.tileSize, spawn[1] * Game.tileSize, Kind.NINJA);
 		System.out.println(Arrays.toString(spawn));
@@ -37,29 +37,25 @@ public class ServerState {
 		return new Game(map, o);
 	}
 
-	public void removeConnection(ServerConnection sc) {
-
+	public void removeConnection(Server.Connection sc) {
+		players.remove(sc);
 	}
 
-	/**
-	 * 
-	 * @param c
-	 * @return
-	 */
-	public State generateState(ServerConnection c) {
+	public State generateState(Server.Connection c) {
 		if (!players.containsKey(c)) {
 			return null;
 		} else {
 			Vector<Entity> items = new Vector<Entity>(this.items);
 			Player p = null;
-			for (ServerConnection sc : players.keySet()) {
+			for (Server.Connection sc : players.keySet()) {
 				if (c != sc) {
 					items.add(players.get(sc));
 				} else {
 					p = players.get(sc);
 				}
 			}
-			return new State(items, p);
+			State s = new State(items, p);
+			return s;
 		}
 	}
 

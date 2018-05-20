@@ -15,7 +15,7 @@ public class TestConnection {
 				}
 			};
 			g = cc.getGame();
-			System.out.println(g.getState().getMe());
+			System.out.println(g.state.me);
 			new Thread(cc).start();
 		} catch (IOException e) {
 			e.printStackTrace();

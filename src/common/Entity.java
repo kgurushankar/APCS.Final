@@ -59,8 +59,8 @@ public abstract class Entity implements Serializable {
 		this.facing = facing;
 	}
 
-	protected Entity() {
-	}
+	// protected Entity() {
+	// }
 
 	public void setLocation(int x1, int y1) {
 		x = x1;

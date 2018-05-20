@@ -35,7 +35,9 @@ public class Player extends Entity implements Serializable {
 		} else {
 			this.moveY(dir % 2 == 0, m);
 		}
-		this.fire(m, s);
+		Projectile p = this.fire(m);
+		if (p != null)
+			s.items.add(p);
 	}
 
 	public int getY() {
@@ -87,7 +89,7 @@ public class Player extends Entity implements Serializable {
 
 	}
 
-	public void fire(Map m, State s) {
+	public Projectile fire(Map m) {
 		int upOrDown = 0;
 		int leftOrRight = 0;
 		if (facing == Direction.RIGHT)
@@ -99,9 +101,10 @@ public class Player extends Entity implements Serializable {
 		else if (facing == Direction.DOWN)
 			upOrDown = 1;
 		if (m.canGo((x + leftOrRight) * Game.tileSize, (y + upOrDown) * Game.tileSize))
-			;
-		s.getItems().add(new Projectile(x + leftOrRight * Game.tileSize, y + upOrDown * Game.tileSize,
-				leftOrRight * Game.tileSize / 15, upOrDown * Game.tileSize / 15, Kind.SHURIKEN, Direction.DOWN));
+			return new Projectile(x + leftOrRight * Game.tileSize, y + upOrDown * Game.tileSize,
+					leftOrRight * Game.tileSize / 15, upOrDown * Game.tileSize / 15, Kind.SHURIKEN, Direction.DOWN);
+		else
+			return null;
 	}
 
 	public String toString() {

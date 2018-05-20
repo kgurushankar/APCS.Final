@@ -2,8 +2,11 @@ package client;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Vector;
 
 import client.window.Game;
+import common.Entity;
+import common.Player;
 import common.State;
 
 /**
@@ -17,7 +20,6 @@ public abstract class ClientConnection implements AutoCloseable, Runnable {
 	private Socket s;
 	private ObjectInputStream in;
 	private BufferedWriter out;
-	private boolean paused;
 	private Game g;
 
 	public ClientConnection(String address, int port) throws IOException {
@@ -44,12 +46,13 @@ public abstract class ClientConnection implements AutoCloseable, Runnable {
 
 	public void run() {
 		try {
-			State current = null;
+			Object current = null;
 			// should probably find a way to remove the cast
-			while ((current = (State) in.readObject()) != null) {
-				if (paused)
-					continue;
-				handleMessage(current);
+			while ((current = in.readObject()) != null) {
+				Player p = (Player) in.readObject();
+				State d = new State(new Vector<Entity>(current), p);
+				handleMessage(d);
+				System.out.println(current);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

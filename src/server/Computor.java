@@ -12,14 +12,14 @@ import common.Player;
  * @version 18.5.16
  */
 public class Computor {
-	public static final int FPS = 30;
+	public static final int FPS = 1;
 
-	private Server s;
+	private volatile Server s;
 
 	public Computor(Server s) {
 		this.s = s;
 		ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-		executor.scheduleAtFixedRate(new Act(), 0, 1000 / FPS, TimeUnit.MILLISECONDS);
+		executor.scheduleAtFixedRate(new Act(), 0, 1000000000 / FPS, TimeUnit.NANOSECONDS);
 		new Thread(new QueueControl()).start();
 	}
 
@@ -30,9 +30,8 @@ public class Computor {
 				Message curr = s.getQueue().poll();
 				if (curr != null) {
 					String d = curr.getData();
-					ServerConnection c = curr.getSender();
-					Player p = s.getState().players.get(c);
-					System.out.println(p);
+					Server.Connection c = curr.getSender();
+					Player p = s.state.players.get(c);
 					if (d.startsWith("M")) {
 						char dir = d.charAt(1);
 						Map m = s.getState().map;
@@ -51,6 +50,7 @@ public class Computor {
 							break;
 						}
 					}
+					s.state.players.put(c, p);
 				}
 			}
 		}
@@ -61,7 +61,6 @@ public class Computor {
 		@Override
 		public void run() {
 			s.updateAll();
-			System.out.println(s.getState());
 		}
 	}
 

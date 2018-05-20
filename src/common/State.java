@@ -15,23 +15,15 @@ public class State implements Serializable {
 	 */
 	private static final long serialVersionUID = -1743699953255618703L;
 	/** Contains anything that isnt being actively controlled */
-	private Vector<Entity> items;
-	private Player me;
+	public volatile Vector<Entity> items;
+	public volatile Player me;
 
 	public State(Vector<Entity> items, Player me) {
 		this.items = items;
 		this.me = me;
 	}
 
-	public Vector<Entity> getItems() {
-		return items;
-	}
-
-	public Player getMe() {
-		return me;
-	}
-
 	public String toString() {
-		return me.toString();
+		return me.toString() + " " + items.toString();
 	}
 }

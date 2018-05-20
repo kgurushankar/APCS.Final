@@ -7,6 +7,7 @@ import com.sun.glass.events.KeyEvent;
 import client.ClientConnection;
 import common.State;
 import common.Entity.Kind;
+import common.Entity;
 import common.Player;
 import processing.core.PApplet;
 
@@ -19,17 +20,23 @@ import processing.core.PApplet;
 public class DrawingSurface extends PApplet {
 	Game g;
 	ClientConnection cc;
+	private volatile State latest;
+	boolean ready;
 
 	public DrawingSurface() {
-		boolean singleplayer = true;
+		boolean singleplayer = false;
 		if (singleplayer) {
 			g = new Game();
+			ready = true;
 		} else {
 			try {
 				cc = new ClientConnection("localhost", 8888) {
 					@Override
 					public void handleMessage(State s) {
+						// g = new Game(g.getMap(), s);
+						latest = s;
 						g.updateState(s);
+						ready = true;
 					}
 				};
 				g = cc.getGame();
@@ -56,8 +63,25 @@ public class DrawingSurface extends PApplet {
 
 	public void draw() {
 		background(0);
-		g.draw(this);
+		if (ready) {
+			pushMatrix();
+			float mx = -latest.me.getX() + width / 2;
+			float my = -latest.me.getY() + height / 2;
+			if (Game.cornerLock) {
+				translate((mx >= 0) ? 0 : mx, (my >= 0) ? 0 : my);
+			} else {
+				translate(mx, my);
+			}
 
+			g.getMap().draw(this, 0, 0, Game.tileSize, Game.tileSize);
+			for (Entity e : latest.items) {
+				e.draw(this);
+
+			}
+			latest.me.draw(this);
+
+			popMatrix();
+		}
 	}
 
 	public void keyPressed() {
@@ -75,13 +99,12 @@ public class DrawingSurface extends PApplet {
 			cc.sendData("Mr");
 		} else if (key == 'e') {
 			int[] spawn = g.getMap().spawnPoint();
-			g.getState().getItems().add(new Player(spawn[0], spawn[1], Kind.SKELETON));
-		} else {
-			g.keyPressed(this);
+			g.state.items.add(new Player(spawn[0], spawn[1], Kind.SKELETON));
 		}
+		g.keyPressed(this);
 	}
-	public void mousePressed() 
-	{
-		
+
+	public void mousePressed() {
+
 	}
 }

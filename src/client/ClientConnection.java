@@ -50,7 +50,7 @@ public abstract class ClientConnection implements AutoCloseable, Runnable {
 			// should probably find a way to remove the cast
 			while ((current = in.readObject()) != null) {
 				Player p = (Player) in.readObject();
-				State d = new State(new Vector<Entity>(current), p);
+				State d = new State((Vector<Entity>) current, p);
 				handleMessage(d);
 				System.out.println(current);
 			}

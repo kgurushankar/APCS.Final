@@ -93,7 +93,7 @@ public class Server implements AutoCloseable {
 				state.removeConnection(c);
 			}
 			common.State s = state.generateState(c);
-			c.sendData(s.items.toArray());
+			c.sendData(s.items);
 			c.sendData(s.me);
 		}
 	}

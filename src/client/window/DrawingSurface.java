@@ -106,5 +106,9 @@ public class DrawingSurface extends PApplet {
 
 	public void mousePressed() {
 
+		g.state.me.fire(g.getMap());
+		if (cc != null) {
+			cc.sendData("Af");
+		}
 	}
 }

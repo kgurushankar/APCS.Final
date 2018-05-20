@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 
+import client.window.Game;
+import common.Entity.Kind;
 import processing.core.PApplet;
 
 /**
@@ -43,6 +45,7 @@ public abstract class Entity implements Serializable {
 	protected double velocityX, velocityY;
 	protected Kind identifier;
 	protected Direction facing;
+	protected boolean exists;
 	/**
 	 * first index corresponds to type <br>
 	 * second index is direction (if only one direction, assume 0)
@@ -57,6 +60,7 @@ public abstract class Entity implements Serializable {
 		this.velocityY = velocityY;
 		this.identifier = identifier;
 		this.facing = facing;
+		exists = true;
 	}
 
 	// protected Entity() {
@@ -83,6 +87,8 @@ public abstract class Entity implements Serializable {
 	}
 
 	public void draw(PApplet applet) {
+		if(this.exists) {
+		if (identifier == Kind.NINJA || identifier == Kind.SKELETON) {
 		if (walking[identifier.ordinal()][facing.ordinal()] == null) {
 			String motion = "Walking";
 			String folder = "assets/" + identifier + "/128/" + facing + " - " + motion + "/";
@@ -109,9 +115,18 @@ public abstract class Entity implements Serializable {
 			}
 			hurt[identifier.ordinal()][facing.ordinal()] = new Animation(locations, "png");
 		}
+		}
+		if (identifier == Kind.BULLET) {
+			applet.rect(x+Game.tileSize/2-5, y+Game.tileSize/2-5, 10, 10);
+		} else if (identifier == Kind.SHURIKEN) 
+			applet.ellipse(x+Game.tileSize/2-5, y+Game.tileSize/2-5, 10, 10);
+		}
 	}
 
 	public Kind getNext(Kind t) {
 		return Kind.values()[(t.ordinal() + 1) % Kind.values().length];
+	}
+	public boolean destroy() {
+		return !exists;
 	}
 }

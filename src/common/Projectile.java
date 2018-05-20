@@ -14,7 +14,7 @@ public class Projectile extends Entity {
 	 * 
 	 */
 	private static final long serialVersionUID = 8778019732879813118L;
-	private boolean exists;
+	
 
 	public Projectile(int x, int y, double velocityX, double velocityY, Kind identifier, Direction direction) {
 		super(x, y, velocityX, velocityY, identifier, direction);
@@ -26,7 +26,7 @@ public class Projectile extends Entity {
 		int velY = (int) velocityY;
 		int velX = (int) velocityX;
 
-		if (velY > 0) {
+	
 			for (int i = 0; i < velY; i++) {
 				if (m.canGo(x, y + Game.tileSize)) {
 					y += Game.tileSize;
@@ -35,7 +35,7 @@ public class Projectile extends Entity {
 					return;
 				}
 			}
-		} else if (velY < 0) {
+		  if (velY < 0) {
 			for (int i = 0; i > velY; i--) {
 				if (m.canGo(x, y - Game.tileSize)) {
 					y -= Game.tileSize;
@@ -53,10 +53,12 @@ public class Projectile extends Entity {
 					return;
 				}
 			}
-		} else {
-			for (int i = 0; i > velX; i++) {
-				if (m.canGo(x + Game.tileSize, y)) {
-					x += Game.tileSize;
+		}
+		
+		else {
+			for (int i = 0; i < velX; i++) {
+				if (m.canGo(x +Game.tileSize, y)) {
+					x+=Game.tileSize;
 				} else {
 					exists = false;
 					return;
@@ -65,8 +67,6 @@ public class Projectile extends Entity {
 		}
 	}
 
-	public boolean destroy() {
-		return !exists;
-	}
+	
 
 }

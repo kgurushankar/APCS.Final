@@ -41,6 +41,8 @@ public class Game implements Runnable, Serializable {
 	}
 
 	public void draw(PApplet applet) {
+
+		this.run();
 		applet.pushMatrix();
 		float mx = -state.me.getX() + applet.width / 2;
 		float my = -state.me.getY() + applet.height / 2;
@@ -53,7 +55,6 @@ public class Game implements Runnable, Serializable {
 		map.draw(applet, 0, 0, tileSize, tileSize);
 		for (Entity e : state.items) {
 			e.draw(applet);
-
 		}
 		state.me.draw(applet);
 
@@ -82,9 +83,13 @@ public class Game implements Runnable, Serializable {
 	}
 
 	public void run() {
-		// for (Entity e : state.getItems()) {
-		// e.act(map, state);
-		// }
+
+		for (Entity e : state.items) {
+			/*
+			 * if(e.destroy()) { state.getItems().remove(e); }
+			 */
+			e.act(map, state);
+		}
 	}
 
 	public Map getMap() {

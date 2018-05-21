@@ -106,8 +106,11 @@ public class DrawingSurface extends PApplet {
 			}
 
 			g.getMap().draw(this, 0, 0, Game.tileSize, Game.tileSize);
-			for (Entity e : latest.items) {
+			
+			for (int i = 0; i<latest.items.size(); i++) {
+				Entity e = latest.items.get(i);
 				e.draw(this);
+				
 				e.act(g.getMap(), latest);
 			}
 			latest.me.draw(this);

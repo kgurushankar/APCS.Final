@@ -48,6 +48,7 @@ public class Player extends Entity {
 	}
 
 	public void act(Map m, State s) {
+		locked = true;
 		int dir = (int) (Math.random() * 4);
 		if (dir < 2) {
 			this.moveX(dir == 0, m);
@@ -57,6 +58,7 @@ public class Player extends Entity {
 		Projectile p = this.fire(m);
 		if (p != null)
 			s.items.add(p);
+		locked = false;
 	}
 
 	public void moveX(boolean positive, Map m) {
@@ -112,7 +114,7 @@ public class Player extends Entity {
 		else if (facing == Direction.DOWN)
 			upOrDown = 1;
 		if (m.canGo(x + leftOrRight * Game.tileSize, y + upOrDown * Game.tileSize))
-			return new Projectile(x + leftOrRight * Game.tileSize, y + upOrDown * Game.tileSize, leftOrRight, upOrDown,
+			return new Projectile(x , y , leftOrRight, upOrDown,
 					(identifier == Kind.NINJA ? Kind.SHURIKEN : Kind.BULLET), Direction.DOWN);
 		else
 			return null;

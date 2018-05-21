@@ -39,6 +39,7 @@ public class Projectile extends Entity {
 	}
 
 	public void act(Map m, State s) {
+		locked = true;
 		int velY = (int) velocityY;
 		int velX = (int) velocityX;
 
@@ -80,6 +81,7 @@ public class Projectile extends Entity {
 				}
 			}
 		}
+		locked = false;
 	}
 
 }

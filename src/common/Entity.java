@@ -40,6 +40,7 @@ public abstract class Entity implements Sendable {
 	protected Kind identifier;
 	protected Direction facing;
 	protected boolean exists;
+	public boolean locked;
 	/**
 	 * first index corresponds to type <br>
 	 * second index is direction (if only one direction, assume 0)
@@ -55,6 +56,7 @@ public abstract class Entity implements Sendable {
 		this.identifier = identifier;
 		this.facing = facing;
 		exists = true;
+		locked = false;
 	}
 
 	// protected Entity() {

@@ -34,6 +34,29 @@ public class DrawingSurface extends PApplet {
 			g = new Game((d.pirate) ? Kind.SKELETON : Kind.NINJA);
 			latest = g.state;
 			ready = true;
+			for(int i = 0; i<d.enemies; i++) {
+			int x = (int)(g.mapSize*Math.random())*g.tileSize;
+			int y = (int)(g.mapSize*Math.random())*g.tileSize;
+			if(g.getMap().canGo(x, y)) 
+			{
+				if(g.state.me.getKind() == Kind.NINJA) 
+				{
+					g.state.items.add(new Player(x,y,Kind.SKELETON));
+					
+					
+				}
+				else 
+				{
+					g.state.items.add(new Player(x,y,Kind.NINJA));
+				}
+				
+				
+			}
+			else 
+			{
+				i--;
+			}
+			}
 		} else {
 			try {
 				cc = new ClientConnection(d.ip, d.port, (d.pirate) ? Kind.SKELETON : Kind.NINJA) {

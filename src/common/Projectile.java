@@ -61,7 +61,7 @@ public class Projectile extends Entity {
 			}
 		} else if (velX < 0) {
 			for (int i = 0; i > velX; i--) {
-				if (m.canGo(x + Game.tileSize, y)) {
+				if (m.canGo(x - Game.tileSize, y)) {
 					x -= Game.tileSize;
 				} else {
 					exists = false;

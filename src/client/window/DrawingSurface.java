@@ -201,7 +201,7 @@ public class DrawingSurface extends PApplet {
 						if ((e.getKind() == Kind.SHURIKEN && e0.getKind() == Kind.SKELETON)
 								|| (e.getKind() == Kind.BULLET && e0.getKind() == Kind.NINJA)) {
 							((Player) e0).hurt();
-							System.out.println("ow");
+							
 							if (((Player) e0).getLives() <= 0) {
 								latest.items.remove(e0);
 							}

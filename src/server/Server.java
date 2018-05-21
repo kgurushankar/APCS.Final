@@ -7,6 +7,8 @@ import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import client.window.Game;
+import common.Entity;
+import common.Sendable;
 
 /**
  * Main class that the server runs off of
@@ -37,7 +39,6 @@ public class Server implements AutoCloseable {
 		} catch (BindException be) { // Server cannot be created, so no use continuing program
 			System.exit(0);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		connections = new Vector<Server.Connection>();
@@ -55,10 +56,9 @@ public class Server implements AutoCloseable {
 					Server.Connection c = new Server.Connection(s.accept());
 					Game send = state.addConnection(c);
 					c.sendData(send);
-					System.out.println("sent game");
 					new Thread(c).start(); // fork
 					connections.add(c);
-					state.addConnection(c);
+					c.sendData(state.addConnection(c));
 					Thread.yield(); // optional
 				} catch (ServerException | SocketException e) { // if this ever runs, the server is busted
 					e.printStackTrace();
@@ -93,8 +93,7 @@ public class Server implements AutoCloseable {
 				state.removeConnection(c);
 			}
 			common.State s = state.generateState(c);
-			c.sendData(s.items);
-			c.sendData(s.me);
+			c.sendData(s);
 		}
 	}
 
@@ -107,17 +106,18 @@ public class Server implements AutoCloseable {
 	public class Connection implements AutoCloseable, Runnable {
 		private Socket s;
 		private BufferedReader in;
-		private ObjectOutputStream out;
+		private BufferedWriter out;
 
 		public Connection(Socket s) throws IOException {
 			this.s = s;
 			in = new BufferedReader(new InputStreamReader(s.getInputStream()));
-			out = new ObjectOutputStream(s.getOutputStream());
+			out = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
 		}
 
-		public void sendData(Object send) {
+		public void sendData(Sendable send) {
 			try {
-				out.writeObject(send);
+				out.write(send.toParseableString());
+				out.newLine();
 				out.flush();
 			} catch (SocketException e) {
 				try {
@@ -144,6 +144,7 @@ public class Server implements AutoCloseable {
 				// should probably find a way to remove the cast
 				while ((current = in.readLine()) != null && !isClosed()) {
 					handleMessage(current);
+					Thread.yield();
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

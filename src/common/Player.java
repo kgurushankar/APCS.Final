@@ -3,6 +3,8 @@ package common;
 import java.util.Random;
 import java.io.Serializable;
 import client.window.Game;
+import common.Entity.Direction;
+import common.Entity.Kind;
 import processing.core.PApplet;
 
 /**
@@ -29,6 +31,28 @@ public class Player extends Entity implements Serializable {
 		super(x, y, 0., 0., identifier, d);
 		facing = Direction.DOWN;
 		// TODO Auto-generated constructor stub
+	}
+
+	public Player(String parseable) {
+		super(Integer.parseInt(parseable.split(" ")[1]), Integer.parseInt(parseable.split(" ")[2]), 0, 0,
+				Kind.values()[Integer.parseInt("" + parseable.split(" ")[4].charAt(0))],
+				Direction.values()[Integer.parseInt("" + parseable.split(" ")[4].charAt(1))]);
+		if (parseable.startsWith("Player")) {
+			lives = Integer.parseInt(parseable.split(" ")[3]);
+		} else {
+			throw new IllegalArgumentException();
+		}
+	}
+
+	@Override
+	public String toParseableString() {
+		StringBuffer sb = new StringBuffer("Player ");
+		sb.append(x + " ");
+		sb.append(y + " ");
+		sb.append(lives + " ");
+		sb.append(identifier.ordinal());
+		sb.append(facing.ordinal());
+		return sb.toString();
 	}
 
 	public void act(Map m, State s) {

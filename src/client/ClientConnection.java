@@ -2,10 +2,12 @@ package client;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.Vector;
 
 import client.window.Game;
 import common.Entity;
+import common.Map;
 import common.Player;
 import common.State;
 
@@ -18,13 +20,13 @@ import common.State;
  */
 public abstract class ClientConnection implements AutoCloseable, Runnable {
 	private Socket s;
-	private ObjectInputStream in;
+	private BufferedReader in;
 	private BufferedWriter out;
 	private Game g;
 
 	public ClientConnection(String address, int port) throws IOException {
 		this.s = new Socket(address, port);
-		in = new ObjectInputStream(s.getInputStream());
+		in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 		out = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
 	}
 
@@ -46,18 +48,14 @@ public abstract class ClientConnection implements AutoCloseable, Runnable {
 
 	public void run() {
 		try {
-			Object current = null;
+			String current = null;
 			// should probably find a way to remove the cast
-			while ((current = in.readObject()) != null) {
-				Player p = (Player) in.readObject();
-				State d = new State((Vector<Entity>) current, p);
+			while ((current = in.readLine()) != null) {
+				State d = new State(in.readLine());
 				handleMessage(d);
-				System.out.println(current);
+				Thread.yield();
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("Error during serialization, check your version");
 			e.printStackTrace();
 		}
 	}
@@ -67,9 +65,8 @@ public abstract class ClientConnection implements AutoCloseable, Runnable {
 	}
 
 	private Game initGame() throws ClassNotFoundException, IOException {
-		Object o = in.readObject();
-		Game game = (Game) o;
-		return game;
+		String s = in.readLine();
+		return new Game(s);
 	}
 
 	public Game getGame() throws ClassNotFoundException, IOException {

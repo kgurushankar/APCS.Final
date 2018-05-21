@@ -17,11 +17,8 @@ import server.MapGenerator;
  * @author kgurushankar
  * @version 18.5.10
  */
-public class Game implements Runnable, Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1536277126220871541L;
+public class Game implements Runnable, Sendable {
+
 	public transient static final int mapSize = 100;
 	public static final boolean cornerLock = false;
 	public transient static final int tileSize = 64;
@@ -37,6 +34,17 @@ public class Game implements Runnable, Serializable {
 		map = MapGenerator.generateMap(100);
 		state = new State(new Vector<Entity>(), null);
 		respawn();
+	}
+
+	public Game(String parseable) {
+		String s[] = parseable.split("::");
+		map = new Map(s[0]);
+		state = new State(s[1]);
+	}
+
+	@Override
+	public String toParseableString() {
+		return map.toParseableString() + "::" + state.toParseableString();
 	}
 
 	public synchronized void updateState(State state) {
@@ -102,4 +110,5 @@ public class Game implements Runnable, Serializable {
 	public String toString() {
 		return map.toString();
 	}
+
 }

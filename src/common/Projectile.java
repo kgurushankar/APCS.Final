@@ -10,33 +10,44 @@ import client.window.Game;
  */
 public class Projectile extends Entity {
 
-	
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5875503773522192826L;
-
 	public Projectile(int x, int y, double velocityX, double velocityY, Kind identifier, Direction direction) {
 		super(x, y, velocityX, velocityY, identifier, direction);
 		exists = true;
 
 	}
 
+	public Projectile(String parseable) {
+		super(Integer.parseInt(parseable.split(" ")[1]), Integer.parseInt(parseable.split(" ")[2]), 0, 0,
+				Kind.values()[Integer.parseInt("" + parseable.split(" ")[3].charAt(0))],
+				Direction.values()[Integer.parseInt("" + parseable.split(" ")[3].charAt(1))]);
+		if (!parseable.startsWith("Projectile")) {
+			throw new IllegalArgumentException();
+		}
+	}
+
+	@Override
+	public String toParseableString() {
+		StringBuffer sb = new StringBuffer("Projectile ");
+		sb.append(x + " ");
+		sb.append(y + " ");
+		sb.append(identifier.ordinal());
+		sb.append(facing.ordinal());
+		return sb.toString();
+	}
+
 	public void act(Map m, State s) {
 		int velY = (int) velocityY;
 		int velX = (int) velocityX;
 
-	
-			for (int i = 0; i < velY; i++) {
-				if (m.canGo(x, y + Game.tileSize)) {
-					y += Game.tileSize;
-				} else {
-					exists = false;
-					return;
-				}
+		for (int i = 0; i < velY; i++) {
+			if (m.canGo(x, y + Game.tileSize)) {
+				y += Game.tileSize;
+			} else {
+				exists = false;
+				return;
 			}
-		  if (velY < 0) {
+		}
+		if (velY < 0) {
 			for (int i = 0; i > velY; i--) {
 				if (m.canGo(x, y - Game.tileSize)) {
 					y -= Game.tileSize;
@@ -55,11 +66,11 @@ public class Projectile extends Entity {
 				}
 			}
 		}
-		
+
 		else {
 			for (int i = 0; i < velX; i++) {
-				if (m.canGo(x +Game.tileSize, y)) {
-					x+=Game.tileSize;
+				if (m.canGo(x + Game.tileSize, y)) {
+					x += Game.tileSize;
 				} else {
 					exists = false;
 					return;
@@ -67,7 +78,5 @@ public class Projectile extends Entity {
 			}
 		}
 	}
-
-	
 
 }

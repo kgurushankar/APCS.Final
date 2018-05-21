@@ -14,13 +14,8 @@ import processing.core.PApplet;
  * @author unkemptherald
  * @version 18.5.16
  */
-public abstract class Entity implements Serializable {
-	
+public abstract class Entity implements Sendable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1638645902015687214L;
 	protected static enum Direction {
 		UP, RIGHT, DOWN, LEFT;
 		public String toString() {
@@ -88,45 +83,46 @@ public abstract class Entity implements Serializable {
 	}
 
 	public void draw(PApplet applet) {
-		if(this.exists) {
-		if (identifier == Kind.NINJA || identifier == Kind.SKELETON) {
-		if (walking[identifier.ordinal()][facing.ordinal()] == null) {
-			String motion = "Walking";
-			String folder = "assets/" + identifier + "/128/" + facing + " - " + motion + "/";
-			File f = new File(folder);
-			int frames = f.listFiles().length;
-			String[] locations = new String[frames];
-			DecimalFormat end = new DecimalFormat("000");
-			for (int i = 0; i < frames; i++) {
-				String num = end.format(i);
-				locations[i] = folder + facing + " - " + motion + "_" + num + ".png";
+		if (this.exists) {
+			if (identifier == Kind.NINJA || identifier == Kind.SKELETON) {
+				if (walking[identifier.ordinal()][facing.ordinal()] == null) {
+					String motion = "Walking";
+					String folder = "assets/" + identifier + "/128/" + facing + " - " + motion + "/";
+					File f = new File(folder);
+					int frames = f.listFiles().length;
+					String[] locations = new String[frames];
+					DecimalFormat end = new DecimalFormat("000");
+					for (int i = 0; i < frames; i++) {
+						String num = end.format(i);
+						locations[i] = folder + facing + " - " + motion + "_" + num + ".png";
+					}
+					walking[identifier.ordinal()][facing.ordinal()] = new Animation(locations, "png");
+				}
+				if (hurt[identifier.ordinal()][facing.ordinal()] == null) {
+					String motion = "Hurt";
+					String folder = "assets/" + identifier + "/128/" + facing + " - " + motion + "/";
+					File f = new File(folder);
+					int frames = f.listFiles().length;
+					String[] locations = new String[frames];
+					DecimalFormat end = new DecimalFormat("000");
+					for (int i = 0; i < frames; i++) {
+						String num = end.format(i);
+						locations[i] = folder + facing + " - " + motion + "_" + num + ".png";
+					}
+					hurt[identifier.ordinal()][facing.ordinal()] = new Animation(locations, "png");
+				}
 			}
-			walking[identifier.ordinal()][facing.ordinal()] = new Animation(locations, "png");
-		}
-		if (hurt[identifier.ordinal()][facing.ordinal()] == null) {
-			String motion = "Hurt";
-			String folder = "assets/" + identifier + "/128/" + facing + " - " + motion + "/";
-			File f = new File(folder);
-			int frames = f.listFiles().length;
-			String[] locations = new String[frames];
-			DecimalFormat end = new DecimalFormat("000");
-			for (int i = 0; i < frames; i++) {
-				String num = end.format(i);
-				locations[i] = folder + facing + " - " + motion + "_" + num + ".png";
-			}
-			hurt[identifier.ordinal()][facing.ordinal()] = new Animation(locations, "png");
-		}
-		}
-		if (identifier == Kind.BULLET) {
-			applet.rect(x+Game.tileSize/2-5, y+Game.tileSize/2-5, 10, 10);
-		} else if (identifier == Kind.SHURIKEN) 
-			applet.ellipse(x+Game.tileSize/2-5, y+Game.tileSize/2-5, 10, 10);
+			if (identifier == Kind.BULLET) {
+				applet.rect(x + Game.tileSize / 2 - 5, y + Game.tileSize / 2 - 5, 10, 10);
+			} else if (identifier == Kind.SHURIKEN)
+				applet.ellipse(x + Game.tileSize / 2 - 5, y + Game.tileSize / 2 - 5, 10, 10);
 		}
 	}
 
 	public Kind getNext(Kind t) {
 		return Kind.values()[(t.ordinal() + 1) % Kind.values().length];
 	}
+
 	public boolean destroy() {
 		return !exists;
 	}

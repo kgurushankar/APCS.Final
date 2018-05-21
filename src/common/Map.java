@@ -9,20 +9,28 @@ import processing.core.PImage;
 
 /**
  * Map data of the game
+ * 
  * @author kgurushankar
  * 
- * @version 18.5.10
+ * @version 18.5.20
  */
-public class Map implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3637177447616075769L;
+public class Map implements Sendable {
 	/** isWall */
 	private boolean[][] state;
 
 	public Map(boolean[][] state) {
 		this.state = state;
+	}
+
+	public Map(String s) {
+		String[] lines = s.split(" ");
+		state = new boolean[lines.length][];
+		for (int i = 0; i < state.length; i++) {
+			state[i] = new boolean[lines[i].length()];
+			for (int j = 0; j < state[i].length; j++) {
+				state[i][j] = lines[i].charAt(j) == '1';
+			}
+		}
 	}
 
 	public String toString() {
@@ -131,7 +139,7 @@ public class Map implements Serializable {
 					applet.image(floor, px, py, w, h);
 				} else {
 					applet.fill(Color.BLACK.getRGB());
-					applet.image(office,px, py, w, h);
+					applet.image(office, px, py, w, h);
 				}
 				px += w;
 				j++;
@@ -169,5 +177,17 @@ public class Map implements Serializable {
 
 	public int getSize() {
 		return state.length;
+	}
+
+	@Override
+	public String toParseableString() {
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < state.length; i++) {
+			for (int j = 0; j < state[i].length; j++) {
+				sb.append((state[i][j]) ? '1' : '0');
+			}
+			sb.append(' ');
+		}
+		return sb.toString();
 	}
 }

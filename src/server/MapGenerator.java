@@ -18,7 +18,6 @@ public class MapGenerator {
 	 * @return a randomly generated map
 	 */
 	public static Map generateMap(int sideLength) {
-		// return new Map(new boolean[100][100]);
 		sideLength /= 2;
 		if (sideLength <= 100) {
 			return new Map(change(generateMapPart(sideLength, sideLength)));
@@ -35,10 +34,10 @@ public class MapGenerator {
 					}
 				}
 			}
-			// TODO check seams...
 
 			return new Map(change(state));
 		}
+
 	}
 
 	private static int[][] generateMapPart(int width, int height) {

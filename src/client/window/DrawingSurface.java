@@ -35,7 +35,6 @@ public class DrawingSurface extends PApplet {
 					public void handleMessage(State s) {
 						// g = new Game(g.getMap(), s);
 						latest = s;
-						g.updateState(s);
 						ready = true;
 					}
 				};

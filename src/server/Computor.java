@@ -12,7 +12,7 @@ import common.Player;
  * @version 18.5.16
  */
 public class Computor {
-	public static final int FPS = 1;
+	public static final int FPS = 30;
 
 	private volatile Server s;
 

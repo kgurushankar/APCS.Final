@@ -126,4 +126,12 @@ public abstract class Entity implements Sendable {
 	public boolean destroy() {
 		return !exists;
 	}
+
+	public int getY() {
+		return y;
+	}
+
+	public int getX() {
+		return x;
+	}
 }

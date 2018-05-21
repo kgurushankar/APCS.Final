@@ -63,13 +63,6 @@ public class Player extends Entity {
 			s.items.add(p);
 	}
 
-	public int getY() {
-		return y;
-	}
-
-	public int getX() {
-		return x;
-	}
 
 	public void moveX(boolean positive, Map m) {
 		int newx = x + ((positive) ? 1 : -1) * Game.tileSize;

@@ -45,7 +45,6 @@ public class DrawingSurface extends PApplet {
 					} else {
 						latest.items.add(new Enemy(x, y, Kind.NINJA));
 					}
-
 				} else {
 					i--;
 				}
@@ -78,7 +77,7 @@ public class DrawingSurface extends PApplet {
 
 	public void setup() {
 		frameRate(30);
-		heart = loadImage("assets/heart.jpg", "jpg");
+		heart = loadImage("assets/heart.png", "png");
 	}
 
 	public int getWidth() {
@@ -103,8 +102,33 @@ public class DrawingSurface extends PApplet {
 			}
 
 			g.getMap().draw(this, 0, 0, Game.tileSize, Game.tileSize);
-			for (Entity e : latest.items) {
+			for (int i = 0; i < latest.items.size(); i++) {
+				Entity e = latest.items.get(i);
 				e.draw(this);
+				if (e.collide(latest.me)) {
+					if ((e.getKind() == Kind.SHURIKEN && latest.me.getKind() == Kind.SKELETON)
+							|| (e.getKind() == Kind.BULLET && latest.me.getKind() == Kind.NINJA)) {
+						latest.me.hurt();
+						if (latest.me.getLives() <= 0) {
+							System.out.println("loser");
+						}
+					}
+				}
+
+				for (int j = 0; j < latest.items.size(); j++) {
+					Entity e0 = latest.items.get(j);
+					if (e.collide(e0)) {
+						if ((e.getKind() == Kind.SHURIKEN && e0.getKind() == Kind.SKELETON)
+								|| (e.getKind() == Kind.BULLET && e0.getKind() == Kind.NINJA)) {
+							((Player) e0).hurt();
+							System.out.println("ow");
+							if (((Player) e0).getLives() <= 0) {
+								latest.items.remove(e0);
+							}
+							latest.items.remove(e);
+						}
+					}
+				}
 				e.act(g.getMap(), latest);
 			}
 			latest.me.draw(this);

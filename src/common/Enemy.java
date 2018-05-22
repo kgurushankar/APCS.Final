@@ -12,10 +12,12 @@ public class Enemy extends Player {
 	}
 
 	public Enemy(int x, int y, Kind identifier) {
-		this(x,y,identifier,Direction.DOWN);
+		this(x, y, identifier, Direction.DOWN);
 	}
 
 	public void act(Map m, State s) {
+		if (Math.random() > 1. / 30)
+			return;
 		int dir = (int) (Math.random() * 4);
 		if (dir < 2) {
 			this.moveX(dir == 0, m);

@@ -11,6 +11,10 @@ public class Enemy extends Player {
 		super(x, y, identifier, d);
 	}
 
+	public Enemy(int x, int y, Kind identifier) {
+		this(x,y,identifier,Direction.DOWN);
+	}
+
 	public void act(Map m, State s) {
 		int dir = (int) (Math.random() * 4);
 		if (dir < 2) {

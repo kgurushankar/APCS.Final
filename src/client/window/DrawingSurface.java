@@ -8,10 +8,12 @@ import client.ClientConnection;
 import client.window.settings.Settings;
 import common.State;
 import common.Entity.Kind;
+import common.Enemy;
 import common.Entity;
 import common.Player;
 import common.Projectile;
 import processing.core.PApplet;
+import processing.core.PImage;
 
 /**
  * Window that displays the game
@@ -38,10 +40,10 @@ public class DrawingSurface extends PApplet {
 				int x = (int) (d.mapSize * Math.random()) * Game.tileSize;
 				int y = (int) (d.mapSize * Math.random()) * Game.tileSize;
 				if (g.getMap().canGo(x, y)) {
-					if (g.state.me.getKind() == Kind.NINJA) {
-						g.state.items.add(new Player(x, y, Kind.SKELETON));
+					if (latest.me.getKind() == Kind.NINJA) {
+						latest.items.add(new Enemy(x, y, Kind.SKELETON));
 					} else {
-						g.state.items.add(new Player(x, y, Kind.NINJA));
+						latest.items.add(new Enemy(x, y, Kind.NINJA));
 					}
 
 				} else {
@@ -72,8 +74,11 @@ public class DrawingSurface extends PApplet {
 		this.d = d;
 	}
 
+	private PImage heart;
+
 	public void setup() {
 		frameRate(30);
+		heart = loadImage("assets/heart.jpg", "jpg");
 	}
 
 	public int getWidth() {
@@ -88,6 +93,7 @@ public class DrawingSurface extends PApplet {
 		background(0);
 		if (ready) {
 			pushMatrix();
+
 			float mx = -latest.me.getX() + width / 2;
 			float my = -latest.me.getY() + height / 2;
 			if (Game.cornerLock) {
@@ -104,6 +110,9 @@ public class DrawingSurface extends PApplet {
 			latest.me.draw(this);
 
 			popMatrix();
+			for (int i = 0; i < latest.me.getLives(); i++) {
+				image(heart, 8 + i * 20, 8, 16, 16);
+			}
 		}
 	}
 

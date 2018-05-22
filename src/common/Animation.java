@@ -4,7 +4,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 /**
- * An animateble series of images
+ * An animateable series of images
  * 
  * @author kgurushankar
  * @version 18.5.16

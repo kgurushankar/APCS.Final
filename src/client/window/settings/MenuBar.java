@@ -6,6 +6,12 @@ import java.io.*;
 import java.util.ArrayList;
 import common.FileIO;
 
+/**
+ * Menu Bar for Client Settings
+ * 
+ * @author kgurushankar
+ * @version 18.5.21
+ */
 public class MenuBar extends JMenuBar {
 	/**
 	 * 

@@ -8,6 +8,12 @@ import common.FileIO;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Menu Bar for Server Settings
+ * 
+ * @author kgurushankar
+ * @version 18.5.21
+ */
 public class MenuBar extends JMenuBar {
 	/**
 	 * 

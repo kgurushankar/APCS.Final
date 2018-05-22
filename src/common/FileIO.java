@@ -6,7 +6,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/**
+ * FileIO class from old APCS project
+ * @author kgurushankar
+ *@version 18.5.21
+ */
 public class FileIO {
 
 	public static final String fileSeparator = System.getProperty("file.separator");

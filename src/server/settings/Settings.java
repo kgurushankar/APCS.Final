@@ -4,6 +4,12 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+/**
+ * Settings Dialog Box
+ * 
+ * @author kgurushankar
+ * @version 18.5.21
+ */
 public class Settings extends JFrame implements ActionListener {
 	/**
 	 * 
@@ -16,6 +22,12 @@ public class Settings extends JFrame implements ActionListener {
 	private JButton start;
 	Data d;
 
+	/**
+	 * Settings Data
+	 * 
+	 * @author kgurushankar
+	 * @version 18.5.21
+	 */
 	public static class Data {
 		public int maxPlayers;
 		public int mapSize;

@@ -1,4 +1,6 @@
 client
 client.window
+client.window.settings
 common
 server
+server.settings

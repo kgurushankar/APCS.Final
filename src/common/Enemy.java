@@ -3,7 +3,8 @@ package common;
 /**
  * A player with AI
  * 
- *
+ * @author unkemptherald
+ * @version 18.5.21
  */
 public class Enemy extends Player {
 

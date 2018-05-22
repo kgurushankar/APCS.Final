@@ -33,7 +33,7 @@ public class ServerState {
 	public Game addConnection(Server.Connection sc, Kind kind) {
 		int[] spawn = map.spawnPoint();
 		Player me = new Player(spawn[0] * Game.tileSize, spawn[1] * Game.tileSize, kind);
-		System.out.println(Arrays.toString(spawn));
+		
 		players.put(sc, me);
 		State o = generateState(sc);
 		return new Game(map, o);

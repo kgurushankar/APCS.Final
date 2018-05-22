@@ -135,7 +135,7 @@ public class MenuBar extends JMenuBar {
 				try {
 					fileOut = new PrintWriter(new FileWriter(file));
 				} catch (IOException ex) {
-					System.out.println("*** Can't create file ***");
+					
 					return;
 				}
 				fileOut.println("map-size=" + (s.d.mapSize));

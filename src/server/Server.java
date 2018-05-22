@@ -38,7 +38,7 @@ public class Server implements AutoCloseable {
 		connections = new Vector<Server.Connection>();
 		state = new ServerState(d);
 		queue = new ConcurrentLinkedQueue<Message>();
-		System.out.println("ready");
+		
 		new Thread(new Accepter(), "Connections").start();
 		new Computor(this);
 	}
@@ -60,7 +60,7 @@ public class Server implements AutoCloseable {
 						} else {
 							i--;
 						}
-						System.out.println("in");
+						
 					}
 					for (int i = 0; i < d.ninjas; i++) {
 						int x = (int) (d.mapSize * Math.random()) * Game.tileSize;
@@ -70,7 +70,7 @@ public class Server implements AutoCloseable {
 						} else {
 							i--;
 						}
-						System.out.println("in");
+						
 					}
 					c.sendData(send);
 					new Thread(c).start(); // fork
@@ -169,7 +169,7 @@ public class Server implements AutoCloseable {
 					Thread.yield();
 				}
 			} catch (Exception e) {
-				System.out.println("kill " + this);
+				
 				try {
 					connections.remove(this);
 					state.removeConnection(this);

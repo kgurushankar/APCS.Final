@@ -1,9 +1,9 @@
 # APCS.Final
 ## By Keshav Gurushankar and Andrew Scott
 ## Summary:
-Our goal is to create a top-down multiplayer shooter. The player has 2 dimensional movement independent of it's shooting direction, which can only be in one of the 4 cardinal directions from the player.
+Our goal is to create a top-down multiplayer shooter. The player has 2 dimensional movement dependent on their shooting direction, which can only be in one of the 4 cardinal directions from the player.
 
-The game will be a team death match with 2 teams, ninjas vs pirates, who shoot shuriken and their guns respectively.
+The game will be a team death match with 2 teams, ninjas vs pirates, who throw shuriken and shoot their guns respectively.
 with enough servers, the game could become a multiplayer online system.
 
 The primary feature of the game is the low latency multiplayer shooter experience. 
@@ -11,11 +11,11 @@ The primary feature of the game is the low latency multiplayer shooter experienc
 ### Multiplayer Mode
 * Two teams face off
 * Host can choose to have AI, configure map size, and max number of players
-* Lose by total number of Deaths across the team exceeding a certain number
+* Lose by total number of Deaths on the player
 
 ### Singleplayer Mode
 * Can choose how many players on each team to manage difficulty
-* Play with AI with variable difficulty levels
+* Play with AI
 * Score is the KD ratio of the player
 
 ## Instructions:
@@ -23,7 +23,6 @@ The primary feature of the game is the low latency multiplayer shooter experienc
 2. select your team
 3. use WASD or arrow keys to move
 4. use your mouse to fire
-5. press space to respawn once dead
 ## Features:
 ### Must Have:
 * Map generation

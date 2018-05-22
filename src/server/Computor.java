@@ -3,8 +3,10 @@ package server;
 import java.util.concurrent.*;
 
 import common.Entity;
+import common.Entity.Kind;
 import common.Map;
 import common.Player;
+import common.Projectile;
 import server.Server.Connection;
 
 /**
@@ -56,7 +58,10 @@ public class Computor {
 						Map m = s.getState().map;
 						switch (dir) {
 						case 'f':
-
+							Projectile pr = p.fire(m);
+							if (pr != null) {
+								s.state.items.add(pr);
+							}
 						}
 					}
 				}
@@ -69,12 +74,22 @@ public class Computor {
 		@Override
 		public void run() {
 			s.updateAll();
-			for (Connection c : s.state.players.keySet()) {
-				Player p = s.state.players.get(c);
-				for (int i = 0; i < s.state.items.size(); i++) {
-					Entity e = s.state.items.get(i);
+
+			for (int i = 0; i < s.state.items.size(); i++) {
+				Entity e = s.state.items.get(i);
+				e.act(s.state.map, null);
+				if (e.destroy()) {
+					s.state.items.remove(i);
+					i--;
+					continue;
+				}
+				for (Connection c : s.state.players.keySet()) {
+					Player p = s.state.players.get(c);
 					if (e.collide(p)) {
-						p.hurt();
+						if ((e.getKind() == Kind.SHURIKEN && p.getKind() == Kind.SKELETON)
+								|| (e.getKind() == Kind.BULLET && p.getKind() == Kind.NINJA)) {
+							p.hurt();
+						}
 						s.state.items.remove(i);
 					}
 				}

@@ -48,15 +48,6 @@ public class Player extends Entity {
 	}
 
 	public void act(Map m, State s) {
-		int dir = (int) (Math.random() * 4);
-		if (dir < 2) {
-			this.moveX(dir == 0, m);
-		} else {
-			this.moveY(dir % 2 == 0, m);
-		}
-		Projectile p = this.fire(m);
-		if (p != null)
-			s.items.add(p);
 	}
 
 	public void moveX(boolean positive, Map m) {

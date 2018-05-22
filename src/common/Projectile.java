@@ -19,8 +19,8 @@ public class Projectile extends Entity {
 	public Projectile(String parseable) {
 		super(Integer.parseInt(parseable.split(" ")[1]), Integer.parseInt(parseable.split(" ")[2]),
 				Double.parseDouble(parseable.split(" ")[3]), Double.parseDouble(parseable.split(" ")[4]),
-				Kind.values()[Integer.parseInt("" + parseable.split(" ")[3].charAt(0))],
-				Direction.values()[Integer.parseInt("" + parseable.split(" ")[3].charAt(1))]);
+				Kind.values()[Integer.parseInt("" + parseable.split(" ")[5].charAt(0))],
+				Direction.values()[Integer.parseInt("" + parseable.split(" ")[5].charAt(1))]);
 		if (!parseable.startsWith("Projectile")) {
 			throw new IllegalArgumentException();
 		}

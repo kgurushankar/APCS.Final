@@ -31,12 +31,11 @@ public class State implements Sendable {
 		String[] s = parseableString.split("\\|");
 		this.items = new Vector<Entity>();
 		for (int i = 0; i < s.length - 1; i++) {
-			try {
-				items.add(new Projectile(s[i]));
-			} catch (IllegalArgumentException | StringIndexOutOfBoundsException e) {
+			if (s[i].startsWith("Player")) {
 				items.add(new Player(s[i]));
+			} else if (s[i].startsWith("Projectile")) {
+				items.add(new Projectile(s[i]));
 			}
-
 		}
 		me = new Player(s[s.length - 1]);
 	}

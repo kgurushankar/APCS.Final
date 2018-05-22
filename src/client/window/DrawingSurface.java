@@ -31,31 +31,22 @@ public class DrawingSurface extends PApplet {
 			d = Settings.run();
 		}
 		if (d.singleplayer) {
-			g = new Game((d.pirate) ? Kind.SKELETON : Kind.NINJA);
+			g = new Game((d.pirate) ? Kind.SKELETON : Kind.NINJA, d.mapSize);
 			latest = g.state;
 			ready = true;
-			for(int i = 0; i<d.enemies; i++) {
-			int x = (int)(g.mapSize*Math.random())*g.tileSize;
-			int y = (int)(g.mapSize*Math.random())*g.tileSize;
-			if(g.getMap().canGo(x, y)) 
-			{
-				if(g.state.me.getKind() == Kind.NINJA) 
-				{
-					g.state.items.add(new Player(x,y,Kind.SKELETON));
-					
-					
+			for (int i = 0; i < d.enemies; i++) {
+				int x = (int) (d.mapSize * Math.random()) * Game.tileSize;
+				int y = (int) (d.mapSize * Math.random()) * Game.tileSize;
+				if (g.getMap().canGo(x, y)) {
+					if (g.state.me.getKind() == Kind.NINJA) {
+						g.state.items.add(new Player(x, y, Kind.SKELETON));
+					} else {
+						g.state.items.add(new Player(x, y, Kind.NINJA));
+					}
+
+				} else {
+					i--;
 				}
-				else 
-				{
-					g.state.items.add(new Player(x,y,Kind.NINJA));
-				}
-				
-				
-			}
-			else 
-			{
-				i--;
-			}
 			}
 		} else {
 			try {

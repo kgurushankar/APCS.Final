@@ -18,7 +18,6 @@ import server.MapGenerator;
  */
 public class Game implements Runnable, Sendable {
 
-	public transient static final int mapSize = 100;
 	public static final boolean cornerLock = false;
 	public transient static final int tileSize = 64;
 	private volatile Map map; // really the only thing sent
@@ -34,15 +33,15 @@ public class Game implements Runnable, Sendable {
 		state = new State(new Vector<Entity>(), respawn(Kind.SKELETON));
 	}
 
-	public Game(Kind identifier) {
-		map = MapGenerator.generateMap(100);
-		state = new State(new Vector<Entity>(), respawn(identifier));
-	}
-
 	public Game(String parseable) {
 		String s[] = parseable.split("::");
 		map = new Map(s[0]);
 		state = new State(s[1]);
+	}
+
+	public Game(Kind identifier, int mapSize) {
+		map = MapGenerator.generateMap(mapSize);
+		state = new State(new Vector<Entity>(), respawn(identifier));
 	}
 
 	@Override
@@ -90,10 +89,6 @@ public class Game implements Runnable, Sendable {
 	public Player respawn(Kind identifier) {
 		int[] spawn = map.spawnPoint();
 		return new Player(spawn[0] * tileSize, spawn[1] * tileSize, identifier);
-	}
-
-	public AtomicReference<State> getState() {
-		return new AtomicReference<State>(state);
 	}
 
 	public void run() {

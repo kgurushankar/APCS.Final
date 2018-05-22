@@ -169,4 +169,8 @@ public class Server implements AutoCloseable {
 		}
 
 	}
+
+	public void removeConnection(Connection c) {
+		connections.remove(c);
+	}
 }

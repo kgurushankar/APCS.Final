@@ -1,5 +1,6 @@
 package server;
 
+import java.io.IOException;
 import java.util.concurrent.*;
 
 import common.Entity;
@@ -89,6 +90,16 @@ public class Computor {
 						if ((e.getKind() == Kind.SHURIKEN && p.getKind() == Kind.SKELETON)
 								|| (e.getKind() == Kind.BULLET && p.getKind() == Kind.NINJA)) {
 							p.hurt();
+							if (p.getLives() <= 0) {
+								try {
+									c.close();
+									s.state.removeConnection(c);
+									s.removeConnection(c);
+								} catch (IOException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+							}
 						}
 						s.state.items.remove(i);
 					}

@@ -146,7 +146,11 @@ public class DrawingSurface extends PApplet {
 		fill(255);
 		textSize(20);
 		textAlign(PApplet.CENTER, PApplet.CENTER);
-		text("You Lose \nEnemies Killed: " + kills, width / 2, height / 2);
+		if (cc == null) {
+			text("You Lose \nEnemies Killed: " + kills, width / 2, height / 2);
+		} else {
+			text("You Lose", width / 2, height / 2);
+		}
 	}
 
 	private void mainScreen() {

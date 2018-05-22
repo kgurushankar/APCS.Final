@@ -18,25 +18,27 @@ public class MapGenerator {
 	 * @return a randomly generated map
 	 */
 	public static Map generateMap(int sideLength) {
-		sideLength /= 2;
-		if (sideLength <= 100) {
-			return new Map(change(generateMapPart(sideLength, sideLength)));
-		} else {
-			int[][] state = new int[sideLength][sideLength];
-			int subcomponents = (sideLength + 99) / 100; // round up always
-			for (int i = 0; i < subcomponents; i++) {
-				for (int j = 0; j < subcomponents; j++) {
-					int[][] a = generateMapPart(100, 100);
-					for (int k = i * 100; k < (i + 1) * 100 && k < sideLength; k++) {
-						for (int l = j * 100; l < (j + 1) * 100 && l < sideLength; l++) {
-							state[k][l] = a[k - i * 100][l - j * 100];
-						}
-					}
-				}
-			}
-
-			return new Map(change(state));
-		}
+		return new Map(new boolean[sideLength][sideLength]);
+		// sideLength /= 2;
+		// if (sideLength <= 100) {
+		// return new Map(change(generateMapPart(sideLength, sideLength)));
+		// } else {
+		// int[][] state = new int[sideLength][sideLength];
+		// int subcomponents = (sideLength + 99) / 100; // round up always
+		// for (int i = 0; i < subcomponents; i++) {
+		// for (int j = 0; j < subcomponents; j++) {
+		// int[][] a = generateMapPart(100, 100);
+		// for (int k = i * 100; k < (i + 1) * 100 && k < sideLength; k++) {
+		// for (int l = j * 100; l < (j + 1) * 100 && l < sideLength; l++) {
+		// state[k][l] = a[k - i * 100][l - j * 100];
+		// }
+		// }
+		// }
+		// }
+		//
+		// return new Map(change(state));
+		//
+		// }
 
 	}
 

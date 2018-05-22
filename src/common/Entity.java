@@ -46,8 +46,8 @@ public abstract class Entity implements Sendable {
 	 * first index corresponds to type <br>
 	 * second index is direction (if only one direction, assume 0)
 	 */
-	protected Animation[][] walking = new Animation[Kind.values().length][Direction.values().length];
-	protected Animation[][] hurt = new Animation[Kind.values().length][Direction.values().length];
+	protected static Animation[][] walking = new Animation[Kind.values().length][Direction.values().length];
+	protected static Animation[][] hurt = new Animation[Kind.values().length][Direction.values().length];
 
 	public Entity(int x, int y, double velocityX, double velocityY, Kind identifier, Direction facing) {
 		this.x = x;

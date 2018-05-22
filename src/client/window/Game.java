@@ -1,6 +1,5 @@
 package client.window;
 
-import java.io.Serializable;
 import java.util.Vector;
 import java.util.concurrent.atomic.AtomicReference;
 

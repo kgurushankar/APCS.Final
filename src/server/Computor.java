@@ -2,8 +2,10 @@ package server;
 
 import java.util.concurrent.*;
 
+import common.Entity;
 import common.Map;
 import common.Player;
+import server.Server.Connection;
 
 /**
  * Computes the changes made to the game and sends back states periodically
@@ -61,18 +63,13 @@ public class Computor {
 		@Override
 		public void run() {
 			s.updateAll();
-			
-			for(int i = 0; i<s.state.players.size();i++) 
-			{
-				for(int a = 0; a<s.state.items.size();a++) 
-				{
-					if(s.state.players.get(i).getX()==s.state.items.get(a).getX()) 
-					{
-						if(s.state.players.get(i).getY()==s.state.items.get(a).getY())
-						{
-							s.state.players.get(i).hurt();
-							s.state.items.get(a).destroy();
-						}
+			for (Connection c : s.state.players.keySet()) {
+				Player p = s.state.players.get(c);
+				for (int i = 0; i < s.state.items.size(); i++) {
+					Entity e = s.state.items.get(i);
+					if (e.collide(p)) {
+						p.hurt();
+						s.state.items.remove(i);
 					}
 				}
 			}

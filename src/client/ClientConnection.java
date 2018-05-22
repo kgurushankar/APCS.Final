@@ -2,14 +2,8 @@ package client;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Arrays;
-import java.util.Vector;
-
 import client.window.Game;
-import common.Entity;
 import common.Entity.Kind;
-import common.Map;
-import common.Player;
 import common.State;
 
 /**
@@ -53,7 +47,7 @@ public abstract class ClientConnection implements AutoCloseable, Runnable {
 			String current = null;
 			// should probably find a way to remove the cast
 			while ((current = in.readLine()) != null) {
-				State d = new State(in.readLine());
+				State d = new State(current);
 				handleMessage(d);
 				Thread.yield();
 			}

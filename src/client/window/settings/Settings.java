@@ -2,11 +2,13 @@ package client.window.settings;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.net.InetAddress;
-
 import javax.swing.*;
 
 public class Settings extends JFrame implements ActionListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1046195028760178727L;
 	private static boolean selecting;
 	private JTextField ip;
 	private JLabel Mode, Ip, Port, Mapsize, Enemies, Team;

@@ -7,7 +7,6 @@ import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import client.window.Game;
-import common.Entity;
 import common.Entity.Kind;
 import common.Sendable;
 
@@ -18,7 +17,6 @@ import common.Sendable;
  * @version 18.5.16
  */
 public class Server implements AutoCloseable {
-	private volatile Computor c;
 	private volatile List<Server.Connection> connections;
 	private volatile ServerSocket s;
 	volatile ServerState state;
@@ -47,7 +45,7 @@ public class Server implements AutoCloseable {
 		queue = new ConcurrentLinkedQueue<Message>();
 		System.out.println("ready");
 		new Thread(new Accepter(), "Connections").start();
-		c = new Computor(this);
+		new Computor(this);
 	}
 
 	private class Accepter implements Runnable {

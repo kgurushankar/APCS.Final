@@ -1,11 +1,9 @@
 package common;
 
 import java.io.File;
-import java.io.Serializable;
 import java.text.DecimalFormat;
 
 import client.window.Game;
-import common.Entity.Kind;
 import processing.core.PApplet;
 
 /**
@@ -133,5 +131,9 @@ public abstract class Entity implements Sendable {
 
 	public int getX() {
 		return x;
+	}
+
+	public boolean collide(Entity e) {
+		return (Math.abs(this.x - e.x) < Game.tileSize && Math.abs(this.y - e.y) < Game.tileSize);
 	}
 }

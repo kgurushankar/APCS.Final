@@ -1,14 +1,15 @@
 package client.window.settings;
 
-import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.IllegalFormatException;
-import java.util.Scanner;
 
 public class MenuBar extends JMenuBar {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3797198984720998233L;
 	private Settings s;
 	private JMenuItem openItem, saveItem, exitItem;
 

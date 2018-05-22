@@ -1,8 +1,6 @@
 package common;
 
 import java.awt.Color;
-import java.io.Serializable;
-
 import client.window.Game;
 import processing.core.PApplet;
 import processing.core.PImage;

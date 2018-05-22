@@ -1,10 +1,6 @@
 package common;
 
-import java.util.Random;
-import java.io.Serializable;
 import client.window.Game;
-import common.Entity.Direction;
-import common.Entity.Kind;
 import processing.core.PApplet;
 
 /**
@@ -21,12 +17,12 @@ public class Player extends Entity {
 
 	public Player(int x, int y, Kind identifier) {
 		super(x, y, 0, 0, identifier, Direction.DOWN);
+		lives = MAX_LIVES;
 	}
 
 	public Player(int x, int y, Kind identifier, Direction d) {
 		super(x, y, 0., 0., identifier, d);
-		facing = Direction.DOWN;
-		// TODO Auto-generated constructor stub
+		lives = MAX_LIVES;
 	}
 
 	public Player(String parseable) {
@@ -62,7 +58,6 @@ public class Player extends Entity {
 		if (p != null)
 			s.items.add(p);
 	}
-
 
 	public void moveX(boolean positive, Map m) {
 		int newx = x + ((positive) ? 1 : -1) * Game.tileSize;

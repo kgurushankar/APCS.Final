@@ -1,7 +1,5 @@
 package common;
 
-import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 import java.util.Vector;
 

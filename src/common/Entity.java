@@ -110,9 +110,9 @@ public abstract class Entity implements Sendable {
 					hurt[identifier.ordinal()][facing.ordinal()] = new Animation(locations, "png");
 				}
 			}
-			if (identifier == Kind.BULLET) {
+			if (identifier == Kind.SHURIKEN) {
 				applet.rect(x + Game.tileSize / 2 - 5, y + Game.tileSize / 2 - 5, 10, 10);
-			} else if (identifier == Kind.SHURIKEN)
+			} else if (identifier == Kind.BULLET)
 				applet.ellipse(x + Game.tileSize / 2 - 5, y + Game.tileSize / 2 - 5, 10, 10);
 		}
 	}

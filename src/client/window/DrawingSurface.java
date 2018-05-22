@@ -85,7 +85,7 @@ public class DrawingSurface extends PApplet {
 			g.getMap().draw(this, 0, 0, Game.tileSize, Game.tileSize);
 			for (Entity e : latest.items) {
 				e.draw(this);
-
+				e.act(g.getMap(), latest);
 			}
 			latest.me.draw(this);
 
@@ -113,8 +113,9 @@ public class DrawingSurface extends PApplet {
 
 	public void mousePressed() {
 		Projectile p = latest.me.fire(g.getMap());
-		if (p != null)
+		if (p != null) {
 			latest.items.add(p);
+		}
 		if (cc != null) {
 			cc.sendData("Af");
 		}

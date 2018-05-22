@@ -111,9 +111,9 @@ public class Player extends Entity {
 			upOrDown = -1;
 		else if (facing == Direction.DOWN)
 			upOrDown = 1;
-		if (m.canGo((x + leftOrRight) * Game.tileSize, (y + upOrDown) * Game.tileSize))
-			return new Projectile(x + leftOrRight * Game.tileSize, y + upOrDown * Game.tileSize,
-					leftOrRight * Game.tileSize / 15, upOrDown * Game.tileSize / 15, Kind.SHURIKEN, Direction.DOWN);
+		if (m.canGo(x + leftOrRight * Game.tileSize, y + upOrDown * Game.tileSize))
+			return new Projectile(x + leftOrRight * Game.tileSize, y + upOrDown * Game.tileSize, leftOrRight, upOrDown,
+					(identifier == Kind.NINJA ? Kind.SHURIKEN : Kind.BULLET), Direction.DOWN);
 		else
 			return null;
 	}

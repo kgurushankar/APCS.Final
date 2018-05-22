@@ -2,6 +2,7 @@ package common;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import java.util.Vector;
 
 /**
@@ -12,10 +13,10 @@ import java.util.Vector;
  */
 public class State implements Sendable {
 	/** Contains anything that isnt being actively controlled */
-	public volatile Vector<Entity> items;
+	public volatile List<Entity> items;
 	public volatile Player me;
 
-	public State(Vector<Entity> items, Player me) {
+	public State(List<Entity> items, Player me) {
 		this.items = items;
 		this.me = me;
 	}

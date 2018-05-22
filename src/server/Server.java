@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import client.window.Game;
 import common.Entity;
+import common.Entity.Kind;
 import common.Sendable;
 
 /**
@@ -54,11 +55,11 @@ public class Server implements AutoCloseable {
 			while (s.isBound() && !s.isClosed()) {
 				try {
 					Server.Connection c = new Server.Connection(s.accept());
-					Game send = state.addConnection(c);
+					Game send = state.addConnection(c, Kind.valueOf(c.readData()));
 					c.sendData(send);
 					new Thread(c).start(); // fork
 					connections.add(c);
-					c.sendData(state.addConnection(c));
+					c.sendData(send);
 					Thread.yield(); // optional
 				} catch (ServerException | SocketException e) { // if this ever runs, the server is busted
 					e.printStackTrace();
@@ -136,6 +137,10 @@ public class Server implements AutoCloseable {
 
 		public String toString() {
 			return s.toString();
+		}
+
+		String readData() throws IOException {
+			return in.readLine();
 		}
 
 		public void run() {

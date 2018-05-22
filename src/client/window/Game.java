@@ -32,8 +32,12 @@ public class Game implements Runnable, Sendable {
 
 	public Game() {
 		map = MapGenerator.generateMap(100);
-		state = new State(new Vector<Entity>(), null);
-		respawn();
+		state = new State(new Vector<Entity>(), respawn(Kind.SKELETON));
+	}
+
+	public Game(Kind identifier) {
+		map = MapGenerator.generateMap(100);
+		state = new State(new Vector<Entity>(), respawn(identifier));
 	}
 
 	public Game(String parseable) {
@@ -84,9 +88,9 @@ public class Game implements Runnable, Sendable {
 		}
 	}
 
-	public void respawn() {
+	public Player respawn(Kind identifier) {
 		int[] spawn = map.spawnPoint();
-		state = new State(state.items, new Player(spawn[0] * tileSize, spawn[1] * tileSize, Kind.NINJA));
+		return new Player(spawn[0] * tileSize, spawn[1] * tileSize, identifier);
 	}
 
 	public AtomicReference<State> getState() {

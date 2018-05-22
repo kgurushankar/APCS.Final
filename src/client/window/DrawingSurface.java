@@ -5,10 +5,12 @@ import java.io.IOException;
 import com.sun.glass.events.KeyEvent;
 
 import client.ClientConnection;
+import client.window.settings.Settings;
 import common.State;
 import common.Entity.Kind;
 import common.Entity;
 import common.Player;
+import common.Projectile;
 import processing.core.PApplet;
 
 /**
@@ -22,15 +24,19 @@ public class DrawingSurface extends PApplet {
 	ClientConnection cc;
 	private volatile State latest;
 	boolean ready;
+	private Settings.Data d;
 
 	public DrawingSurface() {
-		boolean singleplayer = false;
-		if (singleplayer) {
-			g = new Game();
+		if (d == null) {
+			d = Settings.run();
+		}
+		if (d.singleplayer) {
+			g = new Game((d.pirate) ? Kind.SKELETON : Kind.NINJA);
+			latest = g.state;
 			ready = true;
 		} else {
 			try {
-				cc = new ClientConnection("localhost", 8888) {
+				cc = new ClientConnection(d.ip, d.port, (d.pirate) ? Kind.SKELETON : Kind.NINJA) {
 					@Override
 					public void handleMessage(State s) {
 						// g = new Game(g.getMap(), s);
@@ -46,6 +52,10 @@ public class DrawingSurface extends PApplet {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public void setData(Settings.Data d) {
+		this.d = d;
 	}
 
 	public void setup() {
@@ -84,18 +94,16 @@ public class DrawingSurface extends PApplet {
 	}
 
 	public void keyPressed() {
-		if (key == 'R') {
-			g = new Game();
-		} else if (key == 'r') {
-			g.respawn();
-		} else if (key == 'w' || key == 'W' || keyCode == KeyEvent.VK_UP && cc != null) {
-			cc.sendData("Mu");
-		} else if (key == 'a' || key == 'A' || keyCode == KeyEvent.VK_LEFT && cc != null) {
-			cc.sendData("Ml");
-		} else if (key == 's' || key == 'S' || keyCode == KeyEvent.VK_DOWN && cc != null) {
-			cc.sendData("Md");
-		} else if (key == 'd' || key == 'D' || keyCode == KeyEvent.VK_RIGHT && cc != null) {
-			cc.sendData("Mr");
+		if (cc != null) {
+			if (key == 'w' || key == 'W' || keyCode == KeyEvent.VK_UP) {
+				cc.sendData("Mu");
+			} else if (key == 'a' || key == 'A' || keyCode == KeyEvent.VK_LEFT) {
+				cc.sendData("Ml");
+			} else if (key == 's' || key == 'S' || keyCode == KeyEvent.VK_DOWN) {
+				cc.sendData("Md");
+			} else if (key == 'd' || key == 'D' || keyCode == KeyEvent.VK_RIGHT) {
+				cc.sendData("Mr");
+			}
 		} else if (key == 'e') {
 			int[] spawn = g.getMap().spawnPoint();
 			g.state.items.add(new Player(spawn[0], spawn[1], Kind.SKELETON));
@@ -104,8 +112,9 @@ public class DrawingSurface extends PApplet {
 	}
 
 	public void mousePressed() {
-
-		g.state.me.fire(g.getMap());
+		Projectile p = latest.me.fire(g.getMap());
+		if (p != null)
+			latest.items.add(p);
 		if (cc != null) {
 			cc.sendData("Af");
 		}

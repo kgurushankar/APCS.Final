@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.IllegalFormatException;
 import java.util.Scanner;
 
 public class MenuBar extends JMenuBar {
@@ -71,16 +72,64 @@ public class MenuBar extends JMenuBar {
 					i--;
 				}
 			}
-			
+			Settings.Data d = new Settings.Data();
+			for (String line : lines) {
+				line = line.trim();
+				String search = null;
+				if (line.startsWith(search = "mode")) {
+					String val = getValue(line, search);
+					if (val.equals("singleplayer")) {
+						d.singleplayer = true;
+					} else if (val.equals("multiplayer")) {
+						d.singleplayer = false;
+					} else {
+						throw new IllegalArgumentException(val);
+					}
+				} else if (line.startsWith(search = "ip")) {
+					String val = getValue(line, search);
+					d.ip = val;
+				} else if (line.startsWith(search = "port")) {
+					String val = getValue(line, search);
+					d.port = Integer.parseInt(val);
+				} else if (line.startsWith(search = "mapsize")) {
+					String val = getValue(line, search);
+					d.mapSize = Integer.parseInt(val);
+				} else if (line.startsWith(search = "enemies")) {
+					String val = getValue(line, search);
+					d.enemies = Integer.parseInt(val);
+				} else if (line.startsWith(search = "team")) {
+					String val = getValue(line, search);
+					if (val.equals("pirate")) {
+						d.singleplayer = true;
+					} else if (val.equals("ninja")) {
+						d.singleplayer = false;
+					} else {
+						throw new IllegalArgumentException(val);
+					}
+				}
+			}
+			if (d.valid()) {
+				s.d = d;
+				s.refresh();
+			} else {
+				throw new IllegalArgumentException("Incomplete Config File");
+			}
+
+		}
+
+		private String getValue(String line, String search) {
+			int loc = line.indexOf(search) + search.length();
+			String end = line.substring(loc).trim();
+			end = (end.charAt(0) == '=') ? end.substring(1).trim() : end; // trim off '='
+			return end;
 		}
 
 		private void saveText() {
-			
-			lipogrammer.refresh();
+
 			JFileChooser fileChooser = new JFileChooser(pathname);
 			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-			int result = fileChooser.showSaveDialog(lipogrammer);
-			if (result == JFileChooser.CANCEL_OPTION)
+			int result = fileChooser.showSaveDialog(s);
+			if (result == JFileChooser.CANCEL_OPTION || result == JFileChooser.ERROR_OPTION)
 				return;
 
 			File file = fileChooser.getSelectedFile();
@@ -93,10 +142,22 @@ public class MenuBar extends JMenuBar {
 					System.out.println("*** Can't create file ***");
 					return;
 				}
-
-				fileOut.print(lipogrammer.getText());
+				if (s.d.singleplayer) {
+					fileOut.println();
+					fileOut.println("mode=singleplayer");
+					fileOut.println("map-size=" + (s.d.mapSize));
+					fileOut.println("enemies=" + (s.d.enemies));
+					fileOut.println("team=" + ((s.d.pirate) ? "pirate" : "ninja"));
+				} else {
+					fileOut.println("#Client config file");
+					fileOut.println("mode=multiplayer");
+					fileOut.println("ip=" + (s.d.ip));
+					fileOut.println("port=" + (s.d.port));
+					fileOut.println("team=" + ((s.d.pirate) ? "pirate" : "ninja"));
+				}
 				fileOut.close();
 			}
+			s.refresh();
 		}
 	}
 }

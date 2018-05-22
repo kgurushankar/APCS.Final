@@ -7,6 +7,7 @@ import java.util.Vector;
 
 import client.window.Game;
 import common.Entity;
+import common.Entity.Kind;
 import common.Map;
 import common.Player;
 import common.State;
@@ -24,10 +25,11 @@ public abstract class ClientConnection implements AutoCloseable, Runnable {
 	private BufferedWriter out;
 	private Game g;
 
-	public ClientConnection(String address, int port) throws IOException {
-		this.s = new Socket(address, port);
+	public ClientConnection(String ip, int port, Kind identifier) throws IOException {
+		this.s = new Socket(ip, port);
 		in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 		out = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
+		sendData(identifier.toString());
 	}
 
 	public void sendData(String s) {

@@ -16,7 +16,7 @@ public class Enemy extends Player {
 	}
 
 	public void act(Map m, State s) {
-		if (Math.random() > 1. / 20)
+		if (Math.random() > 1. / 15)
 			return;
 		int dir = (int) (Math.random() * 4);
 		if (dir < 2) {

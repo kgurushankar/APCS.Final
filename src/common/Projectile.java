@@ -17,7 +17,8 @@ public class Projectile extends Entity {
 	}
 
 	public Projectile(String parseable) {
-		super(Integer.parseInt(parseable.split(" ")[1]), Integer.parseInt(parseable.split(" ")[2]), 0, 0,
+		super(Integer.parseInt(parseable.split(" ")[1]), Integer.parseInt(parseable.split(" ")[2]),
+				Double.parseDouble(parseable.split(" ")[3]), Double.parseDouble(parseable.split(" ")[4]),
 				Kind.values()[Integer.parseInt("" + parseable.split(" ")[3].charAt(0))],
 				Direction.values()[Integer.parseInt("" + parseable.split(" ")[3].charAt(1))]);
 		if (!parseable.startsWith("Projectile")) {
@@ -30,6 +31,8 @@ public class Projectile extends Entity {
 		StringBuffer sb = new StringBuffer("Projectile ");
 		sb.append(x + " ");
 		sb.append(y + " ");
+		sb.append(velocityX + " ");
+		sb.append(velocityY + " ");
 		sb.append(identifier.ordinal());
 		sb.append(facing.ordinal());
 		return sb.toString();

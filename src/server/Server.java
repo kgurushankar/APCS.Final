@@ -146,7 +146,14 @@ public class Server implements AutoCloseable {
 					handleMessage(current);
 					Thread.yield();
 				}
-			} catch (IOException e) {
+			} catch (Exception e) {
+				System.out.println("kill " + this);
+				try {
+					connections.remove(this);
+					state.removeConnection(this);
+				} catch (Exception e0) {
+				}
+
 				e.printStackTrace();
 			}
 		}

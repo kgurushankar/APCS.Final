@@ -13,12 +13,8 @@ import processing.core.PApplet;
  * @author unkemptherald
  * @version 18.5.10
  */
-public class Player extends Entity implements Serializable {
+public class Player extends Entity {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4458211896439229712L;
 	private static final int MAX_LIVES = 5;
 	private boolean dirChanged;
 	private int lives;

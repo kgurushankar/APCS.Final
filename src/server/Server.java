@@ -57,7 +57,6 @@ public class Server implements AutoCloseable {
 					c.sendData(send);
 					new Thread(c).start(); // fork
 					connections.add(c);
-					// c.sendData(send);
 					Thread.yield(); // optional
 				} catch (ServerException | SocketException e) { // if this ever runs, the server is busted
 					e.printStackTrace();

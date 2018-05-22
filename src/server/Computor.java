@@ -51,8 +51,14 @@ public class Computor {
 							p.moveX(true, m);
 							break;
 						}
+					} else if (d.startsWith("A")) {
+						char dir = d.charAt(1);
+						Map m = s.getState().map;
+						switch (dir) {
+						case 'f':
+
+						}
 					}
-					s.state.players.put(c, p);
 				}
 			}
 		}

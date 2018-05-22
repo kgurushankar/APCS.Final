@@ -4,25 +4,27 @@
 Our goal is to create a top-down multiplayer shooter. The player has 2 dimensional movement dependent on their shooting direction, which can only be in one of the 4 cardinal directions from the player.
 
 The game will be a team death match with 2 teams, ninjas vs pirates, who throw shuriken and shoot their guns respectively.
-with enough servers, the game could become a multiplayer online system.
+
+With enough servers, the game could become a multiplayer online system.
 
 The primary feature of the game is the low latency multiplayer shooter experience. 
 
 ### Multiplayer Mode
 * Two teams face off
 * Host can choose to have AI, configure map size, and max number of players
-* Lose by total number of Deaths on the player
+* Lose by dying
 
 ### Singleplayer Mode
-* Can choose how many players on each team to manage difficulty
-* Play with AI
-* Score is the KD ratio of the player
+* Player vs Enviornment
+* Play with variable number of AI players
+* Score is the number of enemies killed before you die
 
 ## Instructions:
 1. click and join a server, or the provided server
 2. select your team
 3. use WASD or arrow keys to move
 4. use your mouse to fire
+5. when you die, join another server, or try to get back on the one you were just playing on
 ## Features:
 ### Must Have:
 * Map generation
@@ -42,6 +44,13 @@ The primary feature of the game is the low latency multiplayer shooter experienc
 * Automatic team balancing
 * 60+ fps (on WAN and LAN)
 * WAN connectivity
+### Complete:
+* Map generation
+* Single player PVE
+* Picking teams
+* enemies are controlled by AI
+* Co-Op game with other players on local network
+* PvP
 
 ## Class List:
 ### Local
@@ -49,6 +58,8 @@ The primary feature of the game is the low latency multiplayer shooter experienc
 * DrawingSurface
 * ClientConnection
 * Game (Mainly used here)
+* MenuBar
+* Settings
 
 ### Both
 * Player
@@ -58,16 +69,18 @@ The primary feature of the game is the low latency multiplayer shooter experienc
 * Map
 * State
 * Enemy
+* FileIO
+* Sendable (interface)
 
 ### Server
 * Computor
-* Config
-* DrawMap
 * MapGenerator
 * Message
 * Server
 * ServerMain
-* Server State
+* ServerState
+* MenuBar
+* Settings
 
 ## Responsibility List:
 ### [@kgurushankar](https://github.com/kgurushankar) (Keshav Gurushankar)
@@ -75,6 +88,7 @@ The primary feature of the game is the low latency multiplayer shooter experienc
 * Data Structures
 * Map Generation
 * Computor
+* Initial config windows
 ### [@unkemptherald](https://github.com/unkemptherald) (Andrew Scott)
 * Player
 * User Interaction

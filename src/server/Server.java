@@ -53,11 +53,11 @@ public class Server implements AutoCloseable {
 			while (s.isBound() && !s.isClosed()) {
 				try {
 					Server.Connection c = new Server.Connection(s.accept());
-					Game send = state.addConnection(c, Kind.valueOf(c.readData()));
+					Game send = state.addConnection(c, Kind.valueOf(c.readData().toUpperCase()));
 					c.sendData(send);
 					new Thread(c).start(); // fork
 					connections.add(c);
-					c.sendData(send);
+					// c.sendData(send);
 					Thread.yield(); // optional
 				} catch (ServerException | SocketException e) { // if this ever runs, the server is busted
 					e.printStackTrace();

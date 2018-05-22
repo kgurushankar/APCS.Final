@@ -22,6 +22,16 @@ public class Settings extends JFrame implements ActionListener {
 	private JButton start;
 	Data d;
 
+	public void lock() {
+		name.setEnabled(false);
+		players.setEnabled(false);
+		mapsize.setEnabled(false);
+		port.setEnabled(false);
+		pirates.setEnabled(false);
+		ninjas.setEnabled(false);
+		start.setEnabled(false);
+	}
+
 	/**
 	 * Settings Data
 	 * 
@@ -152,9 +162,10 @@ public class Settings extends JFrame implements ActionListener {
 				e.printStackTrace();
 			}
 		}
-		window.setVisible(false);
+		// window.setVisible(false);
 		Data d = window.d;
-		window = null;
+		window.lock();
+		// window = null;
 		return d;
 	}
 }

@@ -166,6 +166,11 @@ public class DrawingSurface extends PApplet {
 			for (int i = 0; i < latest.items.size(); i++) {
 				Entity e = latest.items.get(i);
 				e.draw(this);
+				if (e.destroy()) {
+					latest.items.remove(e);
+					i--;
+					continue;
+				}
 				if (e.collide(latest.me)) {
 					if ((e.getKind() == Kind.SHURIKEN && latest.me.getKind() == Kind.SKELETON)
 							|| (e.getKind() == Kind.BULLET && latest.me.getKind() == Kind.NINJA)) {
@@ -182,6 +187,7 @@ public class DrawingSurface extends PApplet {
 						}
 					}
 					latest.items.remove(e);
+					i--;
 				}
 
 				for (int j = 0; j < latest.items.size(); j++) {

@@ -188,6 +188,7 @@ public class DrawingSurface extends PApplet {
 					}
 					latest.items.remove(e);
 					i--;
+					continue;
 				}
 
 				for (int j = 0; j < latest.items.size(); j++) {

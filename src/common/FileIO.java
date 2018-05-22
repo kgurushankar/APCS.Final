@@ -1,4 +1,4 @@
-package client.window.settings;
+package common;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

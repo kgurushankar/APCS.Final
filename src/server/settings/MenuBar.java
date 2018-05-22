@@ -1,10 +1,12 @@
-package client.window.settings;
+package server.settings;
 
 import java.awt.event.*;
 import javax.swing.*;
+
+import common.FileIO;
+
 import java.io.*;
 import java.util.ArrayList;
-import common.FileIO;
 
 public class MenuBar extends JMenuBar {
 	/**
@@ -66,53 +68,39 @@ public class MenuBar extends JMenuBar {
 			if (file == null)
 				return;
 
-			pathname = file.getAbsolutePath();
-			ArrayList<String> lines = FileIO.readFile(pathname);
-			for (int i = 0; i < lines.size(); i++) {
-				if (lines.get(i).startsWith("#") || lines.get(i).replaceAll(" ", "").isEmpty()) {
-					lines.remove(i);
-					i--;
-				}
-			}
 			Settings.Data d = new Settings.Data();
-			for (String line : lines) {
-				line = line.trim();
-				String search = null;
-				if (line.startsWith(search = "mode")) {
-					String val = getValue(line, search);
-					if (val.equals("singleplayer")) {
-						d.singleplayer = true;
-					} else if (val.equals("multiplayer")) {
-						d.singleplayer = false;
+			BufferedReader f;
+
+			String line = null;
+			try {
+				f = new BufferedReader(new FileReader(file));
+				while ((line = f.readLine()) != null) {
+					if (line.startsWith("#")) {
+						continue;
 					} else {
-						throw new IllegalArgumentException(val);
-					}
-				} else if (line.startsWith(search = "ip")) {
-					String val = getValue(line, search);
-					d.ip = val;
-				} else if (line.startsWith(search = "port")) {
-					String val = getValue(line, search);
-					d.port = Integer.parseInt(val);
-				} else if (line.startsWith(search = "mapsize")) {
-					String val = getValue(line, search);
-					d.mapSize = Integer.parseInt(val);
-				} else if (line.startsWith(search = "enemies")) {
-					String val = getValue(line, search);
-					d.enemies = Integer.parseInt(val);
-				} else if (line.startsWith(search = "team")) {
-					String val = getValue(line, search);
-					if (val.equals("pirate")) {
-						d.singleplayer = true;
-					} else if (val.equals("ninja")) {
-						d.singleplayer = false;
-					} else {
-						throw new IllegalArgumentException(val);
+						String search = null;
+						if (line.startsWith(search = "max-players")) {
+							String val = getValue(line, search);
+							d.maxPlayers = Integer.parseInt(val);
+						} else if (line.startsWith(search = "map-size")) {
+							String val = getValue(line, search);
+							d.mapSize = Integer.parseInt(val);
+						} else if (line.startsWith(search = "port")) {
+							String val = getValue(line, search);
+							d.port = Integer.parseInt(val);
+						} else if (line.startsWith(search = "server-name")) {
+							d.serverName = getValue(line, search);
+							// } else if (line.startsWith(search = "gamemode")) {
+							// this.gameMode = getValue(line, search);
+						}
 					}
 				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			if (d.valid()) {
 				s.d = d;
-				s.refresh();
 			} else {
 				throw new IllegalArgumentException("Incomplete Config File");
 			}
@@ -144,22 +132,12 @@ public class MenuBar extends JMenuBar {
 					System.out.println("*** Can't create file ***");
 					return;
 				}
-				if (s.d.singleplayer) {
-					fileOut.println();
-					fileOut.println("mode=singleplayer");
-					fileOut.println("map-size=" + (s.d.mapSize));
-					fileOut.println("enemies=" + (s.d.enemies));
-					fileOut.println("team=" + ((s.d.pirate) ? "pirate" : "ninja"));
-				} else {
-					fileOut.println("#Client config file");
-					fileOut.println("mode=multiplayer");
-					fileOut.println("ip=" + (s.d.ip));
-					fileOut.println("port=" + (s.d.port));
-					fileOut.println("team=" + ((s.d.pirate) ? "pirate" : "ninja"));
-				}
+				fileOut.println("map-size=" + (s.d.mapSize));
+				fileOut.println("max-players=" + (s.d.maxPlayers));
+				fileOut.println("port=" + s.d.port);
+				fileOut.println("server-name" + s.d.serverName);
 				fileOut.close();
 			}
-			s.refresh();
 		}
 	}
 }

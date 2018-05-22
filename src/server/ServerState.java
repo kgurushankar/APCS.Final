@@ -5,10 +5,12 @@ import java.util.HashMap;
 import java.util.Vector;
 
 import client.window.Game;
+import common.Enemy;
 import common.Entity;
 import common.Map;
 import common.Player;
 import common.State;
+import server.settings.Settings.Data;
 import common.Entity.Kind;
 
 /**
@@ -22,10 +24,10 @@ public class ServerState {
 	public volatile Vector<Entity> items; // NPC and projectiles
 	public volatile HashMap<Server.Connection, Player> players;
 
-	public ServerState(Config c) {
+	public ServerState(Data d) {
 		this.items = new Vector<Entity>();
 		this.players = new HashMap<Server.Connection, Player>();
-		this.map = MapGenerator.generateMap(c.mapSize);
+		this.map = MapGenerator.generateMap(d.mapSize);
 	}
 
 	public Game addConnection(Server.Connection sc, Kind kind) {

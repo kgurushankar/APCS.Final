@@ -7,7 +7,10 @@ import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import client.window.Game;
+import server.settings.Settings;
+import server.settings.Settings.Data;
 import common.Entity.Kind;
+import common.Enemy;
 import common.Sendable;
 
 /**
@@ -21,27 +24,19 @@ public class Server implements AutoCloseable {
 	private volatile ServerSocket s;
 	volatile ServerState state;
 	private volatile Queue<Message> queue;
-	private volatile Config cfg;
-
-	Server(int port) throws IOException {
-		s = new ServerSocket(port);
-		connections = new Vector<Server.Connection>();
-		state = new ServerState(new Config("server.config"));
-		System.out.println("ready");
-		new Thread(new Accepter(), "Connections").start();
-	}
+	private volatile Data d;
 
 	public Server() {
 		try {
-			cfg = new Config("server.config");
-			s = new ServerSocket(cfg.port);
+			d = Settings.run();
+			s = new ServerSocket(d.port);
 		} catch (BindException be) { // Server cannot be created, so no use continuing program
 			System.exit(0);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		connections = new Vector<Server.Connection>();
-		state = new ServerState(cfg);
+		state = new ServerState(d);
 		queue = new ConcurrentLinkedQueue<Message>();
 		System.out.println("ready");
 		new Thread(new Accepter(), "Connections").start();
@@ -52,8 +47,31 @@ public class Server implements AutoCloseable {
 		public void run() {
 			while (s.isBound() && !s.isClosed()) {
 				try {
+					while (connections.size() >= d.maxPlayers) { // dont allow more than max players
+						Thread.sleep(100);
+					}
 					Server.Connection c = new Server.Connection(s.accept());
 					Game send = state.addConnection(c, Kind.valueOf(c.readData().toUpperCase()));
+					for (int i = 0; i < d.pirates; i++) {
+						int x = (int) (d.mapSize * Math.random()) * Game.tileSize;
+						int y = (int) (d.mapSize * Math.random()) * Game.tileSize;
+						if (state.map.canGo(x, y)) {
+							state.items.add(new Enemy(x, y, Kind.SKELETON));
+						} else {
+							i--;
+						}
+						System.out.println("in");
+					}
+					for (int i = 0; i < d.ninjas; i++) {
+						int x = (int) (d.mapSize * Math.random()) * Game.tileSize;
+						int y = (int) (d.mapSize * Math.random()) * Game.tileSize;
+						if (state.map.canGo(x, y)) {
+							state.items.add(new Enemy(x, y, Kind.NINJA));
+						} else {
+							i--;
+						}
+						System.out.println("in");
+					}
 					c.sendData(send);
 					new Thread(c).start(); // fork
 					connections.add(c);
@@ -62,6 +80,8 @@ public class Server implements AutoCloseable {
 					e.printStackTrace();
 					System.exit(1);
 				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}

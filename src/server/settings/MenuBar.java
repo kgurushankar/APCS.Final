@@ -3,10 +3,7 @@ package server.settings;
 import java.awt.event.*;
 import javax.swing.*;
 
-import common.FileIO;
-
 import java.io.*;
-import java.util.ArrayList;
 
 /**
  * Menu Bar for Server Settings
@@ -135,7 +132,7 @@ public class MenuBar extends JMenuBar {
 				try {
 					fileOut = new PrintWriter(new FileWriter(file));
 				} catch (IOException ex) {
-					
+
 					return;
 				}
 				fileOut.println("map-size=" + (s.d.mapSize));

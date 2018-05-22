@@ -1,7 +1,6 @@
 package client.window;
 
 import java.util.Vector;
-import java.util.concurrent.atomic.AtomicReference;
 
 import com.sun.glass.events.KeyEvent;
 

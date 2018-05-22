@@ -1,11 +1,9 @@
 package server;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Vector;
 
 import client.window.Game;
-import common.Enemy;
 import common.Entity;
 import common.Map;
 import common.Player;

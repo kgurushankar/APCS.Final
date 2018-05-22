@@ -27,6 +27,7 @@ public class DrawingSurface extends PApplet {
 	private volatile State latest;
 	boolean ready;
 	private Settings.Data d;
+	private boolean gameLost;
 
 	public DrawingSurface() {
 		if (d == null) {
@@ -89,54 +90,10 @@ public class DrawingSurface extends PApplet {
 	}
 
 	public void draw() {
-		background(0);
-		if (ready) {
-			pushMatrix();
-
-			float mx = -latest.me.getX() + width / 2;
-			float my = -latest.me.getY() + height / 2;
-			if (Game.cornerLock) {
-				translate((mx >= 0) ? 0 : mx, (my >= 0) ? 0 : my);
-			} else {
-				translate(mx, my);
-			}
-
-			g.getMap().draw(this, 0, 0, Game.tileSize, Game.tileSize);
-			for (int i = 0; i < latest.items.size(); i++) {
-				Entity e = latest.items.get(i);
-				e.draw(this);
-				if (e.collide(latest.me)) {
-					if ((e.getKind() == Kind.SHURIKEN && latest.me.getKind() == Kind.SKELETON)
-							|| (e.getKind() == Kind.BULLET && latest.me.getKind() == Kind.NINJA)) {
-						latest.me.hurt();
-						if (latest.me.getLives() <= 0) {
-							System.out.println("loser");
-						}
-					}
-				}
-
-				for (int j = 0; j < latest.items.size(); j++) {
-					Entity e0 = latest.items.get(j);
-					if (e.collide(e0)) {
-						if ((e.getKind() == Kind.SHURIKEN && e0.getKind() == Kind.SKELETON)
-								|| (e.getKind() == Kind.BULLET && e0.getKind() == Kind.NINJA)) {
-							((Player) e0).hurt();
-							System.out.println("ow");
-							if (((Player) e0).getLives() <= 0) {
-								latest.items.remove(e0);
-							}
-							latest.items.remove(e);
-						}
-					}
-				}
-				e.act(g.getMap(), latest);
-			}
-			latest.me.draw(this);
-
-			popMatrix();
-			for (int i = 0; i < latest.me.getLives(); i++) {
-				image(heart, 8 + i * 20, 8, 16, 16);
-			}
+		if (gameLost) {
+			lose();
+		} else {
+			mainScreen();
 		}
 	}
 
@@ -165,6 +122,89 @@ public class DrawingSurface extends PApplet {
 		}
 		if (cc != null) {
 			cc.sendData("Af");
+		}
+	}
+
+	public int countRemainingEnemies() {
+		Kind target = (latest.me.getKind() == Kind.SKELETON) ? Kind.NINJA : Kind.SKELETON;
+		int out = 0;
+		for (int i = 0; i < latest.items.size(); i++) {
+			if (latest.items.get(i).getKind() == target) {
+				out++;
+			}
+		}
+		return d.enemies - out;
+	}
+
+	private int kills;
+
+	private void lose() {
+		if (kills == 0) {
+			kills = countRemainingEnemies();
+		}
+		background(0);
+		fill(255);
+		textSize(20);
+		textAlign(PApplet.CENTER, PApplet.CENTER);
+		text("You Lose \nEnemies Killed: " + kills, width / 2, height / 2);
+	}
+
+	private void mainScreen() {
+		background(0);
+		if (ready) {
+			pushMatrix();
+
+			float mx = -latest.me.getX() + width / 2;
+			float my = -latest.me.getY() + height / 2;
+			if (Game.cornerLock) {
+				translate((mx >= 0) ? 0 : mx, (my >= 0) ? 0 : my);
+			} else {
+				translate(mx, my);
+			}
+
+			g.getMap().draw(this, 0, 0, Game.tileSize, Game.tileSize);
+			for (int i = 0; i < latest.items.size(); i++) {
+				Entity e = latest.items.get(i);
+				e.draw(this);
+				if (e.collide(latest.me)) {
+					if ((e.getKind() == Kind.SHURIKEN && latest.me.getKind() == Kind.SKELETON)
+							|| (e.getKind() == Kind.BULLET && latest.me.getKind() == Kind.NINJA)) {
+						latest.me.hurt();
+						if (latest.me.getLives() <= 0) {
+							gameLost = true;
+							if (cc != null) {
+								try {
+									cc.close();
+								} catch (IOException e1) {
+
+								}
+							}
+						}
+					}
+				}
+
+				for (int j = 0; j < latest.items.size(); j++) {
+					Entity e0 = latest.items.get(j);
+					if (e.collide(e0)) {
+						if ((e.getKind() == Kind.SHURIKEN && e0.getKind() == Kind.SKELETON)
+								|| (e.getKind() == Kind.BULLET && e0.getKind() == Kind.NINJA)) {
+							((Player) e0).hurt();
+							System.out.println("ow");
+							if (((Player) e0).getLives() <= 0) {
+								latest.items.remove(e0);
+							}
+							latest.items.remove(e);
+						}
+					}
+				}
+				e.act(g.getMap(), latest);
+			}
+			latest.me.draw(this);
+
+			popMatrix();
+			for (int i = 0; i < latest.me.getLives(); i++) {
+				image(heart, 8 + i * 20, 8, 16, 16);
+			}
 		}
 	}
 }

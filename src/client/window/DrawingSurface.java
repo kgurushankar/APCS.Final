@@ -89,10 +89,20 @@ public class DrawingSurface extends PApplet {
 		return height;
 	}
 
+	private boolean win = false;
+
 	public void draw() {
-		if (gameLost) {
+		if (win) {
+			win();
+		} else if (gameLost) {
 			lose();
 		} else {
+			if (frameCount % 30 == 0) {
+				kills = countRemainingEnemies();
+				if (kills == d.enemies) {
+					win = true;
+				}
+			}
 			mainScreen();
 		}
 	}
@@ -153,6 +163,21 @@ public class DrawingSurface extends PApplet {
 		}
 	}
 
+	private void win() {
+		if (kills == 0) {
+			kills = countRemainingEnemies();
+		}
+		background(0);
+		fill(255);
+		textSize(20);
+		textAlign(PApplet.CENTER, PApplet.CENTER);
+		if (cc == null) {
+			text("You Win \nEnemies Killed: " + kills, width / 2, height / 2);
+		} else {
+			text("You Win", width / 2, height / 2);
+		}
+	}
+
 	private void mainScreen() {
 		background(0);
 		if (ready) {
@@ -201,7 +226,7 @@ public class DrawingSurface extends PApplet {
 						if ((e.getKind() == Kind.SHURIKEN && e0.getKind() == Kind.SKELETON)
 								|| (e.getKind() == Kind.BULLET && e0.getKind() == Kind.NINJA)) {
 							((Player) e0).hurt();
-							
+
 							if (((Player) e0).getLives() <= 0) {
 								latest.items.remove(e0);
 							}

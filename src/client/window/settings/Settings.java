@@ -94,7 +94,7 @@ public class Settings extends JFrame implements ActionListener {
 	private void setupGui() {
 
 		port = new JSpinner();
-		port.setValue(8888);
+		port.setValue(4444);
 		JSpinner.NumberEditor editor = new JSpinner.NumberEditor(port, "#");
 		port.setEditor(editor);
 

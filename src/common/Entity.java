@@ -45,7 +45,6 @@ public abstract class Entity implements Sendable {
 	 * second index is direction (if only one direction, assume 0)
 	 */
 	protected static Animation[][] walking = new Animation[Kind.values().length][Direction.values().length];
-	protected static Animation[][] hurt = new Animation[Kind.values().length][Direction.values().length];
 
 	public Entity(int x, int y, double velocityX, double velocityY, Kind identifier, Direction facing) {
 		this.x = x;
@@ -95,19 +94,6 @@ public abstract class Entity implements Sendable {
 						locations[i] = folder + facing + " - " + motion + "_" + num + ".png";
 					}
 					walking[identifier.ordinal()][facing.ordinal()] = new Animation(locations, "png");
-				}
-				if (hurt[identifier.ordinal()][facing.ordinal()] == null) {
-					String motion = "Hurt";
-					String folder = "assets/" + identifier + "/128/" + facing + " - " + motion + "/";
-					File f = new File(folder);
-					int frames = f.listFiles().length;
-					String[] locations = new String[frames];
-					DecimalFormat end = new DecimalFormat("000");
-					for (int i = 0; i < frames; i++) {
-						String num = end.format(i);
-						locations[i] = folder + facing + " - " + motion + "_" + num + ".png";
-					}
-					hurt[identifier.ordinal()][facing.ordinal()] = new Animation(locations, "png");
 				}
 			}
 			if (identifier == Kind.SHURIKEN) {

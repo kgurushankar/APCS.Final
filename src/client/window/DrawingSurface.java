@@ -92,7 +92,7 @@ public class DrawingSurface extends PApplet {
 	private boolean win = false;
 
 	public void draw() {
-		if (win) {
+		if (win && d.singleplayer) {
 			win();
 		} else if (gameLost) {
 			lose();
